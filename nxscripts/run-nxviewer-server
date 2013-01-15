@@ -1,0 +1,47 @@
+#!/bin/sh
+
+#/**************************************************************************/
+#/*                                                                        */
+#/* Copyright (c) 2001, 2011 NoMachine, http://www.nomachine.com/.         */
+#/*                                                                        */
+#/* NXSCRIPTS, NX protocol compression and NX extensions to this software  */
+#/* are copyright of NoMachine. Redistribution and use of the present      */
+#/* software is allowed according to terms specified in the file LICENSE   */
+#/* which comes in the source distribution.                                */
+#/*                                                                        */
+#/* Check http://www.nomachine.com/licensing.html for applicability.       */
+#/*                                                                        */
+#/* NX and NoMachine are trademarks of Medialogic S.p.A.                   */
+#/*                                                                        */
+#/* All rights reserved.                                                   */
+#/*                                                                        */
+#/**************************************************************************/
+
+
+set -x
+
+NX_PORT=11
+export NX_PORT
+
+NX_ROOT=${HOME}/.nx
+export NX_PORT
+
+DISPLAY=localhost:0
+export DISPLAY
+
+NX_HOST=nx/nx,link=64k,cache=4096k,type=vnc,connect=snaporaz,root=${NX_ROOT},log=errors,stat=stats
+export NX_HOST
+
+NX_DISPLAY=${NX_HOST}:${NX_PORT}
+export NX_DISPLAY
+
+LD_LIBRARY_PATH="${HOME}/NX/nxcomp:${HOME}/NX/nxcompext:${HOME}/NX/nx-X11/exports/lib"
+export LD_LIBRARY_PATH
+
+rm -rf ${HOME}/.nx/S-${NX_PORT} || exit
+mkdir -p ${HOME}/.nx/S-${NX_PORT} || exit
+
+~/NX/nxproxy/nxproxy -S -D ${DISPLAY} 2>>${NX_ROOT}/S-${NX_PORT}/session &
+
+echo ""
+

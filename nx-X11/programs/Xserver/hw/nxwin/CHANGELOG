@@ -1,0 +1,476 @@
+ChangeLog:
+
+nxwin-3.5.0-4
+
+- Fixed monochrome cursor shape for abitrary size.
+
+nxwin-3.5.0-3
+
+- Fixed TR08H02374. Use color cursors even when required cursor were
+  monochrome. 
+
+- Fixed TR12I02643. Ignore fake keyboard events mapped to virtual
+  key 0xff.
+
+- Fixed TR07I02518. Don't handle the iconic state for override redi-
+  rect windows. 
+
+- Handle the window's iconic state only once while realizing the
+  window. 
+
+nxwin-3.5.0-2
+
+- Fixed TR06I02469 and TR06I02482. After converting the UTF8 text free
+  the memory allocated with GlobalAlloc() in order to avoid exhausting
+  the heap space.
+
+- Fixed TR06I02468. When a surface update is required, but the pre-
+  vious surface creation failed with an unsupported or a not exclu-
+  sive mode errors, try again to create the surface before failing.
+  If the surface creation keeps failing, the window will not be up-
+  dated, but the segmentation fault will no longer occur.
+
+nxwin-3.5.0-1
+
+- Opened the 3.5.0 branch based on nxwin-3.4.0-7.
+
+- Updated copyright to year 2011.
+
+- Fixed a GDI resource leak. 
+
+nxwin-3.4.0-7
+
+- Fixed TR03H02329. Handled iconized initial state in multiwindow
+  mode.
+
+- Fixed TR10G02288. Monochrome cursors were not correct.
+
+- Don't create win cursor on RealizeCursor but on SetCursor.
+
+nxwin-3.4.0-6
+
+- Added validation checks and logs in the nxwinRealizeCursor function.
+
+nxwin-3.4.0-5
+
+- Fixed TR09G02273. The NX window was not able to grab the Window key.
+
+nxwin-3.4.0-4
+
+- Updated copyright to year 2010.
+
+nxwin-3.4.0-3
+
+- Fixed TR11G02296. Now NX session is displayed correctly in full
+  screen mode when loses focus.
+
+- Fixed TR10G02284. Corrected the display of NX session in floating
+  mode in dual monitor setup.
+
+- Fixed TR12F02135. Corrected paint of NX session on Windows Vista
+  with Aero enabled.
+
+- Fixed TR10G02282. Included the ability to disable the auto-repeat
+  feature on NX Client for Windows.
+
+- Improved some functions to display correctly in full screen mode
+  when session loses focus.
+
+nxwin-3.4.0-2
+
+- Fixed TR05F02062. Catched changes of WM_NAME property in order to
+  keep the window title bar updated.
+
+nxwin-3.4.0-1
+
+- Opened the 3.4.0 branch based on nxwin-3.3.0-4.
+
+- Updated copyright to year 2009.
+
+nxwin-3.3.0-4
+
+- Translated the coordinates of mouse motions to make them relative to
+  the origin of the virtual screen rectangle.
+
+nxwin-3.3.0-3
+
+- If the full screen window is required to spread over all monitors
+  then settle the left high corner of the window in the origin of the
+  virtual screen.
+ 
+- When the window is moved, update the monitor data stored in the
+  screen info structure.
+
+- Centering the window in the right monitor. 
+
+- Opening the window on the monitor which cursor is located in.
+
+- Removed the change of display setting when using DirectDraw.
+
+- Fixed TR07D01419. Adjusting the size on the base of work area of mo-
+  nitor in use.
+
+- Moved creation of bounding window after adjustments for multiple
+  monitors.
+
+- Fixed TR12F02136. Always PRIMARY selection was requested, regardless
+  of the actual selection set by the client.
+
+nxwin-3.3.0-2
+
+- Fixed TR06D01394. The cursor was drawn inside the NX window. Cursor
+  realization has been reworked basing on Windows cursors.
+
+- Fixed TR07F02087. AltGr+k and AltGr+m key combinations were catched
+  as the Ctrl+Alt+k and Ctrl+Alt+m shortcuts causing an unexpected
+  behaviour.
+
+nxwin-3.3.0-1
+
+- Opened the 3.3.0 branch based on nxwin-3.2.0-4.
+
+nxwin-3.2.0-4
+
+- Fixed TR08E01848. Changed the handling of windows clipboard. This
+  fix provides a solution also for TR08E01839.
+
+- Corrected scancode-to-keycode translation for the Multi_key and the
+  Menu key.
+
+- Made changes in order to avoid the session window is minimized if it
+  is deactivated when running in fullscreen mode.
+
+- Added a system call to avoid the cursor is clipped inside the screen
+  containing the session window when running in fullscreen mode in a
+  dual-screen environment.
+
+- Fixed TR06F02071. Made UTF8_STRING target available when converting
+  selections.
+
+nxwin-3.2.0-3
+
+- Fixed TR08E01832. In fullscreen mode Alt-Tab and other key combina-
+  tions were not properly grabbed when '-keyhook' option was on. 
+
+nxwin-3.2.0-2
+
+- Reverted changes dealing with TR08E01839. It has been reported that
+  such changes could break clipboard function. Rolling back while
+  investigation is going on.
+
+nxwin-3.2.0-1
+
+- Opened the 3.2.0 branch based on nxwin-3.1.0-4.
+
+nxwin-3.1.0-4
+
+- Fixed TR10E01911. In rootless mode ButtonRelease events were not
+  received if the mouse button was released outside the NX session
+  window.
+
+nxwin-3.1.0-3
+
+- Fixed TR06D01395. In rootless mode it could happen that dialogs did
+  not stay on top. Improved the management of TRANSIENT_FOR windows.
+  Changes made in winTopLevelWindowProc().
+
+- Fixed TR08E01839. Now system clipboard is emptied after a selection,
+  in order to avoid to paste previous selections outside NX session.
+
+nxwin-3.1.0-2
+
+- Fixed TR08E01811. In rootless mode it could happen that a window
+  showed the content of the window below.
+
+nxwin-3.1.0-1
+
+- Opened the 3.1.0 branch based on nxwin-3.0.0-10.
+
+nxwin-3.0.0-10
+
+- Fixed TR07E01754. The NXWin window couldn't be closed if no X client
+  was connected.
+
+nxwin-3.0.0-9
+
+- Solved a problem in multiwindow mode making the server hang on Vis-
+  ta.
+
+nxwin-3.0.0-8
+
+- Updated the NoMachine copyright notice to year 2007.
+
+nxwin-3.0.0-7
+
+- Changed the copyright attribution from Medialogic to NoMachine.
+
+nxwin-3.0.0-6
+
+- Updated application's icons.
+
+- In the dispatch loop, checking if the client is valid before calling
+  SetInputFocus.
+
+nxwin-3.0.0-5
+
+- Changed the LICENSE file to state that the software is only made
+  available under the version 2 of the GPL.
+
+- Added file COPYING.
+
+nxwin-3.0.0-4
+
+- Fixed TR03E01651. SetInputFocus function is called by Dispatch
+  function an not more by Window Manager main Proc routine, in order
+  to avoid potential race conditions.
+
+- Added "-[no]keyhook" option in order to enable/disable the Alt+Tab
+  and Print key hooks.
+
+nxwin-3.0.0-3
+
+- Fixed TR08C00956. Now when scaling XBitmap To Windows we use the
+  result of BitsPerPixel() macro instead of value stored in the drawa-
+  ble structure.
+
+- When a window receives a KILLFOCUS message any pressed keys are rel-
+  easedp in multiwindow mode too.
+
+- Fixed TR11D01562. Now with Ctrl+Alt+K it's possible to enable/disa-
+  ble the Alt+Tab and Print key hooks in NXWin.
+
+nxwin-3.0.0-2
+
+- Based the 3.0.0-2 version on nxwin-2.1.0-1. This has to be built
+  in the nx-X11-compat tree, based on XFree86.
+
+nxwin-2.1.0-1
+
+- Opened the 2.1.0 branch based on the 2.0.0-14.
+
+nxwin-2.0.0-14
+
+- Fixed TR09C01029. This solves problems related with non working
+  AltGr key.
+
+nxwin-2.0.0-13
+
+- The third button emulation is activated by default.
+
+nxwin-2.0.0-12
+
+- Hidden the X cursor when the pointer leaves the NXWin window.
+
+nxwin-2.0.0-11
+
+- Hidden the root cursor on the window border if multiwindow mode is
+  on.
+
+- Log file is created under '$NX_TEMP' instead of '$NX_ROOT/temp'.
+
+- Moved the printing of pid and handler earlier in the log file.
+
+nxwin-2.0.0-10
+
+- Modified the default root cursor from the classical 'X' shape into
+  an arrow.
+
+- Implemented FR09C01037. Now it is possible to paste the text copied
+  from a local Windows application in a X11 session both by pressing
+  the middle button of the mouse and by using Ctrl-V.
+
+nxwin-2.0.0-9
+
+- Addded printing of a line in the log file reporting the pid and the
+  window handler.
+
+nxwin-2.0.0-8
+
+- Added a call to CloseWellKnownConnections() before calling exit() in
+  the dispatch loop. This makes the server remove the sockets before
+  exiting.
+
+nxwin-2.0.0-7
+
+- Removed some unuseful log messages.
+
+nxwin-2.0.0-6
+
+- Fixed the procedure opening the log file. The standard error now
+  points to the newly created log, so that we can share the same
+  file for all the log facilities.
+
+- The log is not closed at the server shutdown (but it is obviously
+  closed at the the time we exit()), so that other components can
+  keep using the file to print their log information.
+
+nxwin-2.0.0-5
+
+- Changed the format of some files from Dos to Unix.
+
+nxwin-2.0.0-4
+
+- Moved the call to exit(), introduced in the previous version, at the
+  end of the dispatch loop.
+
+nxwin-2.0.0-3
+
+- It seems that there are still memory errors in the deinitialization
+  phase, probably due to a double free or such. The code base is going
+  to move forward to the X.org tree so there is not a pressing need to
+  investigate the problem. If the client that is disconnecting is our
+  only remaining client (that for a NX session is the proxy), then the
+  dispatcher will exit without going through the normal close down
+  procedure.
+
+- Added some stubs in the NXwin.h header to preserve the independence
+  of the NXWin package from the X11 libs.
+
+nxwin-2.0.0-2
+
+- Updated NoMachine copyright notice to the current year.
+
+- NXWin.log is renamed to winlog and created under '$NX_ROOT/temp'
+  path.
+
+nxwin-2.0.0-1
+
+- Opened the 2.0.0 branch based on the 1.5.0-8.
+
+nxwin-1.5.0-8
+
+- Fixed TR08C00970. Check if the data field of the property structure
+  is NULL before trying to retrive the data.
+
+nxwin-1.5.0-7
+
+- Merged patch from Cygwin/XFree86 to stop printing the 
+  IDirectDrawSurface4_Blt() failure messages after 10 times.
+
+- Fixed TR10C01050. Added a check on a lParam bit of WM_KEYDOWN mes-
+  sage in order to filter Windows autorepeat for modifier keys.
+
+- Fixed a segmentation fault arising when disconnecting the nxagent in
+  multiwindow mode.
+
+- Fixed TR10C01095. In order to notify applications like OpenOffice or
+  Gnome-Text-Editor that they have losen the selection, after select-
+  ing some text in a Windows application by Ctrl-C,it's necessary sen-
+  ding them a ClearSelecion event when they lose the focus.
+
+nxwin-1.5.0-6
+
+- Fixed TR08C00965. If a window had no WM icon defined, the icon of a
+  sibling window became the default. Now use the NoMachine logo.
+
+nxwin-1.5.0-5
+
+- Fixed TR06C00918. Tell the server to flush the output in order to
+  send a RequestSelection event immediately when the main window lose
+  the keyboard focus.
+
+nxwin-1.5.0-4
+
+- Fixed a segmentation fault arising when shutting down the server in
+  multiwindow mode.
+
+nxwin-1.5.0-3
+
+- Added special keystroke Ctrl-Alt-m to minimize the root window.
+
+nxwin-1.5.0-2
+
+- Removed the hardcoded value "/mnt/NX/fonts/rgb". It was overwriting
+  the value passed as a command line parameter ("-co").
+
+nxwin-1.5.0-1
+
+- Opened the 1.5.0 branch.
+
+nxwin-1.4.1-1
+
+- Opened the 1.4.1 branch.
+
+nxwin-1.4.0-4
+
+- Removed the debug output.
+
+nxwin-1.4.0-3-DAR1-KRY2
+
+- Changing rgb path to /usr/NX/fonts. 
+
+nxwin-1.4.0-3-DAR1-KRY1
+
+- Loading rgb.txt from /usr/NX/share.
+
+nxwin-1.4.0-3-DAR1
+
+- Corrected a bug in the clipboard initialization.
+
+nxwin-1.4.0-3
+
+- Completed the terminate and suspend functionalities. 
+
+nxwin-1.4.0-2
+
+- Added new window message NX_ADMIN_COMMAND, used by nxclient
+  administrator to send terminate or suspend command.
+
+- Implemented a part of the terminate or suspend functionalities 
+  which allow to comunicate to a nxagent the wanted termination 
+  or session suspension. If a older agent or a single application
+  is detected failure will be notified to nxclient administrator.
+
+nxwin-1.4.0-1
+
+- Opened the 1.4.0 branch.
+
+nxwin-1.3.2-5
+
+- Now when get the WM_CLOSE, send the wm_protocols WM_DELETE 
+  client message only to top level windows that are
+  viewable and have not set the override redirect.
+
+nxwin-1.3.2-3-DAR1
+
+- Now when get the WM_CLOSE, send to all top level
+  windows the wm_protocols WM_DELETE client message.
+
+nxwin-1.3.2-3 
+
+- Fixed the bug in code resetting logo when the first
+  window is mapped. In previous version the background
+  was reset when the first window was configured, now
+  we wait for the first window being mapped. 
+
+nxwin-1.3.2-2
+
+- NX logo is showed only once.
+
+nxwin-1.3.2-1
+
+- Log file renamed to NXWin.log.
+
+- Opened the 1.3.2 branch.
+
+nxwin-1.3.1-4
+
+- Corrected typos in the ChangeLog.
+
+nxwin-1.3.1-3
+
+- Fixed the compilation problems encountered by users on
+  machines where the X11 includes were not already inst-
+  alled.
+
+nxwin-1.3.1-2
+
+- The background of the root window is reset to full black
+  at the time the first window is mapped on the X server.
+
+- Fixed the wrong root path in tar archive. Reason is that
+  archive was not produced by running nxscripts/tar-nxwin.
+
+nxwin-1.3.1-1
+
+- Opened the 1.3.1 branch.

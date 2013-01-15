@@ -1,0 +1,54 @@
+#!/bin/bash
+
+#/**************************************************************************/
+#/*                                                                        */
+#/* Copyright (c) 2001, 2011 NoMachine, http://www.nomachine.com/.         */
+#/*                                                                        */
+#/* NXSCRIPTS, NX protocol compression and NX extensions to this software  */
+#/* are copyright of NoMachine. Redistribution and use of the present      */
+#/* software is allowed according to terms specified in the file LICENSE   */
+#/* which comes in the source distribution.                                */
+#/*                                                                        */
+#/* Check http://www.nomachine.com/licensing.html for applicability.       */
+#/*                                                                        */
+#/* NX and NoMachine are trademarks of Medialogic S.p.A.                   */
+#/*                                                                        */
+#/* All rights reserved.                                                   */
+#/*                                                                        */
+#/**************************************************************************/
+
+NX_PROJECT_ROOT=${HOME}/NX
+
+NX_ROOT=${HOME}/.nx
+
+NX_PORT=3
+
+NX_COOKIE=123efa980d2cba234ef6f73deac810ff
+
+PATH=${NX_PROJECT_ROOT}/nxcomp:${NX_PROJECT_ROOT}/nxcompext:\
+${NX_PROJECT_ROOT}/nxcompshad:${NX_PROJECT_ROOT}/nx-X11/exports/bin:$PATH
+
+export PATH
+
+rm -rf ${NX_ROOT}/C-${NX_PORT}
+
+mkdir -p ${NX_ROOT}/C-${NX_PORT}
+
+NX_HOST=nx/nx,cache=8M,images=32M,link=modem,\
+cookie=$NX_COOKIE,errors=${NX_ROOT}/C-${NX_PORT}/session
+
+echo "${NX_HOST}:${NX_PORT}" >${NX_ROOT}/C-${NX_PORT}/options
+
+DISPLAY=nx/nx,options=${NX_ROOT}/C-${NX_PORT}/options:${NX_PORT}
+
+export DISPLAY
+
+echo -ne "Creating the X authorization cookie.\n"
+
+xauth add ${HOSTNAME}/unix:${NX_PORT} MIT-MAGIC-COOKIE-1 ${NX_COOKIE}
+xauth add ${HOSTNAME}:${NX_PORT} MIT-MAGIC-COOKIE-1 ${NX_COOKIE}
+
+echo -ne "Running X agent on display :${NX_PORT}.\n"
+
+${NX_PROJECT_ROOT}/nx-X11/programs/Xserver/nxagent \
+-S -geometry 800x600 -nopersistent :${NX_PORT} 2> ${NX_ROOT}/C-${NX_PORT}/session &

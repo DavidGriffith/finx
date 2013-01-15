@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#
+# This package doesn't come with a configure script. Just
+# add a fake configure, for the sake of consistency with
+# other NX packages.
+#

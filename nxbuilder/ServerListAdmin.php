@@ -1,0 +1,423 @@
+<?php
+/**************************************************************************/
+/*                                                                        */
+/* Copyright (c) 2005, 2011 NoMachine, http://www.nomachine.com.           */
+/*                                                                        */
+/* NXBUILDER, NX protocol compression and NX extensions to this software  */
+/* are copyright of NoMachine. Redistribution and use of the present      */
+/* software is allowed according to terms specified in the file LICENSE   */
+/* which comes in the source distribution.                                */
+/*                                                                        */
+/* Check http://www.nomachine.com/licensing.html for applicability.       */
+/*                                                                        */
+/* NX and NoMachine are trademarks of Medialogic S.p.A.                   */
+/*                                                                        */
+/* All rigths reserved.                                                   */
+/*                                                                        */
+/**************************************************************************/
+
+session_start();
+
+include_once ("HandleDB.php");
+include_once ("conf.php");
+checkPermission();
+$messageType="";
+$error=false;
+
+
+$countColor=1;
+
+if(isset($_POST['delete_x']))
+{
+ $error=true;
+ 
+ if(deleteServer($_POST['idServer']))
+ {
+  $messageType="DeleteServer";
+ }
+ else
+ {
+  $messageType="ErrorDeleteServer";
+ }
+ 
+ 
+ 
+}
+elseif(isset($_POST['createSessionId']))
+{
+
+ /*if(!isset($_SESSION['userName']) && !isset($_SESSION['password']))
+ {
+  header('Location:nxbuilder.php');
+ } */
+ 
+ $f="resolution-".$_POST['createServerId'];
+ $k="link-".$_POST['createServerId'];
+
+ $fileName=getFileName($_POST['createSessionId']);
+
+ if(ereg("MSIE ([0-9].[0-9]{1,2})", $_SERVER["HTTP_USER_AGENT"])) {
+ 
+ header("Content-Type: application/nxs");
+ header("Content-Disposition: inline; filename=$fileName");
+ header("Expires: 0");
+ header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+ header("Pragma: private");
+ 
+ } else {
+ 
+ header("Content-Type: application/nxs");
+ header("Content-Disposition: attachment; filename=$fileName");
+ header("Expires: 0");
+ header("Pragma: no-cache");
+ 
+ }
+ 
+ include ("CreateSession.php");
+ CreateSessionFile3_0($_POST['createSessionId'], $_POST[$f], $_POST[$k]);
+ exit();
+
+}
+$serverList = getServer();
+$serverNumber = mysql_num_rows($serverList);
+
+include ("Messages.php");
+include ("includes/Top.php");
+?>
+<center>
+<!--[if IE 6]>
+<script type="text/javascript">
+function calcWidth() {
+document.getElementById('min_width').style.width = (document.body.clientWidth < 901 ? '900px' : '100%')
+}
+onresize = calcWidth;
+</script>
+<![endif]-->
+<? include("includes/Toolbar.php");?>
+<div id="min_width">
+<!--SectionIcon Start-->
+<table border="0" cellspacing="0" cellpadding="0" class="header3" width="100%" style="min-width:900px;">
+<tr>
+ <td><img src="<?=$sharedSkin?>/icon-serverList.png" width="34" height="26" border="0"></td>
+ <td class="txtHeader3" nowrap align="left">Server List</td>
+</tr>
+</table>
+<!--SectionIcon Stop-->
+
+<?
+/*$serverList = getServer();
+$serverNumber = mysql_num_rows($serverList);
+$countColor=1;
+*/
+
+if($serverNumber==0)
+{
+ $error=1;
+ $messageType="NoServerAvailable";
+}
+
+
+
+?>
+
+
+<table border="0" width="98%" cellspacing="0" cellpadding="0" class="bgHedearServer">
+    <tr align="left">
+     <td height="26" width="100%" align="left" ><span class="txtHeaderTable">&nbsp;Server</td>
+ </tr>
+</table>
+
+ <div id="result" style="z-index: 1000; display:none; position:absolute; top:100px; left: 350px; border:1px solid #000; background-color:white;"></div>
+<form name="serverList" id="serverList" action="<?=$_SERVER['PHP_SELF']?>" method="post" ENCTYPE="multipart/form-data" style="margin: 0px; padding: 0px;">
+<input type="hidden" id="createSessionId" name="createSessionId" value="">
+<input type="hidden" id="createServerId" name="createServerId" value="">
+<?
+
+
+
+while($server = mysql_fetch_array($serverList))
+{
+
+ $adsl="";
+ $modem="";
+ $isdn="";
+ $wan="";
+ $lan="";
+ 
+ if($server['defaultLink'] == "ADSL") $adsl="selected";
+ elseif($server['defaultLink'] == "MODEM") $modem="selected";
+ elseif($server['defaultLink'] == "ISDN") $isdn="selected";
+ elseif($server['defaultLink'] == "WAN") $wan="selected";
+ elseif($server['defaultLink'] == "LAN") $lan="selected";
+   
+ if($server['displayLink'] == "1")  $disabledLink = "none";  
+ if($server['displayLink'] == "0")  $disabledLink = "block";
+ 
+ $class="row1";
+ 
+ if($countColor%2) $class="row2";
+ $countColor++;
+ $checked="";
+ if($countColor==2) $checked=" checked";
+  
+
+?>
+<!-- start table for list 1row*4cols -->
+<input type="hidden" name="sName" id="sName" value="<?=$server['serverName']?>">
+<table width="98%" class="<?=$class?>" cellspacing="0" cellpadding="5" border="0" >
+ <tr>
+  <td width="26" valign="top" class="border_right">
+   <div style="width:26px;"><input type="radio" name="idServer" id="idServer" value="<?=$server['id']?>" <?=$checked?> ></div>
+  </td>
+  <td width="310" valign="top" class="border_right">
+
+   <table  width="310" cellspacing="0" cellpadding="0" border="0">
+   <tr>
+     <td colspan="2" class="txtLabel">
+       <b>NX Server:</b> <span class="txtValue"><?=$server['serverName']?></span>   
+     </td>
+     <td colspan="2">
+       <img width="17" height="17" src="<?=$shared?>/info.png"  style="cursor:pointer" onmouseover="document.getElementById('idServer').value='<?=$server['id']?>';setResultPosition(this); document.getElementById('result').style.display='block'; setDescrition('resp.php'); " onmouseout="document.getElementById('result').style.display='none';">
+     </td>
+   </tr>
+    <tr>
+     <td>
+       <?
+        if(trim($server['icon'])=="")
+        {       
+       ?>
+       <img width="122" height="93" src="<?=$serverShared?>/imgEmpty.png" style="margin:5px; margin-left:0px;">
+       <?
+        }
+        else
+        {
+       ?>
+       <img width="122" height="93" src="<?=$serverShared?>/<?=$server['icon']?>" style="margin:5px; margin-left:0px;">
+       <?
+        }
+       ?>        
+     </td>
+     <td valign="bottom" style="padding-bottom:5px;">
+      <div style="display:<?=$disabledLink?>;">
+      <span class="txtLabel">Link &nbsp;&nbsp;&nbsp;</span>
+      <select name="link-<?=$server['id']?>" class="txtValue" >
+       <option value="ADSL" <?=$adsl?> >ADSL</option>
+       <option value="MODEM" <?=$modem?> >MODEM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+       <option value="ISDN" <?=$isdn?> >ISDN</option>
+       <option value="WAN" <?=$wan?> >WAN</option>
+       <option value="LAN" <?=$lan?> >LAN</option>
+      </select><br />
+      </div><br />
+      <span class="txtLabel">Display</span>
+      <select name="resolution-<?=$server['id']?>" class="txtValue" style="width:103px;">
+       <option value="800x600">800x600</option>
+       <option value="1024x768">1024x768</option>
+       <option value="availablearea">Available area</option>
+       <option value="fullscreen">Fullscreen</option>
+      <? if(stristr($_SERVER['HTTP_USER_AGENT'], "Windows")) {?>  
+       <option value="available_area_mm">Available area, Multi-head</option>
+       <option value="fullscreen_mm">Fullscreen, Multi-head </option> 
+      <?
+       }
+      ?>     
+      </select><br />
+     <!-- <span class="txtLabel">Multiple monitors &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><input type="checkbox"><br />-->
+     </td>
+    </tr>
+   </table>
+  <!--  </div> -->
+  </td>
+
+  <?
+   if($server['displayMode']=="1")
+   {
+  ?>
+  <td valign="top" align="left"  class="txtHeaderTable border_right">
+  <div class="bgDivServer" style="height:20px; margin:-5px; margin-bottom:0px; padding:5px; padding-bottom:0px;">Desktop</div>
+    <table cellspacing="0" cellpadding="0" border="0" valign="middle">
+    <tr>
+    <!-- start dinamic desk -->
+    <?
+    $querySess=getSessionsDeskFromServer($server['id']);
+    @$n=mysql_num_rows($querySess);
+   
+    if($n==0)
+    {
+    ?>
+     <td align="center"><span class="titleBlueSmall"><br><br><br>-</span></td>    
+    <? 
+    }
+    else
+    {
+    
+      while($session=mysql_fetch_array($querySess))
+      {
+       $icon="empty.png";
+       $countSession="";
+       $countSession++;
+       $countSession=0;
+       if($session['icon']!="") $icon = $session['icon'];
+
+    ?>
+    
+     <td align="left">
+      <table width="63" border="0" cellpadding="1" cellspacing="0">
+      <tr>
+       <td valign="top" align="center"> <img src="<?=$sessionShared?>/<?=$icon?>" style="cursor: pointer;"  width="62" height="50" title="<?=$session['sessionName']?>" onclick="createSession('serverList',<?=$session['id']?>,<?=$server['id']?>)"></td>
+      </tr>
+      <tr> 
+       <td valign="top" align="center"> 
+         <span class="titleBlueSmall" style="cursor: pointer;" onclick="createSession('serverList',<?=$session['id']?>,<?=$server['id']?>)" title="<?=$session['sessionName']?>"><?=getSessionTitle($session['sessionName'],7)?></span>
+       </td>
+      </tr>
+      </table>
+    </td>       
+    <?
+        if($countSession==4)
+        {
+         echo "</tr><tr>";
+         $countSession=0;
+        }
+      }     
+    }
+    ?>
+
+    <!-- stop dinamic desk -->
+    </tr>
+   </table>
+  </td>
+
+  <td width="80%" valign="top" align="left" class="txtHeaderTable">
+  <div class="bgDivServer" style="height:20px; margin:-5px; margin-bottom:0px; padding:5px; padding-bottom:0px;">Application</div>
+   <table cellspacing="0" cellpadding="0" border="0" valign="middle">
+    <tr>
+    <!-- start dinamic application -->
+    
+    <?
+    $querySessApp=getSessionsAppFromServer($server['id']);
+    @$n=mysql_num_rows($querySessApp);
+   
+    if($n==0)
+    {
+    ?>
+     <td align="center"><span class="titleBlueSmall"><br><br><br>-</span></td>    
+    <? 
+    }
+    else
+    {
+    
+      while($sessionApp=mysql_fetch_array($querySessApp))
+      {
+       $countApplication++;
+       $icon="empty.png";
+       if($sessionApp['icon']!="") $icon = $sessionApp['icon'];
+    ?>
+    <td align="left">
+      <table width="63" border="0" cellpadding="1" cellspacing="0">
+      <tr>
+       <td valign="top" align="center"> <img style="cursor: pointer;"  src="<?=$sessionShared?>/<?=$icon?>" width="62" height="50" title="<?=$sessionApp['sessionName']?>"  onclick="createSession('serverList',<?=$sessionApp['id']?>,<?=$server['id']?>)"></td>
+      </tr>
+      <tr> 
+       <td valign="top" align="center"> 
+         <span class="titleBlueSmall" style="cursor: pointer;"  onclick="createSession('serverList',<?=$sessionApp['id']?>,<?=$server['id']?>)" title="<?=$sessionApp['sessionName']?>"><?=getSessionTitle($sessionApp['sessionName'],7)?></span>
+       </td>
+      </tr>
+      </table>
+    </td>       
+     
+    <?  
+        if($countApplication==4)
+        {
+         echo "</tr><tr>";
+         $countApplication=0;
+        }
+      }     
+    }
+    ?>    
+ 
+    <!-- stop  dinamic application -->
+    </tr>
+   </table>
+  </td>
+  <?
+   } //end if(displayMode==1)
+   elseif($server['displayMode']=="2")
+   {
+  ?>
+  <td colspan="2">
+    <table width="100%" height="100" cellpadding="0" cellspacing="0" border="0" style="margin: 10px; background-color: inerith;">
+    <tr>
+     <td valign="middle" align="center" valign="middle">
+       <?=$server['replacingText']?>
+     </td>
+    </tr> 
+    </table>
+  </td>
+  <?
+   }//
+   elseif($server['displayMode']=="0")
+   {
+   
+  ?>
+  <td colspan="2">
+    <table width="100%" height="100" cellpadding="0" cellspacing="0" border="0" style="margin: 10px;">
+    <tr>
+     <td valign="middle" align="center" valign="middle">
+       This server is disabled. 
+     </td>
+    </tr> 
+    </table>
+  </td>
+  <?
+   }
+  ?>  
+ </tr>
+</table>
+<?
+} //end while($server = mysql_fetch_array($serverList))
+?>
+
+<? if($messageType!="") { ?>
+<div class="message">
+<p class="t_2orange" style="margin:0px;padding:0px;line-height:27px;">
+ <img src="<?=$sharedSkin?>/icon_alertWhite.png" align="middle">
+ <?=$Message[$messageType]?>
+</p></div>
+<? } ?>
+
+<!-- stop table for list 1row*4cols -->
+
+<?
+if ($serverNumber == 0)
+{
+?>
+<table cellSpacing="0" cellPadding="0" width="98%" height="27" class="bgMiniBar">
+<tr>
+  <td width="100%"></td>
+  <td width="100" align="center" valign="middle"><a href="AddServer.php"><img style="cursor: pointer; margin-right:10px;"  width="82" height="17" border="0" src="<?=$button?>/b_add.png" onmouseout="this.src='<?=$button?>/b_add.png'"  onmouseover="this.src='<?=$button?>/b_addOver.png'"></a></td>
+  <td width="100" align="center" valign="middle"><img style="margin-right:10px;"  width="82" height="17" border="0" src="<?=$button?>/b_modifyDsb.png"></td>
+  <td width="100" align="center" valign="middle"><img src="<?=$button?>/b_deleteDsb.png" name="delete" id="delete"  width="82" height="17" border="0"></td>
+</tr>
+</table>
+<?
+}
+elseif($serverNumber != 0)
+{
+?>
+<table cellSpacing="0" cellPadding="0" width="98%" height="27" class="bgMiniBar">
+<tr>
+  <td width="100%"></td>
+  <td width="100" align="center" valign="middle"><a href="AddServer.php"><img style="cursor: pointer; margin-right:10px;"  width="82" height="17" border="0" src="<?=$button?>/b_add.png" onmouseout="this.src='<?=$button?>/b_add.png'"  onmouseover="this.src='<?=$button?>/b_addOver.png'"></a></td>
+  <td width="100" align="center" valign="middle"><img style="cursor: pointer; margin-right:10px;"  width="82" height="17" border="0" src="<?=$button?>/b_modify.png" onclick="sendFormTo('serverList', 'ModifyServer.php')"  onmouseout="this.src='<?=$button?>/b_modify.png'"  onmouseover="this.src='<?=$button?>/b_modifyOver.png'"></td>
+  <td width="100" align="center" valign="middle"><input type="image" name="delete" id="delete"  width="82" height="17" border="0" src="<?=$button?>/b_delete.png"  onmouseout="this.src='<?=$button?>/b_delete.png'" onmouseover="this.src='<?=$button?>/b_deleteOver.png'" style="margin-right:10px;"></td>
+</tr>
+</table>
+
+<?
+}
+?>
+
+
+</form>
+</div>
+<? include("includes/Footer.php") ?>

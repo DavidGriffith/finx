@@ -1,0 +1,108 @@
+#!/bin/sh
+
+#/**************************************************************************/
+#/*                                                                        */
+#/* Copyright (c) 2001, 2011 NoMachine, http://www.nomachine.com/.         */
+#/*                                                                        */
+#/* NXSCRIPTS, NX protocol compression and NX extensions to this software  */
+#/* are copyright of NoMachine. Redistribution and use of the present      */
+#/* software is allowed according to terms specified in the file LICENSE   */
+#/* which comes in the source distribution.                                */
+#/*                                                                        */
+#/* Check http://www.nomachine.com/licensing.html for applicability.       */
+#/*                                                                        */
+#/* NX and NoMachine are trademarks of Medialogic S.p.A.                   */
+#/*                                                                        */
+#/* All rights reserved.                                                   */
+#/*                                                                        */
+#/**************************************************************************/
+
+
+PROJECT=nxssh
+TEMPORARY=t
+SUFFIX=XXX
+
+if [ `uname` = "SunOS" ] ; then
+  TAR=gtar
+  CP="cp -r"
+elif [ `uname` = "Darwin" ] ; then
+  TAR=tar
+  CP="cp -RPp"
+else
+  TAR=tar
+  CP="cp -a"
+fi
+
+
+if [ $1 ] ; then
+  SUFFIX=$1
+  if [ -f ${PROJECT}-${SUFFIX}.tar.gz ] ; then
+    echo -ne "Release file ${PROJECT}-${SUFFIX}.tar.gz exists.\n"
+    exit 1
+  fi
+fi
+
+cd ../NX 2>/dev/null || \
+  if [ 1 ] ; then
+    echo -ne "Change directory to 'NX' project home and retry.\n"
+    exit 1
+  fi
+
+if [ ! -d ${PROJECT} ] ; then
+  echo -ne "Can't find '${PROJECT}' project files.\n"
+  exit 1
+fi
+
+if [ -f ${TEMPORARY} ] ; then
+  echo -ne "Please remove file '${TEMPORARY}' and retry.\n"
+  exit 1
+fi
+
+if [ -d ${TEMPORARY} ] ; then
+  echo -ne "Removing temporary directory '${TEMPORARY}'...\n"
+  rm -rf ${TEMPORARY} 2>/dev/null
+fi
+
+mkdir ${TEMPORARY} 2>/dev/null
+
+#
+# Copy all files pertaining to ${PROJECT}
+# to a temporary directory.
+#
+
+echo -ne "Copying '${PROJECT}' project files to '${TEMPORARY}'...\n"
+
+cd ${TEMPORARY} 2>/dev/null || exit 1
+
+$CP ../${PROJECT} . || exit 1
+
+#
+# Make a distclean in copy of project's directory.
+#
+
+cd ${PROJECT} || exit 1
+
+echo -ne "Making distclean in '${TEMPORARY}/${PROJECT}'...\n"
+
+make distclean 1>/dev/null 2>/dev/null || \
+  if [ 1 ] ; then
+    echo -ne "Distclean failed. Check you have successfully built\n"
+    echo -ne "the project and have such target in your makefile.\n"
+    exit 1
+  fi
+
+cd ..
+
+#
+# Make the tarfile.
+#
+
+echo -ne "Making '${PROJECT}' tar file from '${TEMPORARY}'...\n"
+
+$TAR zcf ../${PROJECT}-${SUFFIX}.tar.gz ${PROJECT} || exit 1
+
+if [ -e $1 ] ; then
+  echo -ne "Please now rename file '${PROJECT}-${SUFFIX}.tar.gz' to your version number.\n"
+fi
+
+

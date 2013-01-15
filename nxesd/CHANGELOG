@@ -1,0 +1,119 @@
+ChangeLog:
+
+nxesd-3.5.0-2
+
+- Fixed static linking to libaudiofile.
+
+nxesd-3.5.0-1
+
+- Opened the 3.5.0 branch based on nxesd-3.4.0-1.
+
+- Updated copyright to year 2011.
+
+- Fixed TR0102417. Linking to libaudiofile statically.
+
+nxesd-3.4.0-1
+
+- Opened the 3.4.0 branch based on nxesd-3.3.0-1.
+
+- Updated copyright to year 2009.
+
+nxesd-3.3.0-1
+
+- Opened the 3.3.0 branch based on nxesd-3.2.0-1.
+
+nxesd-3.2.0-1
+
+- Opened the 3.2.0 branch based on nxesd-3.1.0-1.
+
+nxesd-3.1.0-1
+
+- Opened the 3.1.0 branch based on nxesd-3.0.0-4.
+
+nxesd-3.0.0-4
+
+- Changed the copyright attribution from Medialogic to NoMachine.
+
+nxesd-3.0.0-3
+
+- Changed the LICENSE file to state that the software is only made
+  available under the version 2 of the GPL.
+
+- Added file COPYING.
+
+- Moved the original copyright notices to COPYRIGHT.
+
+- The distclean target now removes the autom4te.cache directory.
+
+nxesd-3.0.0-2
+
+- Added copyright notices to 'proto.c' and 'esd.c'.
+
+nxesd-3.0.0-1
+
+- Opened the 3.0.0 branch based on the 2.1.0-2.
+
+nxesd-2.1.0-2
+
+- Fixed TR10D01536. Session as a different user or to different
+  server was not able to reuse nxesd.
+
+nxesd-2.1.0-1
+
+- Opened the 2.1.0 branch based on the 2.0.0-4.
+
+nxesd-2.0.0-4
+
+- Closing standard descriptors and setting new session by setsid()
+  just after startup on Windows. This version solves TR07D01438.
+
+nxesd-2.0.0-3
+
+- Removed exposed functions from the previous versions. They are no
+  longer necessary as it's functions were reproduced inside nxdesktop,
+  adapted to use the descriptors from NXTransChannel().
+
+nxesd-2.0.0-2
+
+- Exposed low level functions esd_connect_unix(), esd_connect_tcpip(),
+  esd_config_read() and esd_send_auth(). This change in necessary to
+  allow nxdesktop pass the sockets opened by NXTransChannel() instead
+  of letting libesd create it's own.
+
+nxesd-2.0.0-1
+
+- Opened the 2.0.0 branch based on the 1.6.0-1.
+
+nxesd-1.6.0-1
+
+- Opened the 1.6.0 branch based on nxesd-1.5.0-3.
+
+nxesd-1.5.0-3
+
+- Fixed Makefile.in to link nxesd statically on Windows platform.
+
+nxesd-1.5.0-2
+
+- Synchronization with newest esound version '0.2.36'.
+
+- New target 'nxesddsp' wich is customized version of 'esddsp'. 
+
+nxesd-1.5.0-1
+
+- Opened the 1.5.0 branch. 
+
+nxesd-1.4.1-1
+
+- Opened the 1.4.1 branch. 
+
+nxesd-1.4.0-1
+
+- Opened the 1.4.0 branch. 
+
+nxesd-1.3.2-1
+
+- Opened the 1.3.2 branch. 
+
+nxesd-1.3.1-1
+
+- Opened the 1.3.1 branch.

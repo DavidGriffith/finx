@@ -1,0 +1,144 @@
+#!/bin/sh
+
+#/**************************************************************************/
+#/*                                                                        */
+#/* Copyright (c) 2001, 2011 NoMachine, http://www.nomachine.com/.         */
+#/*                                                                        */
+#/* NXSCRIPTS, NX protocol compression and NX extensions to this software  */
+#/* are copyright of NoMachine. Redistribution and use of the present      */
+#/* software is allowed according to terms specified in the file LICENSE   */
+#/* which comes in the source distribution.                                */
+#/*                                                                        */
+#/* Check http://www.nomachine.com/licensing.html for applicability.       */
+#/*                                                                        */
+#/* NX and NoMachine are trademarks of Medialogic S.p.A.                   */
+#/*                                                                        */
+#/* All rights reserved.                                                   */
+#/*                                                                        */
+#/**************************************************************************/
+
+#set -x
+
+ulimit -c unlimited
+
+cd ${HOME}/NX
+
+NX_PORT=9
+export NX_PORT
+
+NX_SYSTEM=${HOME}/.nx
+#NX_SYSTEM=/etc/NX
+
+NX_ROOT=${HOME}/.nx
+#NX_ROOT=/var/NX
+
+# Create directory for agent log.
+
+rm -rf ${NX_ROOT}/C-${NX_PORT} || exit
+mkdir -p ${NX_ROOT}/C-${NX_PORT} || exit
+
+rm -rf ${HOME}/.nx/S-${NX_PORT} || exit
+mkdir -p ${HOME}/.nx/S-${NX_PORT} || exit
+
+NX_AGENT=:${NX_PORT}
+export NX_AGENT
+
+#DISPLAY=${NX_HOST}:${NX_PORT}
+#export DISPLAY
+
+LD_LIBRARY_PATH="${HOME}/NX/nxcomp:${HOME}/NX/nxcompext:${HOME}/NX/nx-X11/exports/lib"
+export LD_LIBRARY_PATH
+
+PATH="${PATH}:${HOME}/NX/nxclient/nxclient:${HOME}/NX/nx-X11/programs/Xserver"
+export PATH
+
+# Color reduction for 16 and 32 bits display.
+
+# 1 bit, 8 colors.
+# NX_IMAGEMASK=128,63,240,7
+
+# 2 bits, 64 colors.
+# NX_IMAGEMASK=192,7,240,7
+
+# 3 bits, 512 colors.
+# NX_IMAGEMASK=224,5,240,4
+
+# 4 bits, 4096 colors.
+# NX_IMAGEMASK=240,4,240,2
+
+# 5 bits, 32768 colors.
+# NX_IMAGEMASK=248,3,248,2
+
+# 6 bits, 262144 colors.
+# NX_IMAGEMASK=252,2,252,1
+
+# For all supported colors uncomment this.
+# NX_IMAGEMASK=255,0,255,0
+
+#export NX_IMAGEMASK
+
+#NX_IMAGESPLIT=48,48,96,96
+#NX_IMAGESPLIT=40,40,80,80
+#NX_IMAGESPLIT=80,80,80,80
+#NX_IMAGESPLIT=16384,16384,16384,16384
+
+#export NX_IMAGESPLIT
+
+#NX_IMAGEFRAME=1
+#export NX_IMAGEFRAME
+
+# -imgstop int           wait for confirm from nxproxy after any PutImage bigger than int
+# -getifocus             mask GetInputFocus requests but wait for confirm from nxproxy
+# -imgframe              let NXlib to draw a tiny rectangle around images
+# -imgsplit PW,PH,BW,BH  force NXlib to split pixmaps and bitmaps to given width x height
+#                        defaul is 32,32,128,128
+#
+# Use -ac option if you have problems with access control.
+
+
+
+
+# Get current cookie produced by desktop manager.
+
+#COOKIE=`xauth list |grep ${HOSTNAME}/unix:0 | grep MIT | cut -f 5 -d ' '`
+
+COOKIE=123efa980d2cba234ef6f73deac810ff
+
+echo -ne "\nCookie for session is ${COOKIE}\n"
+echo -ne "If you are running your clients as another user\n"
+echo -ne "enable access to this session by running something like \n"
+echo -ne "xauth add ${HOSTNAME}/unix${NX_AGENT} MIT-MAGIC-COOKIE-1 ${COOKIE}\n"
+echo -ne "and be sure you provide the right display number\n"
+
+#NX_HOST=nx/nx,display=localhost:0,cache=4096k,link=modem,sync=1,samba=1,media=1,limit=0,connect=127.0.0.1
+NX_HOST=nx/nx,cache=4096k,link=modem,sync=1,samba=1,media=1,limit=0,\
+accept=127.0.0.1,cookie=$COOKIE,errors=${NX_ROOT}/C-${NX_PORT}/session
+export NX_HOST
+
+echo "${NX_HOST}:${NX_PORT}" >${NX_ROOT}/C-${NX_PORT}/options
+
+# Let agent pass the right cookie to real X server.
+
+xauth add ${HOSTNAME}/unix:${NX_PORT} MIT-MAGIC-COOKIE-1 ${COOKIE}
+xauth add ${HOSTNAME}:${NX_PORT} MIT-MAGIC-COOKIE-1 ${COOKIE}
+
+# Run the agent.
+
+#nx-X11/programs/Xserver/nxagent -nolimit -bs forced -fp unix/:7100 -class TrueColor -noreset -geometry 800x600+0+0 -auth ${HOME}/.Xauthority -name 'NX' ${NX_AGENT} 2>>${NX_ROOT}/C-${NX_PORT}/session &
+DISPLAY=nx/nx,options=${NX_ROOT}/C-${NX_PORT}/options:${NX_PORT} \
+nx-X11/programs/Xserver/nxagent -nolimit -class TrueColor -noreset -geometry 800x600+0+0 -name 'NX' \
+${NX_AGENT} 2>>${NX_ROOT}/C-${NX_PORT}/session &
+
+#DISPLAY=unix:0
+#DISPLAY=:0
+#export DISPLAY
+
+#cachegrind -v --dumps=100000000 \
+#cachegrind -v \
+#valgrind -v --leak-check=yes --leak-resolution=high --show-reachable=yes \
+#            --show-reachable=yes --suppressions=nxproxy/nxproxy.supp \
+#            --weird-hacks=lax-ioctls --num-callers=8 --logfile-fd=2 \
+nxproxy/nxproxy -S nx/nx,link=modem,sync=22,cookie=$COOKIE,samba=22,media=22,connect=localhost:${NX_PORT} \
+2>>${HOME}/.nx/S-${NX_PORT}/session &
+
+echo ""

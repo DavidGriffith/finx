@@ -1,0 +1,90 @@
+#!/bin/sh
+
+#/**************************************************************************/
+#/*                                                                        */
+#/* Copyright (c) 2001, 2011 NoMachine, http://www.nomachine.com/.         */
+#/*                                                                        */
+#/* NXSCRIPTS, NX protocol compression and NX extensions to this software  */
+#/* are copyright of NoMachine. Redistribution and use of the present      */
+#/* software is allowed according to terms specified in the file LICENSE   */
+#/* which comes in the source distribution.                                */
+#/*                                                                        */
+#/* Check http://www.nomachine.com/licensing.html for applicability.       */
+#/*                                                                        */
+#/* NX and NoMachine are trademarks of Medialogic S.p.A.                   */
+#/*                                                                        */
+#/* All rights reserved.                                                   */
+#/*                                                                        */
+#/**************************************************************************/
+
+set -x
+
+cd ${HOME}/NX
+
+NX_PORT=10
+export NX_PORT
+
+NX_ROOT=${HOME}/.nx
+
+# Create directory for agent log.
+
+rm -rf ${NX_ROOT}/C-${NX_PORT} || exit
+mkdir -p ${NX_ROOT}/C-${NX_PORT} || exit
+
+NX_HOST=nx/nx,link=33k,nodelay=0,root=${NX_ROOT},log=session,stat=stats
+export NX_HOST
+
+NX_DISPLAY=${NX_HOST}:${NX_PORT}
+export NX_DISPLAY
+
+NX_AGENT=:${NX_PORT}
+export NX_AGENT
+
+LD_LIBRARY_PATH="${HOME}/NX/nxcomp:${HOME}/NX/nxcompext:${HOME}/NX/nx-X11/exports/lib"
+export LD_LIBRARY_PATH
+
+PATH="${PATH}:/usr/NX/bin:/opt/NX/bin"
+export PATH
+
+# Color reduction for 16 and 32 bits display.
+
+# 1 bit, 8 colors.
+# NX_IMAGEMASK=128,63,240,7
+
+# 2 bits, 64 colors.
+# NX_IMAGEMASK=192,7,240,7
+
+# 3 bits, 512 colors.
+# NX_IMAGEMASK=224,5,240,4
+
+# 4 bits, 4096 colors.
+NX_IMAGEMASK=240,4,240,2
+
+# 5 bits, 32768 colors.
+# NX_IMAGEMASK=248,3,248,2
+
+# 6 bits, 262144 colors.
+# NX_IMAGEMASK=252,2,252,1
+
+# For all supported colors uncomment this.
+# NX_IMAGEMASK=255,0,255,0
+
+export NX_IMAGEMASK
+
+#NX_IMAGESPLIT=48,48,96,96
+#NX_IMAGESPLIT=40,40,80,80
+#NX_IMAGESPLIT=80,80,80,80
+#NX_IMAGESPLIT=16384,16384,16384,16384
+
+# export NX_IMAGESPLIT
+
+# NX_IMAGEFRAME=1
+
+# export NX_IMAGEFRAME
+
+# Run the desktop.
+~/NX/nxdesktop/nxdesktop -B 4096 -g 800x600 -k 0x410 pegaso 2>>${NX_ROOT}/C-${NX_PORT}/session &
+
+echo ""
+
+

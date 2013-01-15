@@ -1,0 +1,128 @@
+#!/bin/sh
+
+#/**************************************************************************/
+#/*                                                                        */
+#/* Copyright (c) 2001, 2011 NoMachine, http://www.nomachine.com/.         */
+#/*                                                                        */
+#/* NXSCRIPTS, NX protocol compression and NX extensions to this software  */
+#/* are copyright of NoMachine. Redistribution and use of the present      */
+#/* software is allowed according to terms specified in the file LICENSE   */
+#/* which comes in the source distribution.                                */
+#/*                                                                        */
+#/* Check http://www.nomachine.com/licensing.html for applicability.       */
+#/*                                                                        */
+#/* NX and NoMachine are trademarks of Medialogic S.p.A.                   */
+#/*                                                                        */
+#/* All rights reserved.                                                   */
+#/*                                                                        */
+#/**************************************************************************/
+
+#set -x
+
+ulimit -c unlimited
+
+NX_PORT=9
+export NX_PORT
+
+NX_ROOT=${HOME}/.nx
+#NX_ROOT=/var/NX
+export NX_ROOT
+
+# Create directory for agent log.
+
+rm -rf ${NX_ROOT}/C-${NX_PORT} || exit
+mkdir -p ${NX_ROOT}/C-${NX_PORT} || exit
+
+#NX_HOST=nx/nx,display=localhost,link=modem,pack=256-rdp-compressed,type=windows,session="RDP_on_nxtest03",connect=localhost,root=${NX_ROOT},stat=stats
+NX_HOST=nx/nx,link=modem,pack=256-rdp-compressed,type=windows,session="RDP_on_nxtest03",accept=127.0.0.1
+export NX_HOST
+
+echo "${NX_HOST}:${NX_PORT}" >${NX_ROOT}/C-${NX_PORT}/options
+
+LD_LIBRARY_PATH="${HOME}/NX/nxcomp:${HOME}/NX/nxcompext:${HOME}/NX/nx-X11/exports/lib"
+export LD_LIBRARY_PATH
+
+# Color reduction for 16 and 32 bits display.
+
+# 1 bit, 8 colors.
+# NX_IMAGEMASK=128,63,240,7
+
+# 2 bits, 64 colors.
+# NX_IMAGEMASK=192,7,240,7
+
+# 3 bits, 512 colors.
+# NX_IMAGEMASK=224,5,240,4
+
+# 4 bits, 4096 colors.
+# NX_IMAGEMASK=240,4,240,2
+
+# 5 bits, 32768 colors.
+# NX_IMAGEMASK=248,3,248,2
+
+# 6 bits, 262144 colors.
+# NX_IMAGEMASK=252,2,252,1
+
+# For all supported colors uncomment this.
+# NX_IMAGEMASK=255,0,255,0
+
+# These are special for nxdesktop.
+
+# 4 bits, 4096 colors. Don't apply correction.
+# NX_IMAGEMASK=240,0,240,2
+
+# 3 bits, 512 colors.
+# NX_IMAGEMASK=224,0,240,4
+
+#export NX_IMAGEMASK
+
+#NX_IMAGESPLIT=8,8,8,8
+#NX_IMAGESPLIT=16,16,16,16
+#NX_IMAGESPLIT=40,40,40,40
+#NX_IMAGESPLIT=80,80,80,80
+#NX_IMAGESPLIT=16384,16384,16384,16384
+#export NX_IMAGESPLIT
+
+#NX_IMAGEFRAME=0
+#NX_IMAGEFRAME=1
+#export NX_IMAGEFRAME
+
+# Get current cookie produced by desktop manager.
+
+#COOKIE=`xauth list |grep "${HOSTNAME}/unix:\<${NX_PORT}\>" | grep MIT | cut -f 5 -d ' '`
+COOKIE=ccede51be93dd990e1a16a78df66a40a
+
+echo -ne "\nCookie for session is ${COOKIE}\n"
+echo -ne "If you are running your clients as another user\n"
+echo -ne "enable access to this session by running something like \n"
+echo -ne "xauth add ${HOSTNAME}/unix${NX_AGENT} MIT-MAGIC-COOKIE-1 ${COOKIE}\n"
+echo -ne "and be sure you provide the right display number\n"
+
+# Let agent pass the right cookie to real X server.
+
+xauth add ${HOSTNAME}/unix:${NX_PORT} MIT-MAGIC-COOKIE-1 ${COOKIE}
+xauth add ${HOSTNAME}:${NX_PORT} MIT-MAGIC-COOKIE-1 ${COOKIE}
+
+# Run the remote agent.
+
+#~/NX/nxdesktop/nxdesktop -B 4096 -g 800x600 -k 0x410 nxtest03 2>>${NX_ROOT}/C-${NX_PORT}/session &
+#~/NX/nxdesktop/nxdesktop -B 4096 -g 800x600 -k 0x410 marte 2>>${NX_ROOT}/C-${NX_PORT}/session &
+#~/NX/nxdesktop/nxdesktop -g 800x600 -k 0x410 pegaso 2>>${NX_ROOT}/C-${NX_PORT}/session &
+
+SAVED_DISPLAY=$DISPLAY
+
+DISPLAY=nx/nx,options=${NX_ROOT}/C-${NX_PORT}/options:${NX_PORT}
+export DISPLAY
+
+~/NX/nxdesktop/nxdesktop -g 800x600 -k 0x410 nxtest03 :${NX_PORT} 2>>${NX_ROOT}/C-${NX_PORT}/session & 
+echo ""
+
+DISPLAY=$SAVED_DISPLAY
+export DISPLAY
+
+rm -rf ${HOME}/.nx/S-${NX_PORT} || exit
+mkdir -p ${HOME}/.nx/S-${NX_PORT} || exit
+
+~/NX/nxproxy/nxproxy -S nx/nx,connect=localhost,cookie=${COOKIE}:${NX_PORT} 2>>${NX_ROOT}/S-${NX_PORT}/session &
+
+echo ""
+

@@ -1,0 +1,751 @@
+ChangeLog:
+
+nxssh-3.0.0-16
+
+- Disabled the redirection of the log output to the 'errors' file
+  in the session directory.
+
+- Added -lminires to $LIBS to build on the latest Cygwin.
+
+nxssh-3.0.0-15
+
+- Fixed TR08E01810. The $HOME enironment is used to construct the
+  known_hosts path.
+
+nxssh-3.0.0-14
+
+- Changed the NX version we advertise to the remote to 3.0.0.
+
+- Use NXTransDestroy() at shutdown.
+
+nxssh-3.0.0-13
+
+- Changed the copyright attribution from Medialogic to NoMachine.
+
+nxssh-3.0.0-12
+
+- Fixed the compilation warnings on AMD64.
+
+nxssh-3.0.0-11
+
+- Reduced the log level of the channel monitoring messages.
+
+nxssh-3.0.0-10
+
+- Fixed log level of messages during cookie generation.
+
+- Fixed problem with cookie generation for X forwarding on CYGWIN.
+
+- Fixed problem with cookie generation for X forwarding.
+
+nxssh-3.0.0-9
+
+- Changed the LICENSE file to state that the software is only made
+  available under the version 2 of the GPL.
+
+- Added file COPYING.
+
+- Moved the original copyright notices to COPYRIGHT.
+
+- Fixed formating in source code.
+
+- Fixed issue with not initialized variable. This issue cause stop of
+  nxssh while logging user with one letter password.
+
+- Added missing synopsis for -P option in usage message.
+
+- Implementation of FR02E01629. nxssh supports for now Basic proxy
+  authentication. Parameter -P can be use with following string:
+
+  [proxy_username:proxy_password@]proxy_hostname:proxy_port.
+
+nxssh-3.0.0-8
+
+- Added reference to implemented FR in the ChangeLog.
+
+nxssh-3.0.0-7
+
+- Updated the copyright notices to year 2007.
+
+nxssh-3.0.0-6
+
+- Fixed problems with privilege separation in nxsshd on cygwin.
+
+nxssh-3.0.0-5
+
+- Merged code with OpenSSH 4.4p1.
+
+nxssh-3.0.0-4
+
+- Fixed nxssh-keygen compilation problems.
+
+- Fixed Makefile and code to avoid linking nxsshd and nxssh-keygen
+  with nxcomp.
+
+nxssh-3.0.0-3
+
+- Created a nxsshd target.
+
+- Created nxssh-keygen target.
+
+- Fixes to compile above targets on Windows.
+
+nxssh-3.0.0-2
+
+- Merged code with OpenSSH 4.3p2.
+
+- Implemented FR10C01052. Separated original and modified files into
+  '.NX.original' and '.SSH.original'.
+
+nxssh-3.0.0-1
+
+- Opened the 3.0.0 branch based on nxssh-2.0.0-12.
+
+nxssh-2.0.0-12
+
+- Changed warning message: "Warning: No xauth data; using fake authen-
+  tication data for X11 forwarding" into debug message.
+
+nxssh-2.0.0-11
+
+- Removed old debug.
+
+nxssh-2.0.0-10
+
+- Updated the NoMachine copyright to year 2006.
+
+nxssh-2.0.0-9
+
+- Added support for tunneling the NX sessions through a Web proxy.
+
+nxssh-2.0.0-8
+
+- Modified the switch command to "NX> 299 Switch connection to: ".
+
+nxssh-2.0.0-7
+
+- New switch command mode to listen on a port, accept connection
+  from specified hostname and forward the data to the SSH connect-
+  ion to the node.
+
+  Example:
+
+  NX> 299 Switching connection to: SSH port: 5001 accept: <host>
+
+- Added a new switch command mode to bind together two descriptors,
+  the one of the SSH connection from the client and the one of the
+  SSH connection to the node.
+
+  Example:
+
+  NX> 299 Switching connection to: SSH in: 3 out: 4
+
+nxssh-2.0.0-6
+
+- Set again the sockets used in the server side loop to get blocking
+  operations. This had been disabled for test purposes.
+
+nxssh-2.0.0-5
+
+- Added an ASCII graph to proxy.c showing the typical layout of the
+  file descriptors after the proxies are connected through SSH.
+
+nxssh-2.0.0-4
+
+- From this version, nxssh will request the X11 forwarding if the
+  switch command is enabled. The X11 forwarding will not used by NX,
+  and the forwarding will be still managed by nxserver. The problem
+  is that if we don't request the X11 forwarding, SSHD will not con-
+  sider the session interactive and will unilaterally turn on the
+  Nagle algorithm on the remote socket, causing a visible slowdown.
+
+- As a consequence, the key added to the nx user on the NX server
+  should not have the 'no-X11-forwarding' option set. If the option
+  is set (for example when connecting to older NX servers) or if the
+  X11 forwarding has been disabled by the system administrator, the
+  NX connection will work unaffected, but the users will be unable
+  to enjoy the best performance when running the session over the
+  encrypted connection.
+
+- Note that this is actually a SSHD problem and there is really lit-
+  tle we can do to overcome it. The alternative would be to force
+  the use of a tty and configure it in a way that it is transparent
+  to the NX traffic. This is to be better investigated.
+
+- Added a nx_proxy_select() replacement for the select() and ensured
+  that it is used in all the client code, not only the client loop.
+
+- When the NX transport is enabled, the program will try the NXTans-
+  File() interface to detect the log file used by the proxy and will
+  redirect the debug output to the same file. This is useful when
+  debugging the communication between nxssh and nxcomp.
+
+- If the proxy log can't be determined, for example because the NX
+  transport is not in use, the output will go to a well known file,
+  but only if NX_SHARE_BINDER_LOG is defined in proxy.c. This is
+  useful when debugging the nxssh forwarding of the SSHD connection
+  to the agent, as you can force the proxy to use the same file. For
+  this to work, the file must be made writable by everybody as this
+  forwarding process is run by nxserver as the nx user.
+
+nxssh-2.0.0-3
+
+- Updated the NX version number reported to the proxy.
+
+nxssh-2.0.0-2
+
+- Updated to comply with the new NX function prototypes introduced
+  in nxcomp-2.0.0-31.
+
+nxssh-2.0.0-1
+
+- Opened the 2.0.0 branch based on nxssh-1.5.0-23.
+
+nxssh-1.5.0-23
+
+- Fixed the build procedure to automatically produce a dinamically
+  linked executable on Windows when compiled in combination with
+  the latest nxcomp.
+
+- Moved the NX specific build parameters to configure.ac. Code is
+  now built by default with -O3.
+
+nxssh-1.5.0-22
+
+- Imported patch from OpenSSH 4.0p1 fixing problem with restoring 
+  gids.
+
+- Allowed the forwarding of connections to the authentication agent
+  by skipping the check on the switch command when the fingerprint
+  string is found in the input.
+
+nxssh-1.5.0-21
+
+- Updated the ChangeLog to include references to the solved TRs.
+
+nxssh-1.5.0-20
+
+- Imported the 1.6.0 changes in the maintenance 1.5.0.
+
+- Ensured that, if monitoring of the switch command has been reques-
+  ted, the pseudo-tty is not allocated and that the parsing of the
+  escape characters is disabled.
+
+- Ensured that sockets are set to blocking mode in the server side
+  loop. This solves the TR08C00939.
+
+- Converted the NX transport shutdown messages that had been marked
+  as logit() to a more convenient debug(). Solves the TR07C00928.
+
+- Other cosmetic changes.
+
+nxssh-1.5.0-19
+
+- The proxy descriptor is now explicitly shut down at the end of the
+  client loop.
+
+- Ensured that, before exiting, the client loop waits for the closure
+  of the NX transport.
+
+nxssh-1.5.0-18
+
+- Set again the O_NONBLOCK flag on the channel descriptor just after
+  the switch. The flag seems to be reset by the dup2() on the MacOS/X.
+  This solves the hangup problem when enabling SSH tunneling.
+
+nxssh-1.5.0-17
+
+- Corrected a problem arising at the time we were asking the password
+  by the NX message 205.
+
+- The message number of 'The authenticity of host...' was changed to
+  211 because of a conflict with message 205.
+
+- If any of the NX modes is enabled, nxssh will prompt for the pass-
+  word once for each method, instead of three times.
+
+- Solved a compilation problem on windows.
+
+- Fixed readpass.c to ask the password by the NX message 205. 
+
+nxssh-1.5.0-16
+
+- Corretted a bug in nx_switch_server_side_descriptors() arising if a
+  descriptor passed to nxssh -B by the server had an invalid number.
+
+nxssh-1.5.0-15
+
+- Introduced status code 210 that is printed when nxssh finds a key
+  that is encrypted or corrupted.
+
+- Corrected a typo in sshconnect.c.
+
+- Added the -nxadminmode command line switch option. This option is
+  to be used by the the nxmanager to enable the nxssh to print some
+  errors in the NX format. This is a list of the messages printed in
+  the NX style:
+
+  NX> 204 Authentication failed.
+  NX> 207 nxssh: connect to address %s port %s: %s
+  NX> 209 Remote host identification has changed
+
+- Added a '\n' at the end of message 206 (ssh-userauth2 successfull).
+
+- Added a flush of stdout before exiting in the case of a SSHD auth-
+  entication failure.
+
+nxssh-1.5.0-14
+
+- Inserted debug log specifying where support for NXTransAgent() must
+  be added. Client-side support for memory-to-memory transport is not
+  implemented in nxcomp, yet. This means that communication between
+  nxcomp and nxssh still takes place through a Unix pipe.
+
+nxssh-1.5.0-13
+
+- Changed PF_LOCAL to PF_UNIX in proxy.c.
+
+nxssh-1.5.0-12
+
+- If the transport is gone, avoid sleeping until the NXTransSelect()
+  timeout also in the main client loop.
+
+- Removed the -rpath option from the ld line. Option was used to tem-
+  porarily support clients from the 1.4.0 series. New clients should
+  set the appropriate LD_LIBRARY_PATH at startup, so that nxssh can
+  find the libXcomp library.
+
+nxssh-1.5.0-11
+
+- Function nx_run_client_side_loop() now uses NXTransContinue() so
+  loop is terminated without waiting for NXTransSelect() to go in
+  timeout.
+
+nxssh-1.5.0-10
+
+- Fixed compilation error on older gcc versions.
+
+nxssh-1.5.0-9
+
+- Made channel_input_ieof() and channel_input_oclose() ignore the
+  condition when waiting for the switch command. In the case of un-
+  encrypted connections this prevents the channel to be closed just
+  after the Bye closure, without giving to NX a chance to read the
+  switch command from the standard input.
+
+- Defining TEST in ssh.c will force log level to SYSLOG_LEVEL_DEBUG3.
+
+- Removed the NX_FORCE_* stubs.
+
+nxssh-1.5.0-8
+
+- Started implementation of memory-to-memory communication with the 
+  NX proxy. The appropriate read() and write() calls are replaced
+  with the NX counterparts. Still need to perform the required ini-
+  tialization and replace the calls to select().
+
+- Fixed a bug in connection procedure due to missing parenthesis
+  enclosing a block.
+
+nxssh-1.5.0-7
+
+- This version has NX_FORCE_INTERNAL_SWITCH, NX_FORCE_READING_OPT-
+  IONS, NX_FORCE_LOG_LEVEL_DEBUG and NX_FORCE_OLD_COMMAND_LINE_OPT-
+  IONS undefined, so it should work in a way that is compatible
+  with the old nxssh.
+
+nxssh-1.5.0-6
+
+- The new code comes with a preliminary integration of nxcomp with
+  SSH. It is now possible to create the NX transport by just calling
+  the "switch" command as in the following example:
+
+  NX> 299 Switching connection to: NX options: ...
+
+- Other possible forms for the NX switch command are:
+
+  NX> 299 Switching connection to: NX mode: ...
+
+  NX> 299 Switching connection to: NX mode: ... options: ...
+
+  Or just:
+
+  NX> 299 Switching connection to: NX
+
+  The "mode" parameter is there to provide a way to run both enc-
+  rypted and unencrypted connections. Possible values are "encrypt-
+  ed", "unencrypted" or "default", the latter being an alias for
+  "encrypted". Unfortunately I was not able to test unencrypted
+  connections, so this may or may not work.
+
+- When an appropriate switch command is received, the proxy.c code
+  creates the NX transport layer by calling the NXTransCreate()
+  function. The nxcomp library sets up a socket pair and returns
+  the lower descriptor to SSH. nxcomp will keep monitoring its end,
+  by reading and writing NX-encoded traffic. SSH has to call the
+  NXTransExecute() function as often as it is possible, by letting
+  first NXTransPrepare() combine the sets of NX descriptors with
+  the descriptors that are used inside clientloop.c. A custom
+  NXTransSelect() function is provided to replace the original
+  select(). This function saves the original error code and the
+  number of selected descriptors upon exit, so that we can restore
+  the original values and run the rest of the clientloop unmodified.
+
+- An alternate loop, that just calls in sequence NXTransPrepare(),
+  NXTransSelect() and NXTransExecute() is run in the case of unenc-
+  rypted connections.
+
+- Future versions of the library should provide appropriate methods
+  for passing data to and from the proxy by means of a memcpy(), so
+  that it will be possible to remove the even minimal TCP overhead.
+
+- Note that integration is far from complete. More work is required
+  especially to manage the shutdown cleanly, in a way that gives to
+  SSH a chance to free its resources, and on adding facilities for
+  handling SSH and NX signals in a single function.
+
+- Solved a bug in the nx_run_input_output_loop() functions, called
+  when nxssh is run in "bind" mode on the NX server side. The bug
+  prevented the connection to be terminated when the proxy closed
+  the connection. The old code is left in place, enclosed in the
+  NX_SELECTIVELY_CLOSE_DESCRIPTORS define, so that we can reuse it
+  in future if we need a better control on which descriptors that
+  are kept open when either the proxy or the channel end is failing. 
+
+- When using the internal NX transport nxssh skips the keep-alive
+  messages sent to the remote SSH server, so that the idle timeout
+  is handled by NX.
+
+- This version can be easily crafted to test the new integration.
+  If run in NX client mode, the process will force a dummy switch
+  command, will read the "options" parameters from the directory of
+  the session and will then create the proxy.
+
+  To do that you have to set the following defines:
+
+  NX_FORCE_OLD_COMMAND_LINE_OPTIONS
+  NX_FORCE_LOG_LEVEL_DEBUG
+  NX_FORCE_INTERNAL_SWITCH
+  NX_FORCE_READING_OPTIONS
+
+  This makes possible to test the nxcomp/nxssh integration by using
+  any production 1.4.0 client. To run this version you are required
+  to use nxproxy 1.5.0-4 and nxcomp-1.5.0-8.
+
+- Note that the session log will go to 'sshlog', not to 'session'.
+  This has been fixed in nxcomp by using the "session" option.
+
+nxssh-1.5.0-5
+
+- Added a NX_ADVERTISE_VERSION define. It must be updated with the
+  nxssh version information that is sent to nxcomp when forwarding
+  the SSH connection.
+
+- Added NX_FORCE_OLD_COMMAND_LINE_OPTIONS and NX_FORCE_LOG_LEVEL_-
+  DEBUG defines. If set, nxssh will respectively let the program be
+  compatible with command line options used in the 1.4.0 version
+  and force the log level to debug mode. This is used for testing
+  the 1.5.0 version of the nxssh software with the 1.4.0 nxclient.
+
+- Added a NX_FORCE_INTERNAL_SWITCH to proxy.c. If set, nxssh will
+  force the switch to an in-process proxy, instead of connecting
+  to the process specified in the switch command. This is used for
+  testing the new in-process nxcomp functionalities with the cur-
+  rent versions of nxclient and nxproxy.
+
+nxssh-1.5.0-4
+
+- Created the proxy.h and proxy.c files to separate the NX specific
+  functions from the channels.c sources. The other SSH sources now
+  include the proxy.h file to import the NX definitions.
+
+- Modified Makefile.in to include nx.c in SSHOBJS.
+
+- Corrected few typos. Changed the comments using the '//' syntax.
+
+- Updated the NoMachine copyright to year 2005.
+
+- Temporarily swapped the -S and the -E options to enable compatibi-
+  lity with the 1.4.0 NX clients. See the FIXME in ssh.c.
+
+nxssh-1.5.0-3
+
+- Fixed a small syntax bug to compile on Solaris.
+
+nxssh-1.5.0-2
+
+- Fixed password reading when "-nxauthonly" is enabled. In previous
+  code a password containing white spaces was not accepted.
+
+- Flushing stdout before exiting from "-nxauthonly" mode.
+
+nxssh-1.5.0-1
+
+- Opened the 1.5.0 branch. 
+
+nxssh-1.4.1-4
+
+- Included copyright notice in modified files.
+
+- Option "-C" changed to "-E".
+
+nxssh-1.4.1-3
+
+- Merged code with openssh-3.9p1.
+
+nxssh-1.4.1-2
+
+- Merging code with openssh-3.9p1.
+
+nxssh-1.4.1-1
+
+- Opened the 1.4.1 branch. 
+
+nxssh-1.4.0-20
+
+- On MacOSX 10.3 the gai_strerror() in openbsd-compat is defined as
+  returning a const char * instead of a char *. 
+
+nxssh-1.4.0-19
+
+- The nxssh component has been made compliant with the '$HOME'
+  settings: to identify the home directory of the user, nxssh
+  checks the value of the '$HOME' environment variable. If this
+  is not set, nxssh will use a fallback strategy and query the
+  OS using getpwuid(). 
+
+- Removed the wrong NoMachine copyright notice from all files
+  in the 'nxssh/openbsd-compat' directory: no changes were made
+  to these files by NoMachine. The original copyright notice
+  has been restored. 
+
+nxssh-1.4.0-18
+
+- Removed the use of the in_addr_t typedef to allow compilation on
+  older system that doesn't have it.
+
+nxssh-1.4.0-17
+
+- Made sure that all sockets involved in NX communications get the
+  TCP_NODELAY and IPTOS_LOWDELAY options.
+
+- Fixed a problem in the select call where the first parameter could
+  fail to account the actual number of descriptors to be monitored.
+
+- Added a define for INADDR_NONE when compiling on Solaris.
+
+- Fixed indentation of the code added recently.
+
+nxssh-1.4.0-16
+
+- Changed "NX> 209" code. This will allow nxclient to correctly
+  add the host key.
+
+- Added -S option. This is used to specify that nxssh must
+  ignore any configuration file.
+
+nxssh-1.4.0-15
+
+- Modified nx_dump_buffer() and nx_dump_string() to log as debug.
+
+nxssh-1.4.0-14
+
+- Fixed a memory error in the read from the remote channel.
+
+nxssh-1.4.0-13
+
+- Optimized the I/O loop run on the NX server side.
+
+- Recategorized most of the logs as debug().
+
+nxssh-1.4.0-12
+
+- This version has been tested with both client and server. The
+  loop handling the I/O at the NX server side still needs to be
+  optimized.
+
+- Added the in and out parameters to the switch command. This is
+  used to let the NX server side to specify to which inherited
+  descriptors the proxy I/O has to be redirected.
+
+  Example:
+
+  NX> 299 Switching connection to: localhost:3142 in: 10 out: 11
+
+nxssh-1.4.0-11
+
+- Removed code used for simulating the new forwarding function-
+  ality without client and server support.
+
+nxssh-1.4.0-10
+
+- Solved a compilation issue on old GCC version 2.96.
+
+nxssh-1.4.0-9
+
+- Improved parsing by using sscanf(). 
+
+- Code cleanup. Removed unused code from ssh.h and ssh.c.
+
+- Removed logging to the external file. All the log output now
+  is printed to the standard error.
+
+nxssh-1.4.0-8
+
+- Implemented authentication of the forwarder to the listening
+  proxy. If a session cookie is required, the forwarder must
+  provide the cookie upon connection. The cookie can be speci-
+  fied at the time the switch command is issued on the standard
+  input as in:
+
+  NX> 299 Switching connection to: host:port cookie: string
+
+  An authentication phase at the time the forwarder connects
+  to the NX client side is strongly suggested because it is usu-
+  ally this side that sends the authorization cookie. Without
+  such a forwarder authentication, the local peer would reveal
+  the cookie to the first process connecting to the port.
+
+- If no cookie is specified in the switch command, the forward-
+  er will skip the authentication phase. This will work as long
+  as no session cookie was mandated by the server, for example
+  when programs are started on the command line.
+
+- The implementation required appropriate changes to session
+  negotiation in nxcomp. This version requires nxcomp-1.4.0-10.
+
+nxssh-1.4.0-7
+
+- Implemented forwarding of proxy connections on the NX server
+  side. Parsing of the control command has been again tested by
+  simulating a read because the functionality is not supported
+  in the current NX server.
+
+nxssh-1.4.0-6
+
+- Added a -B option. This option is used to specify that nxssh
+  must forward the traffic to a proxy connection.
+
+  There are two ways nxssh can operate when the -B option is
+  provided:
+
+  . When a host is specified, nxssh will monitor the channel
+    traffic until the command is read. It will then remove the
+    command and switch the channel descriptors to forward the
+    proxy connection. This is intended for NX clients or for
+    NX servers connecting to remote nodes.
+
+  . If no remote host is specified, nxssh will wait for the
+    command on its standard input without ever connecting to
+    a remote host. This is intended for NX servers.
+
+- The new option uses getopt(). The other NX options should be
+  migrated accordingly.
+
+- Removed the NoMachine copyright from files that were not modi-
+  fied. Now the copyright correctly refers to NXSSH.
+
+- Converted back to UNIX format all files that were supposedly
+  saved in DOS format by mistake.
+
+nxssh-1.4.0-5
+
+- Completed the implementation of forwarding of proxy connections
+  on the NX client side. Parsing of the control command has been
+  tested by simulating a read as the new functionality is not sup-
+  ported in the current version of client.
+
+- This version requires modifications occurred in nxcomp-1.4.0-9.
+  The previous nxcomp versions fail to negotiate the cookie auth-
+  entication.
+ 
+nxssh-1.4.0-4
+
+- Added functions needed to check the switch command issued by the
+  local party. When this command is received it is removed from the
+  stream, a TCP connection to the host and port occurs and the input
+  and output descriptors are redirected to the listening proxy.
+
+  The command must follow the following template:
+
+  NX> 299 Switching connection to: host:port
+
+  The process never tries to parse or handle the content of the proxy
+  traffic. Authentication to the remote proxy is executed as if the
+  communication between proxies happened through a direct connection.
+
+- At the time the nxssh project was added to the tree, the NoMachine
+  copyright was added to every file, even to files that were never
+  modified. This was an unpleasant human error. The NoMachine copy-
+  right will be removed in one of the next releases. We apologize
+  for the inconvenience.
+
+nxssh-1.4.0-3
+
+- Adding detection of channel switch command from client to bind
+  the standard input and output to a running proxy. Added plenty of
+  logs in the attempt of finding out which is the best place to put
+  the changes. The line opening the log file is in ssh.c. In this
+  version it will open '/dev/null'.
+
+- Removed old and not important comments in Polish.
+
+- Removed obsolete function process_nx().
+
+nxssh-1.4.0-2
+
+- Removed some debug messages. 
+
+nxssh-1.4.0-1
+
+- Opened the 1.4.0 branch.
+
+nxssh-1.3.2-3
+
+  - Changed style of new messages according to nxserver messages.
+
+nxssh-1.3.2-2
+
+  - Changed style of new messages.
+
+nxssh-1.3.2-1
+
+- Fixed problem with the requested authentication methods. Now if
+  nxssh is run by nxserver or nxclient only the "pubkey authentication"
+  method will be used.
+
+  Alternatively if the option:
+
+    -o 'PubkeyAuthentication no'
+
+  is add at the nxssh command line it uses only: "keyboard interactive"
+  or "password" depending on how the remote sshd server is configured.
+
+  In this way is more clear if the authentication is failing (or succe-
+  eded) because of a wrong public key authentication or a wrong pass-
+  word, and we can be certain that we don't use other authentication
+  means.
+
+- Modified the output nxssh messages. The new output looks like:
+
+  NX> 203 NXSSH running with pid '31882'.
+  NX> 200 Connected to address 127.0.0.1 on port 22.
+  NX> 202 Authenticating user 'nx'.
+  NX> 208 Using auth method: publickey.
+
+  at the moment the message 200 is printed, not only the host name was
+  resolved, but also the TCP connection was accepted by the remote ser-
+  ver. The message 202 is printed after the "key exchange" and just a
+  step before "authenticate user", this meas also that the connection
+  was accepted by a sshd. The message 208 is printed when "publickey"
+  authentication is enabled and accepted as authentication method by
+  the remote sshd.
+
+- Opened the 1.3.2 development branch.
+
+nxssh-1.3.1-1
+
+- Added CHANGELOG file.
+
+- Opened the 1.3.1 branch.
+

@@ -1,0 +1,37 @@
+#!/bin/bash
+
+#set -x
+
+NX_COOKIE=123efa980d2cba234ef6f73deac810ff
+
+NX_PORT=9
+
+XAUTH=`which xauth`
+
+${XAUTH} -f /.Xauthority add ${HOSTNAME}/unix:${NX_PORT} MIT-MAGIC-COOKIE-1 ${NX_COOKIE}
+${XAUTH} -f /.Xauthority add ${HOSTNAME}:${NX_PORT} MIT-MAGIC-COOKIE-1 ${NX_COOKIE}
+
+chown SYSTEM:root /.Xauthority
+
+PATH=${HOME}/NX/nx-X11/exports/bin:${HOME}/NX/nxcomp:${HOME}/NX/nxcompext:${HOME}/NX/nxaccess:$PATH
+
+DISPLAY=nx/nx,link=lan,cookie=${NX_COOKIE},cache=0:${NX_PORT}
+
+case "$1" in
+  install)
+    cygrunsrv -I "NX Agent" -p ${HOME}/NX/nx-X11/programs/Xserver/nxagent.exe \
+    -a "-nopersistent -keyboard pc105/it -M :9" -2 ${HOME}/.nx/C-${NX_PORT}/session \
+    -i -e "DISPLAY=nx/nx,link=lan,cookie=$NX_COOKIE,errors=${HOME}/errors,cache=0:3" \
+    -e "PATH=${PATH}" -e "NX_HOME=${HOME}/.nx" -e "XAUTHORITY=/.Xauthority"
+    ;;
+  remove)
+    cygrunsrv -R "NX Agent"
+    ;;
+  start)
+    rm -f ${HOME}/.nx/C-${NX_PORT}/session >&1
+    cygrunsrv -S "NX Agent"
+    ;;
+  stop)
+    cygrunsrv -E "NX Agent"
+    ;;
+esac

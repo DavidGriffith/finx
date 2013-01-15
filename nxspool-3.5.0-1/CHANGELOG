@@ -1,0 +1,158 @@
+ChangeLog:
+
+nxspool-3.5.0-1
+
+- Updated copyright to year 2011.
+
+- Opened the 3.5.0 branch based on nxspool-3.4.0-2.
+
+nxspool-3.4.0-2
+
+- Updated copyright to year 2010.
+
+nxspool-3.4.0-1
+
+- Opened the 3.4.0 branch based on nxspool-3.3.0-1.
+
+- Updated copyright to year 2009. 
+
+nxspool-3.3.0-1
+
+- Opened the 3.3.0 branch based on nxspool-3.2.0-1.
+
+nxspool-3.2.0-1
+
+- Opened the 3.2.0 branch based on nxspool-3.1.0-1-GAT1.
+
+nxspool-3.1.0-1-GAT1
+
+- Fixed TR03F02019. The nxspool now works with "authdomain;user" device 
+  uri syntax.
+
+nxspool-3.1.0-1
+
+- Opened the 3.1.0 branch based on nxspool-3.0.0-10.
+
+nxspool-3.0.0-10
+
+- Merged code with Samba 3.0.26a.
+
+nxspool-3.0.0-9
+
+- Included 'source/popt' directory from samba 3.0.24 sources to allow
+  compilation on Mac OS X.
+
+nxspool-3.0.0-8
+
+- Fixed TR07E01809. String parsing functions are fixed to handle empty
+  variables.
+
+nxspool-3.0.0-7
+
+- Fixed segmentation fault in nxspool.
+
+nxspool-3.0.0-6
+
+- Changed the copyright attribution from Medialogic to NoMachine.
+
+nxspool-3.0.0-5
+
+- Added sessionReq field to SMBCCTX structure that allow to change
+  protocol use to connect. Required by nxusmb.
+
+- Added port field in SMBCCTX structure that allow to change default
+  ports while connections.
+
+- Changed Makefiles to produce libsmbclient.
+
+- Marged code with Samba 3.0.24.
+
+- Separated original and modified files into '.SMB.original' and
+  '.NX.original'.
+
+nxspool-3.0.0-4
+
+- Changed the LICENSE file to state that the software is only made
+  available under the version 2 of the GPL.
+
+- Added file COPYING.
+
+nxspool-3.0.0-3
+
+- Changed Makefiles to produce 'nxspool' binary instead of 'smbspool'.
+
+- Updated the copyright notices to year 2007.
+
+nxspool-3.0.0-2
+
+- Fixed TR01E01602. Initializing 'workgroup' variable to avoid seg
+  faults.
+
+nxspool-3.0.0-1
+
+- Opened the 3.0.0 branch based on nxspool-2.1.0-1
+
+- Removed old debug messages.
+
+nxspool-2.1.0-1
+
+- Opened the 2.1.0 branch based on 2.0.0-4.
+
+nxspool-2.0.0-4
+
+- Disabled development debug.
+
+nxspool-2.0.0-3
+
+- Changed DEVICE_URI specification to contain information about
+  protocol. Example:
+  nx://[username:password@]server:port/protocol/printer
+  Where 'protocol' can be 'smb' (default one used also when protocol
+  is not specified) or 'cifs'. According to this settings right 
+  connection headers are set.
+
+nxspool-2.0.0-2
+
+- Updated the NoMachine copyright notices.
+
+nxspool-2.0.0-1
+
+- Opened the 2.0.0 branch based on the 1.6.0-2. 
+
+nxspool-1.6.0-2
+
+- Fixed a problem with printing on some systems by taking a printer uri
+  from DEVICE_URI env variable first. This will work with newest CUPS
+  server.
+
+- Added a lot of debug output to better understand a recent printing
+  problems.
+
+nxspool-1.6.0-1
+
+- Opened the 1.6.0 branch based on the 1.6.0-1.
+
+nxspool-1.5.0-1
+
+- Opened the 1.5.0 branch. 
+
+nxspool-1.4.1-1
+
+- Opened the 1.4.1 branch.
+
+nxspool-1.4.0-4
+
+- Removing dependencies to libpopt.
+
+nxspool-1.4.0-3
+
+- Reducing archive size.
+
+nxspool-1.4.0-2
+
+- Whole samba tree included.
+
+nxspool-1.4.0-1
+
+- Patch to smbspool to allow connections to different
+  ports then 139. 

@@ -1,0 +1,93 @@
+/**************************************************************************/
+/*                                                                        */
+/* Copyright (c) 2001, 2011 NoMachine, http://www.nomachine.com/.         */
+/*                                                                        */
+/* NX-X11, NX protocol compression and NX extensions to this software     */
+/* are copyright of NoMachine. Redistribution and use of the present      */
+/* software is allowed according to terms specified in the file LICENSE   */
+/* which comes in the source distribution.                                */
+/*                                                                        */
+/* Check http://www.nomachine.com/licensing.html for applicability.       */
+/*                                                                        */
+/* NX and NoMachine are trademarks of Medialogic S.p.A.                   */
+/*                                                                        */
+/* All rights reserved.                                                   */
+/*                                                                        */
+/**************************************************************************/
+
+/*
+ * To build XServer for embedded devices by cross-compiler you
+ * need to change path to cross-compiler in files iPAQH3600.cf
+ * and cross.def, or create link with default cross-compiler
+ * path like '/skiff/local/arm-linux/' pointed to your cross-
+ * compiler tools.
+ *
+ * Build XServer Embedded version using:
+ *
+ * 'make World CROSSCOMPILEDIR=/skiff/tools/arm-linux/bin'
+ *
+ * or put the correct path if you have cross-copiler tools in
+ * another place.
+ *
+ * Uncoment one from the following if you want to build XServer
+ * for iPAQ H3600:
+ *
+#define NXiPAQXServer         YES
+ *
+ * or XServer for Zaurus SL5500:
+ *
+#define NXZaurusXServer       YES
+ *
+ * If you build XServer for iPAQ use binary NXipaq, or if you build
+ * XServer for Zaurus use NXfbdev placed in directory programs/Xserver/
+ * your XFree tree after compilation.
+ *
+*/
+
+#define BuildFonts NO
+
+#if defined(LinuxArchitecture) && !defined(NXZaurusXServer) && !defined(NXiPAQXServer)
+
+#include <NX-Linux.def>
+
+#endif /* LinuxArchitecture */
+
+#if defined(cygwinArchitecture) && !defined(NXZaurusXServer) && !defined(NXiPAQXServer)
+
+#include <NX-Cygwin.def>
+
+#endif /* Win32Architecture */
+
+
+#if defined(SunArchitecture) && !defined(NXZaurusXServer) && !defined(NXiPAQXServer)
+
+#include <NX-Sun.def>
+
+#endif /* SunArchitecture */
+
+
+#if defined(FreeBSDArchitecture) && !defined(NXZaurusXServer) && !defined(NXiPAQXServer)
+
+#include <NX-FreeBSD.def>
+
+#endif /* FreeBSDArchitecture */
+
+
+#if defined(DarwinArchitecture) && !defined(NXZaurusXServer) && !defined(NXiPAQXServer)
+ 
+#include <NX-Darwin.def>
+ 
+#endif /* DarwinArchitecture */
+
+#if !defined(NXZaurusXServer) && defined(NXiPAQXServer)
+                                                                                                                                              
+#include <NX-iPAQH3600.def>
+                                                                                                                                              
+#endif /* XServer version for iPAQ H3600*/
+                                                                                                                                              
+#if !defined(NXiPAQXServer) && defined(NXZaurusXServer)
+                                                                                                                                              
+#include <NX-ZaurusSL5500.def>
+                                                                                                                                              
+#endif /* XServer version for Zaurus SL5500 */
+

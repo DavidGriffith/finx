@@ -1,0 +1,23 @@
+#!/bin/sh
+
+# This script assumes the following files need to be updated.
+#
+# nx-X11/lib/X11/Imakefile.NX.updated
+# nx-X11/lib/X11/XlibInt.c.NX.updated
+# nx-X11/lib/X11/PutImage.c.NX.updated
+# nx-X11/lib/xtrans/Xtranssock.c.NX.updated
+# nx-X11/lib/xtrans/Xtrans.c.NX.updated
+# nx-X11/programs/Xserver/os/Imakefile.NX.updated
+# nx-X11/programs/Xserver/os/utils.c.NX.updated
+# nx-X11/programs/Xserver/Imakefile.NX.updated
+
+set -x
+ 
+cp -a nx-X11/lib/X11/Imakefile.NX.updated nx-X11/lib/X11/Imakefile
+cp -a nx-X11/lib/X11/XlibInt.c.NX.updated nx-X11/lib/X11/XlibInt.c
+cp -a nx-X11/lib/X11/PutImage.c.NX.updated nx-X11/lib/X11/PutImage.c
+cp -a nx-X11/lib/xtrans/Xtranssock.c.NX.updated nx-X11/lib/xtrans/Xtranssock.c
+cp -a nx-X11/lib/xtrans/Xtrans.c.NX.updated nx-X11/lib/xtrans/Xtrans.c
+cp -a nx-X11/programs/Xserver/os/Imakefile.NX.updated nx-X11/programs/Xserver/os/Imakefile
+cp -a nx-X11/programs/Xserver/os/utils.c.NX.updated nx-X11/programs/Xserver/os/utils.c
+cp -a nx-X11/programs/Xserver/Imakefile.NX.updated nx-X11/programs/Xserver/Imakefile

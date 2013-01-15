@@ -1,0 +1,131 @@
+#!/bin/bash
+
+#/**************************************************************************/
+#/*                                                                        */
+#/* Copyright (c) 2001, 2011 NoMachine, http://www.nomachine.com/.         */
+#/*                                                                        */
+#/* NXSCRIPTS, NX protocol compression and NX extensions to this software  */
+#/* are copyright of NoMachine. Redistribution and use of the present      */
+#/* software is allowed according to terms specified in the file LICENSE   */
+#/* which comes in the source distribution.                                */
+#/*                                                                        */
+#/* Check http://www.nomachine.com/licensing.html for applicability.       */
+#/*                                                                        */
+#/* NX and NoMachine are trademarks of Medialogic S.p.A.                   */
+#/*                                                                        */
+#/* All rights reserved.                                                   */
+#/*                                                                        */
+#/**************************************************************************/
+
+
+#
+# NOTE: This scripts assumes that you have built eveything
+# in your home, under the NX directory and that you either
+# installed NX under /usr or have created your specific
+# installation directories under /usr/NX/${USER}.bin and
+# /usr/NX/${USER}.lib.
+#
+
+#
+# NX version base.
+#
+
+NX_VERSION=1.3.2
+
+#
+# NX libraries versions.
+#
+
+NX_X11_VERSION=1.3.2-5
+NXCOMP_VERSION=1.3.2-2
+NXCOMPEXT_VERSION=1.3.2-5
+
+#
+# NX programs versions.
+#
+
+NXPROXY_VERSION=1.3.2-1
+NXAGENT_VERSION=1.3.2-17
+NXDESKTOP_VERSION=1.3.2-10
+NXVIEWER_VERSION=1.3.2-3
+
+#
+# Look for the user's directories.
+#
+
+NX_USER=${USER}
+
+if test -d "/usr/NX/${NX_USER}.bin" ; then
+    NX_BINS="/usr/NX/${NX_USER}.bin"
+else
+    NX_BINS="/usr/NX/bin"
+fi
+
+if test -d "/usr/NX/${NX_USER}.lib" ; then
+    NX_LIBS="/usr/NX/${NX_USER}.lib"
+else
+    NX_LIBS="/usr/NX/lib"
+fi
+
+#
+# Ask for confirmation.
+#
+
+echo -ne "Copying NX binaries in '${NX_BINS}' libraries in '${NX_LIBS}'.\n"
+read -p "Please press [Enter] to continue or [Ctrl+C] to abort. "
+
+#
+# Copy files and make up the logical links.
+#
+
+cd ${NX_LIBS}
+
+/bin/cp ~/NX/nx-X11/lib/X11/libX11.so.6.2 libX11.so.6.2-${NX_X11_VERSION}
+
+/bin/ln -nfs libX11.so.6.2 libX11.so
+/bin/ln -nfs libX11.so.6.2 libX11.so.6
+/bin/ln -nfs libX11.so.6.2-${NX_X11_VERSION} libX11.so.6.2
+
+/bin/cp ~/NX/nx-X11/lib/Xext/libXext.so.6.4 libXext.so.6.4-${NX_X11_VERSION}
+
+/bin/ln -nfs libXext.so.6.4 libXext.so
+/bin/ln -nfs libXext.so.6.4 libXext.so.6
+/bin/ln -nfs libXext.so.6.4-${NX_X11_VERSION} libXext.so.6.4
+
+/bin/cp ~/NX/nx-X11/lib/Xrender/libXrender.so.1.2 libXrender.so.1.2-${NX_X11_VERSION}
+
+/bin/ln -nfs libXrender.so.1.2 libXrender.so
+/bin/ln -nfs libXrender.so.1.2 libXrender.so.1
+/bin/ln -nfs libXrender.so.1.2-${NX_X11_VERSION} libXrender.so.1.2
+
+/bin/cp ~/NX/nxcompext/libXcompext.so.${NX_VERSION} libXcompext.so.${NXCOMPEXT_VERSION}
+
+/bin/ln -nfs libXcompext.so.${NX_VERSION} libXcompext.so
+/bin/ln -nfs libXcompext.so.${NX_VERSION} libXcompext.so.1
+/bin/ln -nfs libXcompext.so.${NXCOMPEXT_VERSION} libXcompext.so.${NX_VERSION}
+
+/bin/cp ~/NX/nxcomp/libXcomp.so.${NX_VERSION} libXcomp.so.${NXCOMP_VERSION}
+
+/bin/ln -nfs libXcomp.so.${NX_VERSION} libXcomp.so
+/bin/ln -nfs libXcomp.so.${NX_VERSION} libXcomp.so.1
+/bin/ln -nfs libXcomp.so.${NXCOMP_VERSION} libXcomp.so.${NX_VERSION}
+
+cd ${NX_BINS}
+
+/bin/cp ~/NX/nx-X11/programs/Xserver/nxagent nxagent-${NXAGENT_VERSION}
+
+/bin/ln -nfs nxagent-${NXAGENT_VERSION} nxagent
+
+/bin/cp ~/NX/nxdesktop/nxdesktop nxdesktop-${NXDESKTOP_VERSION}
+
+/bin/ln -nfs nxdesktop-${NXDESKTOP_VERSION} nxdesktop
+
+/bin/cp ~/NX/nxviewer/nxviewer/nxviewer nxviewer-${NXVIEWER_VERSION}
+
+/bin/ln -nfs nxviewer-${NXVIEWER_VERSION} nxviewer
+
+/bin/cp ~/NX/nxproxy/nxproxy nxproxy-${NXPROXY_VERSION}
+
+/bin/ln -nfs nxproxy-${NXPROXY_VERSION} nxproxy
+
+cd 

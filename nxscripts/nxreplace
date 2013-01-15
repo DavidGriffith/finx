@@ -1,0 +1,85 @@
+#!/bin/sh
+
+#/**************************************************************************/
+#/*                                                                        */
+#/* Copyright (c) 2001, 2011 NoMachine, http://www.nomachine.com/.         */
+#/*                                                                        */
+#/* NXSCRIPTS, NX protocol compression and NX extensions to this software  */
+#/* are copyright of NoMachine. Redistribution and use of the present      */
+#/* software is allowed according to terms specified in the file LICENSE   */
+#/* which comes in the source distribution.                                */
+#/*                                                                        */
+#/* Check http://www.nomachine.com/licensing.html for applicability.       */
+#/*                                                                        */
+#/* NX and NoMachine are trademarks of Medialogic S.p.A.                   */
+#/*                                                                        */
+#/* All rights reserved.                                                   */
+#/*                                                                        */
+#/**************************************************************************/
+
+# lets check if we have at least two strings and
+# one file
+
+if [ -n "$1" ] && [ -n "$2" ] && [ -n "$3" ]; then
+    echo "Replacing '$1' with '$2'";
+else
+    echo "nxreplace: str1 str2 files";
+    echo "  to replace str1 with str2 in files.";
+    exit 2;
+fi
+
+# lets check where is the temp directory
+
+if [ -n "$TEMP" ]; then
+   echo "Using temp dir '$TEMP'";
+else
+   TEMP="/tmp"
+   echo "Using temp dir '$TEMP'";
+fi
+
+# lets check sed presence
+
+SED=`which sed`
+
+if [ -x "$SED" ]; then
+  echo "Using sed '$SED'";
+else
+  echo "Cannot find sed! Please install it or modify your PATH.";
+  exit 2;
+fi
+
+STR1=$1
+STR2=$2
+
+shift
+shift
+
+for i in $*
+do
+  # this is not needed but will prevent sed error
+  if [ -f "$i" ]; then
+    echo "Patching $i";
+    TEMPFILE=`mktemp`
+    if sed "s/$STR1/$STR2/g" $i > $TEMPFILE ; then
+      chmod --reference=$i $TEMPFILE
+      touch --reference=$i $TEMPFILE
+      mv $TEMPFILE $i
+    else
+      echo "Errors occured while patching file $i";
+      rm -f $TEMPFILE
+    fi
+  else
+    echo "Cannot find file $i";
+  fi
+done
+
+echo "Finished.";
+exit 0;
+
+
+
+
+
+
+
+

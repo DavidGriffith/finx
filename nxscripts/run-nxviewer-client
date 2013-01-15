@@ -1,0 +1,115 @@
+#!/bin/sh
+
+#/**************************************************************************/
+#/*                                                                        */
+#/* Copyright (c) 2001, 2011 NoMachine, http://www.nomachine.com/.         */
+#/*                                                                        */
+#/* NXSCRIPTS, NX protocol compression and NX extensions to this software  */
+#/* are copyright of NoMachine. Redistribution and use of the present      */
+#/* software is allowed according to terms specified in the file LICENSE   */
+#/* which comes in the source distribution.                                */
+#/*                                                                        */
+#/* Check http://www.nomachine.com/licensing.html for applicability.       */
+#/*                                                                        */
+#/* NX and NoMachine are trademarks of Medialogic S.p.A.                   */
+#/*                                                                        */
+#/* All rights reserved.                                                   */
+#/*                                                                        */
+#/**************************************************************************/
+
+
+set -x
+
+NX_PORT=11
+export NX_PORT
+
+NX_ROOT=${HOME}/.nx
+export NX_PORT
+
+DISPLAY=localhost:0
+export DISPLAY
+
+# Create directory for agent log.
+
+rm -rf ${NX_ROOT}/C-${NX_PORT} || exit
+mkdir -p ${NX_ROOT}/C-${NX_PORT} || exit
+
+NX_HOST=nx/nx,link=64k,cache=4096k,type=vnc,root=${NX_ROOT},log=errors,stat=stats
+export NX_HOST
+
+NX_DISPLAY=${NX_HOST}:${NX_PORT}
+export NX_DISPLAY
+
+LD_LIBRARY_PATH="${HOME}/NX/nxcomp:${HOME}/NX/nxcompext:${HOME}/NX/nx-X11/exports/lib"
+export LD_LIBRARY_PATH
+
+# Color reduction for 16 and 32 bits display.
+
+# 1 bit, 8 colors.
+# NX_IMAGEMASK=128,63,240,7
+
+# 2 bits, 64 colors.
+# NX_IMAGEMASK=192,7,240,7
+
+# 3 bits, 512 colors.
+# NX_IMAGEMASK=224,5,240,4
+
+# 4 bits, 4096 colors.
+# NX_IMAGEMASK=240,4,240,2
+
+# 5 bits, 32768 colors.
+# NX_IMAGEMASK=248,3,248,2
+
+# 6 bits, 262144 colors.
+# NX_IMAGEMASK=252,2,252,1
+
+# For all supported colors uncomment this.
+# NX_IMAGEMASK=255,0,255,0
+
+# These are special for nxdesktop.
+
+# 4 bits, 4096 colors. Don't apply correction.
+# NX_IMAGEMASK=240,0,240,2
+
+# 3 bits, 512 colors.
+# NX_IMAGEMASK=224,0,240,4
+
+#export NX_IMAGEMASK
+
+#NX_IMAGESPLIT=8,8,8,8
+#NX_IMAGESPLIT=32,32,32,32
+#NX_IMAGESPLIT=40,40,40,40
+#NX_IMAGESPLIT=80,80,80,80
+#NX_IMAGESPLIT=16384,16384,16384,16384
+#export NX_IMAGESPLIT
+
+#NX_IMAGEFRAME=0
+#NX_IMAGEFRAME=1
+#export NX_IMAGEFRAME
+
+# Get current cookie produced by desktop manager.
+
+COOKIE=`xauth list |grep ${HOSTNAME}/unix:0 | grep MIT | cut -f 5 -d ' '`
+
+echo -ne "\nCookie for session is ${COOKIE}\n"
+echo -ne "If you are running your clients as another user\n"
+echo -ne "enable access to this session by running something like \n"
+echo -ne "xauth add ${HOSTNAME}/unix${NX_AGENT} MIT-MAGIC-COOKIE-1 ${COOKIE}\n"
+echo -ne "and be sure you provide the right display number\n"
+
+# Let agent pass the right cookie to real X server.
+
+xauth add ${HOSTNAME}/unix:${NX_PORT} MIT-MAGIC-COOKIE-1 ${COOKIE}
+xauth add ${HOSTNAME}:${NX_PORT} MIT-MAGIC-COOKIE-1 ${COOKIE}
+
+# Run the remote agent.
+
+DISPLAY=${NX_HOST}:${NX_PORT}
+#DISPLAY=localhost:10
+~/NX/nxviewer/nxviewer/nxviewer -passwd ~/.vnc/passwd localhost:1 -encodings "copyrect hextile" 2>>${NX_ROOT}/C-${NX_PORT}/session &
+#~/NX/nxviewer/nxviewer/nxviewer -passwd ~/.vnc/passwd localhost:1 -encodings "copyrect tight" 2>>${NX_ROOT}/C-${NX_PORT}/session &
+
+DISPLAY=localhost:0
+
+echo ""
+

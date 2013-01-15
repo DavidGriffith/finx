@@ -1,0 +1,64 @@
+#!/bin/sh
+
+#/**************************************************************************/
+#/*                                                                        */
+#/* Copyright (c) 2001, 2011 NoMachine, http://www.nomachine.com/.         */
+#/*                                                                        */
+#/* NXSCRIPTS, NX protocol compression and NX extensions to this software  */
+#/* are copyright of NoMachine. Redistribution and use of the present      */
+#/* software is allowed according to terms specified in the file LICENSE   */
+#/* which comes in the source distribution.                                */
+#/*                                                                        */
+#/* Check http://www.nomachine.com/licensing.html for applicability.       */
+#/*                                                                        */
+#/* NX and NoMachine are trademarks of Medialogic S.p.A.                   */
+#/*                                                                        */
+#/* All rights reserved.                                                   */
+#/*                                                                        */
+#/**************************************************************************/
+
+
+set -x
+
+if [ `uname` = "SunOS" ] ; then
+  TAR=gtar
+  CP="cp -r"
+elif [ `uname` = "Darwin" ] ; then
+  TAR=tar
+  CP="cp -RPp"
+else
+  TAR=tar
+  CP="cp -a"
+fi
+
+
+# Copy all files pertaining to nx-X11
+# to a temporary directory.
+
+rm -rf t 2>/dev/null
+mkdir t 2>/dev/null
+
+cd t 2>/dev/null || exit
+
+$CP  ../nx-X11 . || exit
+
+# Clean all in nx-X11 directory.
+
+cd nx-X11 || exit
+
+make distclean
+
+cd ../../t || exit
+
+# Remove files released as separate packages.
+
+rm -rf nx-X11/programs/nxauth              || exit
+
+rm -rf nx-X11/programs/Xserver/hw/nxagent  || exit
+rm -rf nx-X11/programs/Xserver/hw/nxwin    || exit
+rm -rf nx-X11/programs/Xserver/hw/nxkdrive || exit
+
+# Make the tarfile.
+
+$TAR zcvf ../nx-X11-XXX.tar.gz nx-X11
+

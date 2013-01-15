@@ -1,0 +1,200 @@
+ChangeLog:
+
+nxscripts-3.5.0-1
+
+- Opened the 3.5.0 branch based on nxscripts-3.4.0-1.
+
+- Updated copyright to year 2011.
+
+nxscripts-3.4.0-1
+
+- Opened the 3.4.0 branch based on nxscripts-3.3.0-1.
+
+- Changed nxreplace to keep old change times.
+
+- Updated copyright to year 2009.
+
+nxscripts-3.3.0-1
+
+- Opened the 3.3.0 branch based on nxscripts-3.2.0-1.
+
+nxscripts-3.2.0-1
+
+- Opened the 3.2.0 branch based on nxscripts-3.1.0-1.
+
+nxscripts-3.1.0-1
+
+- Opened the 3.1.0 branch based on nxscripts-3.0.0-8.
+
+nxscripts-3.0.0-8
+
+- Modified tar-nxclient script by updating the package for Windows.
+
+nxscripts-3.0.0-7
+
+- Added scripts run-nxagent-shadow, tar-nxkill, tar-nxuexec.
+
+- Fixed run-nxagent script: added nxcompshad dir to the library path.
+
+- Removed tar-nxshadow script.
+
+nxscripts-3.0.0-6
+
+- Added scripts run-nxagent-windows and run-nxproxy-connect.
+
+nxscripts-3.0.0-5
+
+- Fixed an error in nxreplace.
+
+- Added script tar-nxshadow.
+
+nxscripts-3.0.0-4
+
+- Changed the LICENSE file to state that the software is only made
+  available under the version 2 of the GPL.
+
+- Added file COPYING.
+
+- Small changes to nxreplace to check exit value of sed.
+
+- Addedd nxshadow library to LD_LIBRARY_PATH in run-nxagent.
+
+nxscripts-3.0.0-3
+
+- Imported changes up to nxscripts-2.1.0-4.
+
+- Added the tar-nxservice script.
+
+- The tar-nxclient script now correctly rename the tar package using
+  also the CHANGELOG version.
+
+- Reviewed the tar-nxclient script to fetch the nxclient version from
+  the nxclient/VERSION file and consequently update the package.
+
+nxscripts-3.0.0-2
+
+- Added the nxagent-service script for running nxagent as NT service
+  by mean of Cygwin utilities.
+
+nxscripts-3.0.0-1
+
+- Opened the 3.0.0 branch based on nxscripts-2.0.0-2.
+
+nxscripts-2.0.0-2
+
+- Reviewed run-nxproxy, run-nxagent, run-nxviewer, run-nxdesktop.
+
+nxscripts-2.0.0-1
+
+- Opened the 2.0.0 branch based on the 1.5.0-12.
+
+nxscripts-1.5.0-12
+
+- Modified scripts running agents in order to work in different con-
+  figurations. The modified scripts are:run-nxagent,run-nxagent-full,
+  run-nxagent-client,run-nxagent-server,run-nxproxy,run-nxdesktop,
+  run-nxviewer and run-nxagent-nxfs.The new scripts have been tested
+  in NX X11 session.
+
+nxscripts-1.5.0-11
+
+- Added the run-nxagent-solaris script. The script has some parame-
+  ters hard-coded, so that it can run the components on a specific
+  machine and it is just for internal use.
+
+nxscripts-1.5.0-10
+
+- Modified the run-nxagent and run-nxproxy scripts to work with the
+  fake X cookie authentication. The same changes should be introdu-
+  ced in scripts dealing with the other agents.
+
+nxscripts-1.5.0-9
+
+- Added the tar-nxsensor script.
+
+- Added the (commented) lines required to run nxagent with the newer
+  versions of Valgrind.
+
+nxscripts-1.5.0-8
+
+- Updated run-nxagent and run-nxproxy to work with newest versions.
+
+nxscripts-1.5.0-7
+
+- Added the new nxreplace script. It is a simple script that is used
+  to replace all the occurences of one string with another in a list
+  of files.
+
+  Some examples include:
+
+  # nxreplace str1 str2 *.cpp
+  # nxreplace str1 str2 Main.cpp Proxy.cpp
+
+nxscripts-1.5.0-6
+
+- New tar-nxauth-org script.
+
+nxscripts-1.5.0-5
+
+- Fixed a bug in tar-nx-X11-org script.
+
+nxscripts-1.5.0-4
+
+- New tar-nx-X11-org-updated script.
+
+nxscripts-1.5.0-3
+
+- New tar-nx-X11-org and tar-nxwin-org scripts.
+
+nxscripts-1.5.0-2
+
+- Changed tar-nxclient scripts to remove the old temporary directory
+  before copying the project files.
+
+nxscripts-1.5.0-1
+
+- Opened 1.5.0 branch.
+
+nxscripts-1.4.1-2
+
+- Imported changes from 1.4.0-3-DAR1:
+
+- Modified tar-* scripts in order to define an appropriate
+  CP definition working on Darwin.
+
+nxscripts-1.4.1-1
+
+- Opened 1.4.1 branch.
+
+- New tar-nxspool script.
+
+nxscripts-1.4.0-3
+
+- Updated the run-nxagent and run-nxproxy scripts to handle the
+  new parameters used to interchangeably specify the proxy side
+  that is initiating the connection.
+
+- Added the run-nxproxy-reversed to test reversed connections
+  from the NX server side down to the client.
+
+- Note that only the run-nxproxy, run-nxagent and run-nxproxy-
+  reversed have been tested in this release. Others might work
+  with slight changes.
+
+nxscripts-1.4.0-2
+
+- Added tar-nxcompsh script.
+
+nxscripts-1.4.0-1
+
+- Added tar-nxkdrive and tar-nxdarwin scripts.
+
+- Opened the 1.4.0 branch.
+
+nxscripts-1.3.2-2
+
+- Support for Solaris in tar-nx* scripts.
+
+nxscripts-1.3.2-1
+
+- Opened the 1.3.2 branch.

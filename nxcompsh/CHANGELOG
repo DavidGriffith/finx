@@ -1,0 +1,111 @@
+ChangeLog:
+
+nxcompsh-3.5.0-1
+
+- Opened the 3.5.0 branch based on nxcompsh-3.4.0-2.
+
+- Updated copyright to year 2011.
+
+nxcompsh-3.4.0-2
+
+- Updated copyright to year 2010.
+
+nxcompsh-3.4.0-1
+
+- Opened the 3.4.0 branch based on nxcompsh-3.3.0-1.
+
+- Updated copyright to year 2009.
+
+nxcompsh-3.3.0-1
+
+- Opened the 3.3.0 branch based on nxcompsh-3.2.0-1.
+
+nxcompsh-3.2.0-1
+
+- Opened the 3.2.0 branch based on nxcompsh-3.1.0-1.
+
+nxcompsh-3.1.0-1
+
+- Opened the 3.1.0 branch based on nxcompsh-3.0.0-7.
+
+nxcompsh-3.0.0-7
+
+- On Cygwin, in the case of an error, try again to fork() after a
+  second, for a maximum of 30 times. This seems to constitute a
+  valid workaround to the intermittent fork() failures observed on
+  Windows.
+  
+- Removed the unused -lpng, -ljpeg, -lz and -lcygipc dependencies.
+
+nxcompsh-3.0.0-6
+
+- Updated the NoMachine copyright notice.
+
+nxcompsh-3.0.0-5
+
+- Changed the copyright attribution from Medialogic to NoMachine.
+
+nxcompsh-3.0.0-4
+
+- Changed the LICENSE file to state that the software is only made
+  available under the version 2 of the GPL.
+
+- Added file COPYING.
+
+nxcompsh-3.0.0-3
+
+- Updated the file VERSION.
+
+- Updated copyright notices to the current year.
+
+nxcompsh-3.0.0-2
+
+- Changed configure scripts to build some libraries only in the Cygwin
+  environment.
+
+nxcompsh-3.0.0-1
+
+- Opened the 3.0.0 branch based on 2.1.0-2.
+
+nxcompsh-2.1.0-2
+
+- Changed configure script to build library with -fPIC option.
+
+nxcompsh-2.1.0-1
+
+- Opened the 2.1.0 branch based on 2.0.0-5.
+
+nxcompsh-2.0.0-5
+
+- Updated copyright to year 2006.
+
+nxcompsh-2.0.0-4
+
+- Removed all the calls to rindex function to make it POSIX compliant.
+  Solving compilation problem on Solaris.
+
+nxcompsh-2.0.0-3
+
+- Added includes needed for compilation on older systems.
+
+nxcompsh-2.0.0-2
+
+- Modified Makefile.in to produce dll library on Cygwin.
+
+nxcompsh-2.0.0-1
+
+- Opened 2.0.0 branch based on 1.5.0-3 version.
+
+nxcompsh-1.5.0-3
+
+- Given a fresh start to libXcompsh library development. The library
+  contains functions that should better end in nxcomp. For the moment
+  I don't want to clutter nxcomp any further.
+
+- A test-nxcompsh program is included, time to time executing various
+  tests, based on the functionalities being under development.
+
+- Modified the configure.in. Unfortunately the autoconf tools coming
+  with Fedora Core 3 have been changed in a way that are now incompa-
+  tible with our configure.in, so I'll have to produce the configure
+  script on an older version. Niceties of Linux development.

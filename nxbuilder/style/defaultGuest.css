@@ -1,0 +1,166 @@
+
+.bgHeaderTableGuest
+{
+ background-color:#ece9d8;
+ border: 1px solid #919B9C;
+ border-bottom: 0px;
+}
+
+/*style="min-width:900px; border:1px solid <?=$borderGrey?>; border-top:0px solid black;*/
+.row1Guest
+{
+ background: #F7F7F7;
+ border:1px solid #919B9D; 
+ border-top:0px solid black;
+}
+.row2Guest
+{
+ background: #EDEDED; 
+ border:1px solid #919B9D; 
+ border-top:0px solid black;
+}
+
+
+
+.border_topGuest
+{
+ border-top: 0px solid #919B9C;
+}
+.border_rightGuest
+{
+ border-right:0px solid #919B9D;
+}
+
+.border_bottomGuest
+{
+ border-bottom: 0px solid #919B9C;
+}
+
+.border_leftGuest
+{
+ border-left: 0px solid #919B9C;
+}
+
+.borderAllGuest
+{
+ border: 0px solid #919B9D;
+}
+.bgDivServerGuest
+{
+ background:#ECE9D8;
+ border-bottom:1px solid #919B9D;
+}
+
+
+
+.bgGuest
+{
+ background-color: #ECE9D8;
+}
+
+.txtHeaderTableGuest
+{
+ text-decoration : none;
+ color: #716F64;
+ font-family: verdana,arial,helvetica,sans-serif;
+ font-size: 9px;
+ font-weight: bold;
+}
+
+.bgMiniBarGuest
+{
+ border: 0px solid #919B9D; 
+ background-color: #ECE9D8;
+ margin-top:20px;
+ 
+}
+.bgHedearServerGuest
+{
+ border: 1px solid #919B9D; 
+ background-color: #ECE9D8;
+ margin-top:20px;
+ 
+}
+
+.messageGuest
+{
+ border:0px solid #919B9D; 
+ width:85%;
+ padding:0px; 
+ margin:0 auto; 
+ background-color:#fff;
+}
+
+
+.bgBoxGuestGuest
+{
+ background-color: #F8F6E9;
+}
+
+
+
+.bgBoxInternalGuest
+{
+ background-color: #F8F6E9;
+ border: 1px solid #919B9D; 
+}
+
+/*.bgBoxInternal
+{
+ background-color: #ffffff;
+ border: 0px solid #919B9D; 
+}*/
+
+.txtLabelGuest
+{
+ text-decoration : none;
+ color: #000000;
+ font-family: verdana,arial,helvetica,sans-serif;
+ font-size: 9px;
+ font-weight: normal; 
+}
+
+.txtValueGuest
+{
+ text-decoration : none;
+ color: #000000;
+ font-family: verdana,arial,helvetica,sans-serif;
+ font-size: 9px;
+ font-weight: normal; 
+}
+
+
+.txtLabel
+{
+ text-decoration : none;
+ color: #000000;
+ font-family: verdana,arial,helvetica,sans-serif;
+ font-size: 9px;
+ font-weight: normal; 
+}
+
+.txtValue
+{
+ text-decoration : none;
+ color: #000000;
+ font-family: verdana,arial,helvetica,sans-serif;
+ font-size: 9px;
+ font-weight: normal; 
+}
+
+
+
+#border_boxGuest
+{
+border-top:0px solid #919B9C; 
+width:99%;
+padding-bottom:15px;
+background: #F8F6E9;
+}
+#border_box_previewGuest
+{
+border:1px solid #919B9C; 
+width:838px;
+padding-bottom:15px;
+background: /*#F8F6E9*/#ffffff;
+}

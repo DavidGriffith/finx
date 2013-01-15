@@ -1,0 +1,124 @@
+#!/bin/sh
+
+#/**************************************************************************/
+#/*                                                                        */
+#/* Copyright (c) 2001, 2011 NoMachine, http://www.nomachine.com/.         */
+#/*                                                                        */
+#/* NXSCRIPTS, NX protocol compression and NX extensions to this software  */
+#/* are copyright of NoMachine. Redistribution and use of the present      */
+#/* software is allowed according to terms specified in the file LICENSE   */
+#/* which comes in the source distribution.                                */
+#/*                                                                        */
+#/* Check http://www.nomachine.com/licensing.html for applicability.       */
+#/*                                                                        */
+#/* NX and NoMachine are trademarks of Medialogic S.p.A.                   */
+#/*                                                                        */
+#/* All rights reserved.                                                   */
+#/*                                                                        */
+#/**************************************************************************/
+
+
+PROJECT=nxclient
+TEMPORARY=t
+SUFFIX=XXX
+
+if [ `uname` = "SunOS" ] ; then
+  TAR=gtar
+  CP="cp -r"
+elif [ `uname` = "Darwin" ] ; then
+  TAR=tar
+  CP="cp -RPp"
+else
+  TAR=tar
+  CP="cp -a"
+fi
+
+if [ ! -d ${PROJECT} ] ; then
+  echo -e "Can't find './${PROJECT}' project directory.\n"
+  exit 1
+fi
+
+# Copy all files pertaining to project
+# to a temporary directory.
+
+if [ -d ${TEMPORARY} ] ; then
+  echo -ne "Removing temporary directory '${TEMPORARY}'...\n"
+  rm -rf ${TEMPORARY} 2>/dev/null
+fi
+
+mkdir ${TEMPORARY} 2>/dev/null
+
+echo -ne "Copying '${PROJECT}' project files to '${TEMPORARY}'...\n"
+
+cd ${TEMPORARY} 2>/dev/null || exit 1
+
+$CP ../${PROJECT} . || exit 1
+
+# Clean all in project directory.
+
+cd ${PROJECT} || exit 1
+
+make distclean 2> /dev/null 1> /dev/null || \
+  if [ 1 ] ; then
+    echo -ne "Distclean failed. Check you have successfully built\n"
+    echo -e "the project and have such target in your makefile.\n"
+    exit 1
+  fi
+
+# Retrieve and update the project version
+
+if [ -f VERSION ]; then
+    echo -ne "Going to retrieve the project version...\n"
+
+    version=`head VERSION` || exit 1
+
+    echo -ne "The project version is ${version}...\n"
+
+    echo -ne "Going to update the ${PROJECT} files to retrieved version...\n"
+    
+    sed -e 's|NXCLIENT_VERSION=.*$|NXCLIENT_VERSION=\\\"'${version}'\\\"|g' nxclient.pro > nxclient.pro.sed || exit 1
+    mv nxclient.pro.sed nxclient.pro || exit 1
+
+    sed -e 's|\#define\ AppVersion .*$|\#define AppVersion '\"${version}\"'\r|g' nxclient.iss > nxclient.iss.sed || exit 1
+    mv nxclient.iss.sed nxclient.iss || exit 1
+
+    sed -e 's|const char \*NX_CLIENT_VERSION =.*$|const char *NX_CLIENT_VERSION = \"'${version}'\";|g' NXClientVersion.h > NXClientVersion.h.sed || exit 1
+    mv NXClientVersion.h.sed NXClientVersion.h || exit 1
+
+else
+    echo -ne "VERSION file doesn't exist, not using a project version.\n"
+fi
+
+# Selecting the name of package
+
+if [ -f CHANGELOG ]; then
+    length=`expr length $PROJECT + 2`
+
+    echo -ne "Going to select the tar file name based on the project version...\n"
+
+    PATCH=`head -3 CHANGELOG | tail -1 | cut -b ${length}-`
+
+    if [ -z ${PATCH} ]; then
+        exit 1
+    fi
+
+    if [ -f ../../${PROJECT}-${PATCH}.tar.gz ]; then
+        echo -ne "The tar file ${PROJECT}-${PATCH}.tar.gz already exists. Using the default name.\n"
+    else
+        SUFFIX=$PATCH
+    fi
+fi
+
+# Make the tarfile.
+
+cd ..
+
+if [ -f ../${PROJECT}-${SUFFIX}.tar.gz ]; then
+    echo -e "The tar file ${PROJECT}-${SUFFIX}.tar.gz already exists. Please remove it.\n"
+    exit 1
+fi
+
+echo -e "Making '${PROJECT}-${SUFFIX}.tar.gz' file from '${TEMPORARY}'...\n"
+
+$TAR zcf ../${PROJECT}-${SUFFIX}.tar.gz ${PROJECT}
+

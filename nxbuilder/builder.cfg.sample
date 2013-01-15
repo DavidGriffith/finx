@@ -1,0 +1,27 @@
+<?
+  //
+  // Specify the connection parameters for accessing the MySQL DB.
+  //
+  $dbHost = "";
+  $dbName = "";
+  $dbAdminUsername = "";
+  $dbAdminPasswd = "";
+
+  $dbconn = mysql_connect($dbHost, $dbAdminUsername, $dbAdminPasswd);
+
+  @mysql_select_db($dbName) or die("Cannot connect to DB"); 
+ 
+ 
+  //
+  // Specify the absolute path of web application.
+  //
+    
+  $absPath="";
+  
+  //
+  // Specify the absolute url of web application.
+  // 
+    
+  $absHost=""; 
+ 
+  ?>

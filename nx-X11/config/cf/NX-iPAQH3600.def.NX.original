@@ -1,0 +1,17 @@
+
+#define KDriveXServer 		   YES
+#define XiPAQH3500Server 	   YES
+#define BuildServersOnly           YES
+#define NXEmbeddedXServer	   YES
+
+#define KdriveServerExtraDefines -DITSY -DMAXSCREENS=1
+#define TinyXServer                YES
+#define CrossCompiling             YES
+#define TouchScreen                YES
+#define ItsyCompilerBug            YES
+#undef BuildRandR
+#define BuildRandR                 YES
+#define BuildXInputLib             YES
+#define BuildXTrueType             YES
+#define ServerXdmcpDefines
+#define XipaqServer                YES

@@ -1,0 +1,127 @@
+############################################################################
+#                                                                          #
+#  Copyright (c) 2001, 2011 NoMachine, http://www.nomachine.com/.          #
+#                                                                          #
+#  NXCOMP, NX protocol compression and NX extensions to this software      #
+#  are copyright of NoMachine. Redistribution and use of the present       #
+#  software is allowed according to terms specified in the file LICENSE    #
+#  which comes in the source distribution.                                 #
+#                                                                          #
+#  Check http://www.nomachine.com/licensing.html for applicability.        #
+#                                                                          #
+#  NX and NoMachine are trademarks of Medialogic S.p.A.                    #
+#                                                                          #
+#  All rights reserved.                                                    #
+#                                                                          #
+############################################################################
+
+#
+# Get these values from the configure script. The
+# version printed by the program should be derived
+# from the CHANGELOG. For example we may use the
+# following command:
+#
+# head -n 3 CHANGELOG | grep 'nxcomp-' | cut -d '-' -f 2-3
+#
+
+VERSION=@VERSION@
+LIBVERSION=@LIBVERSION@
+
+#
+# We would really like to enable all warnings, -Wredundant-decls,
+# though, gives a warning caused by pthread.h and unistd.h and
+# GCC 3.4 was changed in a way that it now complains about some
+# of the -W directives we used before (-Wmissing-declarations,
+# -Wnested-externs, -Wstrict-prototypes and -Wmissing-prototypes).
+#
+
+CXX         = @CXX@
+CXXFLAGS    = @CXXFLAGS@ @X_CFLAGS@ @DEFS@ \
+              -Wall -Wpointer-arith
+CXXINCLUDES =
+CXXDEFINES  =
+
+#
+# C programs have their own CFLAGS.
+# 
+
+CC          = @CC@
+CCFLAGS     = @CFLAGS@ @X_CFLAGS@ @DEFS@ \
+              -Wall -Wpointer-arith
+CCINCLUDES  =
+CCDEFINES   =
+
+LDFLAGS     = @LDFLAGS@
+LIBS        = @LIBS@
+
+#
+# Other autoconfigured settings, not used at the moment.
+#
+
+srcdir      = @srcdir@
+prefix      = @prefix@
+exec_prefix = @exec_prefix@
+bindir      = @bindir@
+man1dir     = @mandir@/man1
+VPATH       = @srcdir@
+
+INSTALL         = @INSTALL@
+INSTALL_PROGRAM = @INSTALL_PROGRAM@
+INSTALL_DATA    = @INSTALL_DATA@
+
+#
+# This should be autodetected.
+#
+
+MAKEDEPEND     = @MAKEDEPEND@
+
+.SUFFIXES: .c
+
+.c.o:
+	$(CC) -c $(CCFLAGS) $(CCINCLUDES) $(CCDEFINES) $<
+
+BINARY = nxuexec
+
+all: depend @ALL@
+
+MSRC   =
+
+CSRC   = Script.c					\
+	 Functions.c					\
+	 Suid.c						\
+	 Main.c						
+	
+CXXSRC	=
+
+MOBJ   = $(MSRC:.c=.o)
+COBJ   = $(CSRC:.c=.o)
+CXXOBJ   = $(CXXSRC:.cpp=.o)
+
+$(BINARY):	 $(CXXOBJ) $(COBJ)
+		 $(CC) -o $@ $(LDFLAGS) $(CXXOBJ) $(COBJ) $(LIBS)
+
+depends:	depend.status
+
+depend:		depend.status
+
+depend.status:	
+		if [ -x $(MAKEDEPEND) ] ; then \
+			$(MAKEDEPEND) $(CXXINCLUDES) $(CCINCLUDES) \
+                        $(DEPENDINCLUDES) -f Makefile $(MSRC) $(CSRC) \
+			$(CXXSRC) 2>/dev/null; \
+		fi
+		touch depend.status
+
+install:	install.bin install.man
+
+install.bin:
+
+install.man:
+
+clean:
+		-rm -f *~ *.o *.bak *.orig *.rej st?????? core core.* *.out.* \
+		@ALL@
+
+distclean:	clean
+		-rm -rf autom4te.cache config.status config.log \
+		config.cache depend.status Makefile tags

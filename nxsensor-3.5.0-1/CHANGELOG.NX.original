@@ -1,0 +1,206 @@
+ChangeLog:
+
+nxsensor-3.5.0-1
+
+- Opened the 3.5.0 branch based on the nxsensor-3.4.0-2.
+
+- Updated copyright to year 2011.
+
+- Added compatibility with 3.5.0.
+
+nxsensor-3.4.0-2
+
+- Updated copyright to year 2010.
+
+nxsensor-3.4.0-1
+
+- Opened the 3.4.0 branch based on the nxsensor-3.3.0-1.
+
+- Added compatibility with 3.4.0.
+
+- Updated copyright to year 2009.
+
+nxsensor-3.3.0-1
+
+- Opened the 3.3.0 branch based on nxsensor-3.2.0-1.
+
+- Added compatibility with 3.3.0.
+
+nxsensor-3.2.0-1
+
+- Opened the 3.2.0 branch based on nxsensor-3.1.0-2.
+
+- Added compatibility with 3.2.0.
+
+nxsensor-3.1.0-2
+
+- Added compatibility with 3.1.0. 
+
+nxsensor-3.1.0-1
+
+- Opened the 3.1.0 branch based on the nxsensor-3.0.0-7.
+
+nxsensor-3.0.0-7
+
+- Removed rpath linker directive.
+
+nxsensor-3.0.0-6
+
+- Added compatibility with 2.0.0, 2.1.0 and 3.0.0.
+
+nxsensor-3.0.0-5
+
+- Updated the NoMachine copyright notice.
+
+nxsensor-3.0.0-4
+
+- Changed the copyright attribution from Medialogic to NoMachine.
+
+nxsensor-3.0.0-3
+
+- Changed the LICENSE file to state that the software is only made
+  available under the version 2 of the GPL.
+
+nxsensor-3.0.0-2-WAN2
+
+- Fixed problem with generate complete statistics while using option:
+  '--delay D'.
+
+nxsensor-3.0.0-2-WAN1
+
+- Fixed compilation on older compilers.
+
+nxsensor-3.0.0-2
+
+- Updated the copyright notices to year 2007. 
+
+- Added the '--delay D' option to set monitor delay frequency. If the 
+  '--delay D' option is given, nxsensor will send data to client every 
+  'D' seconds. 
+
+- This update provides fix for TR12D01579. Change linking from 
+  dynamic to static.
+
+- Merged code with gkrellm 2.2.10.
+
+- This update provides fix for TR12D01580. Now nxsensor can bind
+  either IPv4 and IPv6.
+
+nxsensor-3.0.0-1
+
+- Opened the 3.0.0 branch based on the 2.0.0-2.
+
+nxsensor-2.0.0-2
+
+- Updated the NoMachine copyright notices.
+
+nxsensor-2.0.0-1
+
+- Opened the 2.0.0 branch based on the 1.6.0-1.
+
+nxsensor-1.6.0-1
+
+- Opened the 1.6.0 branch based on nxsensor-1.5.0-5.
+
+nxsensor-1.5.0-5
+
+- Added LD_RUN_PATH=/usr/NX/lib to the link procedure to let the pro-
+  gram search the libraries in the NX path first. This is intended
+  to minimize the risk of incompatibilities with other library vers-
+  ions that may be installed in the system.
+
+- Modified the server/Makefile to compile on Solaris. Autodetection
+  of the platform is missing. To build run 'make solaris glib12=1'.
+
+- Added #define u_int32_t unsigned int in server/main.c on Solaris. 
+
+- Modified the server/Makefile to compile using the 'make glib12=1'
+  target on Linux. The Makefile will assume that you have built glib-
+  1.2.8 in the same directory where you are building nxsensor (pos-
+  sibly ~/NX).
+
+nxsensor-1.5.0-4
+
+- Added the --auth option to read an authorization cookie from the
+  provided file. If the --auth option is given, clients will have
+  to match the cookie when connecting.
+
+  This is an example of the connecting string that must be sent by
+  clients:
+
+  NXMANAGER-1.5.0 cookie=6f6133ca309237936ce5eefd6ac0f6f4
+
+- When the authentication cookie is not requested, a string similar
+  to the following is requested:
+
+  NXMANAGER-1.5.0
+
+- Any name containing 'NX' string as the first two letters is OK.
+  The version must be 1.5.0 or a version that is supposed to be
+  compatible.
+
+- By default the /etc/nxsensor.conf, /usr/local/etc/nxsensor.conf,
+  $HOME/.nxsensor.conf files are ignored. Added the --config-files
+  option to enable the original gkrellmd behaviour.
+
+- Extended the diagnostic output printed when program is started
+  with the -V option.
+
+- All diagnostic output is now printed on the standard error.
+
+- Documented the new options in the 'usage' output.
+
+- Fixed a segfault that seems to also affect the original gkrellmd
+  code. Giving the --plog option the plugin_install_log can be NULL. 
+
+nxsensor-1.5.0-3
+
+- Got rid of the remaining unneeded files by selectively picking what
+  is actually built. The package went from 480 to 175 KB.
+
+- Created an additional Makefile in the root directory of the package.
+  This greatly simplifies building the program as it is enough to run
+  the various targets from the nxsensor directory.
+
+- The program is now built in the root, so that it can be run with as
+  ~/NX/nxsensor/nxsensor.
+
+- Created the mandatory 'distclean' make target as an alias of 'make
+  clean' in the 'server' directory.
+
+- Created a fake configure script, for the sake of consistency with
+  the other NX packages. People are lazy. This will surely save at
+  least a Knowledge Base article.
+
+- Building the software requires GTK and GLIB development libraries.
+  At run-time, the software needs the gmodule-2.0, gthread-2.0 and the
+  glib-2.0 library, plus the less problematic pthread and dl.
+
+- The install documentation mentions that on machine where there is no
+  GTK2 it is possible to build using the target 'make glib12=1'. It must
+  be evaluated if such a package would be compatible with distributions
+  including a more recent version of the dependency set.
+
+- It is possible to build a static package by specifying the target
+  'make static'. Building the static package produces warnings about a
+  couple of libraries that are supposed to be present, on the target
+  system, in the same version as the version used to build the program.
+  This apparently makes such a static build of little use. Building
+  the program on a older system should alleviate the problem.
+
+- The stripped dynamic binary is nearly 70 KB, the "static" package is
+  more than 720 KB.
+
+- Added the ../nxsensor.static and core.* files to the 'clean' target,
+  which were not present in the original makefile.
+
+- Renamed the original Changelog as GKRELLMD.
+
+nxsensor-1.5.0-2
+
+- Removed some of the files and directories not required to build and
+  run the daemon.
+
+nxsensor-1.5.0-1
+
+- Opened the 1.5.0 branch based on gkrellm-2.2.5.

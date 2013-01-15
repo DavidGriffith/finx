@@ -1,0 +1,278 @@
+ChangeLog:
+
+nxuexec-3.5.0-3
+
+- Fixed TR10I02625. Cleaning up the environment variables before the
+  call to execve().
+
+nxuexec-3.5.0-2
+
+- Fixed TR08I02575. Security checks on parsed parameters were not
+  tight enough.
+
+nxuexec-3.5.0-1
+
+- Opened the 3.5.0 branch based on nxuexec-3.4.0-2.
+
+- Updated copyright to year 2011. 
+
+nxuexec-3.4.0-2
+
+- Updated copyright to year 2010.
+
+nxuexec-3.4.0-1
+
+- Opened the 3.4.0 branch based on nxuexec-3.3.0-1.
+
+- Updated version number.
+
+- Updated copyright to year 2009. 
+
+nxuexec-3.3.0-1
+
+- Opened the 3.3.0 branch based on nxuexec-3.2.0-1.
+
+nxuexec-3.2.0.1
+
+- Opened the 3.2.0 branch based on nxuexec-3.1.0-1.
+
+nxuexec-3.1.0.1
+
+- Opened the 3.1.0 branch based on nxuexec-3.0.0-10.
+
+nxuexec-3.0.0-10
+
+- Removed outdated file: SPECIFICATION.
+
+nxuexec-3.0.0-9
+
+- Changed the copyright attribution from Medialogic to NoMachine.
+
+nxuexec-3.0.0-8
+
+- Changes to the configure script and Makefile.in in order to remove
+  dependencies from unneeded libraries.
+
+nxuexec-3.0.0-7
+
+- Code cleanup.
+
+- Changes to the linker options to avoid problems with older versions
+  of compiler.
+
+nxuexec-3.0.0-6
+
+- Revisioned file names: CheckScript.c -> Script.c, FunctionsSuid.c 
+  -> Suid.c, NxGetLine.c -> Line.c, Nxuexec.c -> Main.c, Nxuexec.h -> 
+  Main.h, ParseConfig.c -> Parse.c, specification -> SPECIFICATION.
+
+- Changed names for the functions and global variables.
+
+- Replaced boolean type by int.
+
+- Updated CHANGELOG file.
+
+nxuexec-3.0.0-5
+
+- Fixed the compilation warnings.
+
+- Removed not used files and directory.
+
+- Moved files from nxuexec/src directory to the nxuexec directory.
+
+- Added configure, Makefile.in, install-sh files to the package.
+
+nxuexec-3.0.0-4
+
+- Changed the LICENSE file to state that the software is only made
+  available under the version 2 of the GPL.
+
+- Added file COPYING.
+
+nxuexec-3.0.0-3
+
+- Updated copyright notices to the current year. 
+
+nxuexec-3.0.0-2
+
+- Imported changes from nxuexec-2.0.0-5. 
+
+nxuexec-3.0.0-1
+
+- Opened the 3.0.0 branch based on the 2.0.0-4. 
+
+nxuexec-2.0.0-5
+
+- Replacing invocation of 'file' command by internal function to check
+  if target file is a script. This solves the TR07D01453.
+
+nxuexec-2.0.0-4
+
+- Fixed compilation with old gcc problem.
+
+nxuexec-2.0.0-3
+
+- New argument, parent pid, is passed to executed script right after
+  username.
+
+nxuexec-2.0.0-2
+
+- Updated the NoMachine copyright notices.
+
+nxuexec-2.0.0-1
+
+- Opened the 2.0.0 branch based on the 1.6.0-2. 
+
+nxuexec-1.6.0-2
+
+- Now the username of the user who executed nxuexec is passed to the 
+  suided scripts even when they don't require any other parameters.
+
+nxuexec-1.6.0-1
+
+- Opened the 1.6.0 branch based on nxuexec-1.5.0-3.
+
+nxuexec-1.5.0-3
+
+- Updated copyright notice to all files.
+
+nxuexec-1.5.0-2
+
+- Changed the name of configuration file from node.conf to node.cfg.
+
+- Now, nxuexec instead of fork and execute a script and wait for result,
+nxuexec executs just by "exec" function so the process is replaced by
+the executive script. This is needed when nxsessreg.sh script updates
+wtmp/utmp dbs. 
+
+nxuexec-1.5.0-1
+
+- Opened the 1.5.0 branch.
+
+nxuexec-1.4.1-1
+
+- Opened the 1.4.1 branch.
+
+nxuexec-1.4.0-13
+
+- Fixed false error detection when nxuexec hit EOF in STDIN 
+  causing it to abort the task even if there is no error.
+
+nxuexec-1.4.0-12
+
+- Fixed a bug in nxuexec: nxuexec was returning '0' in case
+  the script being executed got killed for some reason. Now
+  nxuexec returns the '14' exit status. 
+
+nxuexec-1.4.0-11
+
+- Changing name from nxuexec-1.4.0-10-BRO1
+
+nxuexec-1.4.0-10-BRO1
+
+- Fix security bug, variable 'progname' now is defined like 
+  'nxuexec' statically. This prevents bug when using strcp 
+  and in basename function when glibc less than 2.2.1.
+
+
+nxuexec-1.4.0-10
+
+- Increased maximum length from 80 to 254 of buffer 
+  where is read output of 'file' command.
+
+nxuexec-1.4.0-9
+
+- Changing name of restricted directory to 
+  scripts/restricted.
+
+nxuexec-1.4.0-8
+
+- Fixing bad name of directory to "restricted".
+
+- Turn off debug.
+
+nxuexec-1.4.0-7
+
+- Change directory for scripts from /usr/NX/scripts
+  to /usr/NX/restricted.
+
+nxuexec-1.4.0-6
+
+- Fixed error with directory checking.
+
+nxuexec-1.4.0-5
+
+- Fix to compile on Solaris where unsetenv() is missing.
+
+nxuexec-1.4.0-4
+
+- Unsetting some dangerous env variables.
+
+nxuexec-1.4.0-3
+
+- Disabling debug message to make nxuxecec more transparent
+
+nxuexec-1.4.0-2
+
+- Username passed to script.
+
+nxuexec-1.4.0-1
+
+- Support for scripts with many arguments.
+
+- Checking for special characters in argv array. 
+
+- Opened the 1.4.0 branch based on nxuexec-1.3.2-1. 
+
+nxuexec-1.3.2-1
+
+- Opened the 1.3.1 branch based on nxuexec-1.3.1-7. 
+
+nxuexec 1.3.1-7
+
+- Change exit code: exit with this same exit code of executing script
+  messages are printing only on stderr 
+
+nxuexec 1.3.1-6
+
+- Add test lenght of (path + script name) - not more then 255
+  details changes in warnigs and errors
+
+nxuexec 1.3.1-5
+
+- Small changes from if (DEBUG) to #ifdef DEBUG
+  changing order of setting executive gid and uid  
+
+nxuexec 1.3.1-4
+
+- Added debug of set/change id/gid approve errors messages, 
+  warnings detail bugfixes integration for Solaris and Linux 
+
+nxuexec 1.3.1-3
+
+- Added check script type added signal handler (based on Lopp.cpp 
+  from nxcomp) looks that works, time for complex test 
+
+nxuexec/nxexec 1.3.1-2
+
+- Get NXSDIR from node.conf (if not defined use default value "/usr/NX/scripts")
+  add strerror() for handling errors
+  preparing functions file for nxexec
+  bufferoverflow tests passed
+  todo: 
+  check script type
+
+nxuexec 1.3.1-1
+
+- First worked version
+  todo: 
+  get NXSDIR from /usr/NX/etc/node.conf
+  add strerror() for handling errors
+  check script type 
+         
+
+
+
+
+ 
+

@@ -1,0 +1,148 @@
+ChangeLog:
+
+nxkill-3.5.0-1
+
+- Opened the 3.5.0 branch based on nxkill-3.4.0-2.
+
+- Updated copyright to year 2011.
+
+nxkill-3.4.0-2
+
+- Updated copyright to year 2010.
+
+nxkill-3.4.0-1
+
+- Opened the 3.4.0 branch based on nxkill-3.3.0-1.
+
+- Updated copyright to year 2009.
+
+nxkill-3.3.0-1
+
+- Opened the 3.3.0 branch based on nxkill-3.2.0-1.
+
+nxkill-3.2.0-1
+
+- Opened the 3.2.0 branch based on nxkill-3.1.0-1.
+
+nxkill-3.1.0-1
+
+- Opened the 3.1.0 branch based on nxkill-3.0.0-4.
+
+nxkill-3.0.0-4
+
+- Updated copyright to year 2007.
+
+nxkill-3.0.0-3
+
+- Changed the copyright attribution from Medialogic to NoMachine.
+
+nxkill-3.0.0-2
+
+- Changed the LICENSE file to state that the software is only made
+  available under the version 2 of the GPL.
+
+- Added file COPYING.
+
+nxkill-3.0.0-1
+
+- Opened the 3.0.0 branch based on 2.1.0-1.
+
+nxkill-2.1.0-1
+
+- Opened the 2.1.0 branch based on 2.0.0-4.
+
+nxkill-2.0.0-4
+
+- Updated copyright to year 2006.
+
+nxkill-2.0.0-3
+
+- Got rid of using getopt library - as there are compilation problems
+  on solaris platform (only the limited set of functions was availa-
+  ble).
+
+nxkill-2.0.0-2
+
+- Added handle option that will let us send Cygwin signals when we
+  know only windows handler for a program. Implements FR12C01251.
+
+nxkill-2.0.0-1
+
+- Opened the 2.0.0 branch based on the 1.6.0-2.
+
+nxkill-1.6.0-2
+
+- New --environment switch to provide information about env variables,
+  finding correct paths for tmp and fonts directories and setting
+  mount points.
+
+nxkill-1.6.0-1
+
+- Opened the 1.6.0 branch based on the version 1.5.0-6.
+
+nxkill-1.5.0-6
+
+- Switched back to getopt_long usage as getopt_long_only is
+  not supported on cygwin.
+
+nxkill-1.5.0-5
+
+- Corrected the format to be compatible with one specified in
+  feature request.
+
+- Added the format line that is printed in this same way as
+  nxserver is printing.
+
+- Replaced getopt_long with getopt_long_only so we don't get the
+  multiple errors when we specify the wrong option.
+
+nxkill-1.5.0-4
+
+- NX Kill is first checking if NX_HOME environment variable
+  is present in the system. If it is it will use it as a base
+  for the session directories searching. If it's not it's trying
+  to get the $HOME/.nx directory. If that directory cannot
+  be found error is reported.
+
+nxkill-1.5.0-3
+
+- NX Kill is now expecting the environment variable NX_HOME to
+  contain the $HOME/.nx directory that is used to find the session
+  directories.
+
+nxkill-1.5.0-2
+
+- Fixed small memory leak when not freeing the memory after session
+  name parsing.
+
+- Implemented '--id' parameter handling for '--list' command.
+  For now we are only showing the pid of nxproxy that we can get
+  from 'session' file.
+
+- Implemented '--id' parameter handling for '--kill' command.
+  We can kill a session only by specifying the session id.
+
+nxkill-1.5.0-1
+
+- Opening release of nxkill.
+
+- Recreated the source directory structure based on nxcomp.
+
+- Implemeneted command line arguments parsing mechanism using the
+  standard getopt_long function.
+
+- Implemented '--list' command that shows all the session directories
+  in .nx directory. We do not yet analyze the contens of session file
+  so it is not very reliable. More development will come.
+
+- Implemented '--help' command that is showing the usage help. Review of
+  the text shown is needed - as I just took the requirements list from
+  the FR.
+
+- Implemented '--version' command that is showing the version of nxkill
+  program.
+
+- Implemented '--kill --pid NUMBER [--signal SIGNAL]' command.
+  It is sending a signal to the pid specified as a parameter. Signal
+  parameter is optional and when is not specified we send SIGTERM.
+  '--id' parameter is not yet implemented.

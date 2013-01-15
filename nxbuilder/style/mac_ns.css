@@ -1,0 +1,152 @@
+/**************************************************************************/
+/*                                                                        */
+/* Copyright (c) 2004, 2007 NoMachine, http://www.nomachine.com.          */
+/*                                                                        */
+/* NXMANAGER, NX protocol compression and NX extensions to this software  */
+/* are copyright of NoMachine. Redistribution and use of the present      */
+/* software is allowed according to terms specified in the file LICENSE   */
+/* which comes in the source distribution.                                */
+/*                                                                        */
+/* Check http://www.nomachine.com/licensing.html for applicability.       */
+/*                                                                        */
+/* NX and NoMachine are trademarks of Medialogic S.p.A.                   */
+/*                                                                        */
+/* All rights reserved.                                                   */
+/*                                                                        */
+/**************************************************************************/
+
+div.fileinputs {
+position: relative;
+cursor:pointer;
+height:30px;
+margin:0px;
+padding:0px;
+}
+
+div.fakefile {
+position: relative;
+top: -18px;
+left: 10px;
+z-index: 1;
+cursor:pointer;
+}
+
+.file {
+top: 5px;
+left:10px;
+position: relative;
+text-align: left;
+text-decoration : none;
+font-family: verdana,arial,helvetica,sans-serif;
+font-size: 10px;
+z-index: 2;
+-moz-opacity:0;
+filter:alpha(opacity: 0);
+opacity: 0;
+}
+
+.buttonBrowse{
+position: relative;
+text-align: left;
+top:5px;
+left: 0px;
+cursor:pointer;
+}
+
+.button2{
+position: relative;
+text-align: left;
+top:-12px;
+}
+
+
+.handle {
+margin:0px;
+padding:0px;
+width:230px;
+height: 26px;
+/*background:transparent url('../images/shared/tableAngleSx.png') top left no-repeat;*/
+/*float: left;*/
+display:block;
+cursor: move;		
+line-height:26px;
+text-align:left;
+text-indent:15px;
+}
+
+
+#handleSX {
+display:block;
+padding:0px;
+width:20px;
+/*background:transparent url('../images/shared/tableAngleDx.png') top right no-repeat;*/
+font-family:verdana, sans-serif;
+height: 26px;
+/*float:right;*/
+}
+#handleSX img{
+margin:0px;
+margin-right:0px;
+margin-top:2px;
+cursor:pointer;
+}
+
+#panelLogin0{
+
+border-top:none;
+text-align:left;
+margin:0px; 
+padding:10px 0px 0px 0px; 
+z-index: 2;
+display: block; 
+visibility: visible; 
+position: relative; 
+min-height:246px;
+width:482px;
+}
+#panelLogin1{
+border-top:none;
+text-align:left;
+margin:0px; 
+padding:10px 0px 0px 0px; 
+z-index:0;
+display:none; 
+visibility:hidden; 
+position: relative; 
+min-height:246px;
+width:482px; 
+}
+#panelLogin2{
+
+border-top:none;
+text-align:left;
+margin:0px; 
+padding:10px 0px 0px 0px; 
+z-index:0;
+display:none; 
+visibility:hidden; 
+position: relative; 
+min-height:246px;
+width:482px; /*widht for all browser*/
+}
+#panelLogin3{
+
+border-top:none;
+text-align:left;
+margin:0px; 
+padding:10px 0px 0px 0px; 
+z-index:0;
+display:none; 
+visibility:hidden; 
+position: relative; 
+min-height:246px;
+width:482px; /*widht for all browser*/
+}
+
+
+.logintableinside
+{
+width:65%;
+margin-top:15px;
+margin-right: 15px;	
+}

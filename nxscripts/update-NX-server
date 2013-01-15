@@ -1,0 +1,7 @@
+#!/bin/sh
+cp nx-X11/lib/X11/libX11.so.6.2 /opt/nxnode/lib/
+cp nxcomp/libXcomp.so.1.0.0 /opt/nxnode/lib/
+cp nxcompext/libXcompext.so.1.0.0 /opt/nxnode/lib/
+cp nx-X11/programs/Xserver/nxagent /opt/nxnode/bin/
+cp nxdesktop/nxdesktop /opt/nxnode/bin/
+cp nxproxy/nxproxy /opt/nxnode/bin/

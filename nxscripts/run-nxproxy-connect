@@ -1,0 +1,34 @@
+#!/bin/bash
+
+NX_PROJECT_ROOT=${HOME}/NX
+
+NX_ROOT=${HOME}/.nx
+
+NX_PORT=3
+
+NX_COOKIE=123efa980d2cba234ef6f73deac810ff
+
+# Change this into the host to connect to.
+
+REMOTE_HOST=nxtest04
+
+NX_HOST=nx/nx,keybd=1,samba=1,cups=1,connect=${REMOTE_HOST},cookie=$NX_COOKIE,errors=${NX_ROOT}/S-${NX_PORT}/session
+
+cd ${NX_PROJECT_ROOT}
+
+rm -rf ${NX_ROOT}/S-${NX_PORT}
+mkdir -p ${NX_ROOT}/S-${NX_PORT}
+
+echo "${NX_HOST}:${NX_PORT}" >${NX_ROOT}/S-${NX_PORT}/options
+
+echo -ne "Running the X server side NX proxy.\n"
+
+LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:${NX_PROJECT_ROOT}/nxcomp:${NX_PROJECT_ROOT}/nxcompext:\
+${NX_PROJECT_ROOT}/NX/nxcompshad:${NX_PROJECT_ROOT}/NX/nx-X11/exports/lib"
+
+export LD_LIBRARY_PATH
+
+nxproxy/nxproxy -S nx/nx,options=${NX_ROOT}/S-${NX_PORT}/options:${NX_PORT} 2> ${HOME}/.nx/S-${NX_PORT}/session &
+
+echo -ne "Session running on display :$NX_PORT.\n"
+

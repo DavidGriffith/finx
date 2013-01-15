@@ -1,0 +1,276 @@
+/**************************************************************************/
+/*                                                                        */
+/* Copyright (c) 2004, 2007 NoMachine, http://www.nomachine.com.          */
+/*                                                                        */
+/* NXMANAGER, NX protocol compression and NX extensions to this software  */
+/* are copyright of NoMachine. Redistribution and use of the present      */
+/* software is allowed according to terms specified in the file LICENSE   */
+/* which comes in the source distribution.                                */
+/*                                                                        */
+/* Check http://www.nomachine.com/licensing.html for applicability.       */
+/*                                                                        */
+/* NX and NoMachine are trademarks of Medialogic S.p.A.                   */
+/*                                                                        */
+/* All rights reserved.                                                   */
+/*                                                                        */
+/**************************************************************************/
+
+
+div.fileinputs {
+position: relative;
+cursor:pointer;
+height:30px;
+margin:0px;
+padding:0px;
+}
+
+div.fakefile {
+position: relative;
+top: -18px;
+left: 0px;
+z-index: 1;
+cursor:pointer;
+}
+
+.file {
+top: 5px;
+position: relative;
+text-align: left;
+text-decoration : none;
+font-family: verdana,arial,helvetica,sans-serif;
+font-size: 10px;
+z-index: 2;
+background:red;
+filter:alpha(opacity: 0);
+opacity: 0;
+ }
+
+.buttonBrowse{
+position: relative;
+text-align: left;
+top:5px;
+left: 0px;
+cursor:pointer;
+}
+
+.button2{
+position: relative;
+text-align: left;
+top:-12px;
+}
+
+.handle {
+margin:0px;
+padding:0px;
+width:230px;
+height: 26px;
+float: left;
+display:block;
+cursor: move;	
+line-height:26px;
+text-align:left;
+text-indent:10px;
+}
+
+#handleSX {
+display:block;
+margin-top:0px;
+margin-right:0px;
+padding:0px;
+width:15px;
+height:26px;
+background:transparent url('../images/shared/tableAngleDx.png') top right no-repeat;
+color:red;
+font-family:verdana, sans-serif;
+font-size:12px;
+float:right;
+}
+#handleSX img{
+margin:0px;
+margin-right:2px;
+margin-top:2px;
+cursor:pointer;
+}
+.box_preview
+{
+width: 840px;
+background: #F8F6E9 url('../images/shared/tableBgTop.png') repeat-x;
+padding:0px;
+position:absolute;
+z-index:10;
+overflow:hidden;/*must have*/
+display: none; 
+}
+
+.handlePreview {
+margin:0px;
+padding:0px;
+width:800px;
+height: 26px;
+float: left;
+display:block;
+cursor: move;		
+line-height:26px;
+text-align:left;
+text-indent:15px;
+}
+
+.contentPanel{
+clear:both;
+}
+
+.contentPanel p{
+font-weight:bold;
+text-align:left;
+margin:0px;
+margin-top:15px;
+line-height:20px;
+}
+
+#panelLogin0{
+border:1px solid #A5ADAE;
+border-top:none;
+text-align:left;
+margin:0px; 
+margin-top:-3px;
+padding:0px; 
+z-index: 2;
+display: block; 
+visibility: visible; 
+position: relative; 
+background-color:#F8F6E9;
+min-height:246px;
+height:246px;
+width:484px; 
+/*width:482px; /*widht for all browserwidht BoxModel IE for WIN*/
+}
+#panelLogin1{
+border:1px solid #A5ADAE;
+border-top:none;
+text-align:left;
+margin:0px; 
+margin-top:-3px;
+padding:0px; 
+z-index:0;
+display:none; 
+visibility:hidden; 
+position: relative; 
+background-color:#F8F6E9;
+min-height:246px;
+height:246px;
+width:484px; 
+/*width:482px; /*widht for all browserwidht BoxModel IE for WIN*/
+}
+#panelLogin2{
+border:1px solid #A5ADAE;
+border-top:none;
+text-align:left;
+margin:0px; 
+margin-top:-3px;
+padding:0px; 
+z-index:0;
+display:none; 
+visibility:hidden; 
+position: relative; 
+background-color:#F8F6E9;
+min-height:246px;
+height:246px;
+width:484px; 
+/*width:482px; /*widht for all browserwidht BoxModel IE for WIN*/
+}
+#panelLogin3{
+border:1px solid #A5ADAE;
+border-top:none;
+text-align:left;
+margin:0px; 
+margin-top:-3px;
+padding:0px; 
+z-index:0;
+display:none; 
+visibility:hidden; 
+position: relative; 
+background-color:#F8F6E9;
+min-height:246px;
+height:246px;
+width:484px; 
+/*width:482px; /*widht BoxModel IE for WIN widht for all browser*/
+}
+.content_nx_box_right{
+margin:0;
+padding-top:15px;
+padding-left:25px;
+padding-right:25px;
+padding-bottom:15px;
+/*width:432px; widht BoxModel IE for WIN*/
+width:482px;
+background:transparent;
+}
+
+.box_pop_up
+{
+ background: #F8F6E9 url('../images/shared/tableBgTop.png') repeat-x;
+ /*border: 1px solid #000;*/ 
+ width: 280px;
+	position:absolute;
+	z-index:10;
+	overflow:hidden;/*must have*/
+display: none;
+}
+#border_box_preview
+{
+border:1px solid #919B9C; 
+width:838px;
+padding-bottom:15px;
+background: /*#F8F6E9*/#ffffff;
+}
+#border_box
+{
+border:1px solid #919B9C; 
+width:100%;
+padding-bottom:15px;
+}
+.box_pop_up iframe
+{
+	display:none;/*sorry for IE5*/
+	display/**/:block;/*sorry for IE5*/
+	position:absolute;/*must have*/
+	top:0;/*must have*/
+	left:0;/*must have*/
+	z-index:-1;/*must have*/
+	filter:mask();/*must have*/
+	width:3000px;/*must have for any big value*/
+	height:3000px/*must have for any big value*/;
+}
+
+
+#ghost{
+/*position: absolute;
+border: 0px solid #000; 
+width: 100%; 
+top: 0px; 
+left: 0px; 
+display: none; 
+z-index: 5; 
+background: transparent;*/
+border: 2px solid #000; 
+background-color: #FEFFE6; 
+filter:alpha(opacity=1);
+}
+.logintableinside
+{
+ width:67%;
+ margin-top:15px;
+ margin-right: 5px;	
+}
+
+/* min_width IE6 BUG*/
+
+#min_width
+{
+ width: expression(document.body.clientWidth < 901 ? "900px" : "100%");
+}
+
+#min_width1
+{
+ width: expression(document.body.clientWidth < 911 ? "910px" : "100%");
+}

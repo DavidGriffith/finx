@@ -1,0 +1,336 @@
+ChangeLog:
+
+nxservice-3.5.0-1
+
+- Opened the 3.5.0 branch based on nxservice-3.4.0-3.
+
+- Updated copyright to year 2011.
+
+nxservice-3.4.0-3
+
+- Fixed TR09H02380. Verify Windows registry to know if add on fonts
+  are installed, and add their paths to the font path.
+
+nxservice-3.4.0-2
+
+- Updated copyright to year 2010.
+
+- Fixed TR04F02055. Add the option -as to nxesd in order to release
+  the audio device 10 seconds after the last ESD client disconnects.
+
+- Fixed a few compilation warnings on GCC 4.4.
+
+nxservice-3.4.0-1
+
+- Opened the 3.4.0 branch based on nxservice-3.3.0-2.
+
+- Updated copyright to year 2009.
+
+nxservice-3.3.0-2
+
+- Implemented FR11F02124. Added support for the -multiplemonitors
+  nxwin option.
+
+nxservice-3.3.0-1
+
+- Opened the 3.3.0 branch based on nxservice-3.2.0-1.
+
+nxservice-3.2.0-1
+
+- Opened the 3.2.0 branch based on nxservice-3.1.0-1.
+
+nxservice-3.1.0-1
+
+- Opened the 3.1.0 branch based on nxservice-3.0.0-11.
+
+nxservice-3.0.0-11
+
+- Implemented FR09E01895. Added the possibility to disable use of
+  DirectDraw for screen rendering on Windows.
+
+nxservice-3.0.0-10
+
+- Implemented FR12C01225. All the fonts installed by the NX Client for
+  Windows are moved to $NX_INSTALLATION_DIR\share\fonts directory.
+  Backward compatibility has been maintained.
+
+- Updated BASELINE file in order to include nxcomp-3.0.0-48 and also
+  nxcompsh-3.0.0-7.
+
+- Added missing references to TRs in nxservice-3.0.0-8.
+
+nxservice-3.0.0-9
+
+- Use a sub-second timer in checkServiceStart().
+
+nxservice-3.0.0-8
+
+- On Cygwin, in the case of an error, try again to fork() after a
+  second, for a maximum of 30 times. This seems to constitute a
+  valid workaround to the intermittent fork() failures observed on
+  Windows. This solves the TR09E01893.
+
+- Make all the D-* files readable only by the user. This solves the
+  TR09E01891.
+
+- Check the pid before killing the process when stopping a service.
+
+- Get rid of the compilation warning issued due to the inclusion of
+  <sys/types.h> before <winsock2.h>.
+
+- Add -lws2_32 to compile on the latest Cygwin.
+
+nxservice-3.0.0-7
+
+- Solved TR01E01620. Added function in Service.cpp file, this uses
+  the API functions by retrieving a free port on Windows.
+
+- Updated BASELINE file to include nxwin-3.0.0-10, nxesd-3.0.0-4,
+  nxcompsh-3.0.0-6, nxkill-3.0.0-4 and nxcomp-3.0.0-43.
+
+nxservice-3.0.0-6
+
+- Updated the NoMachine copyright notice.
+
+nxservice-3.0.0-5
+
+- Changed the copyright attribution from Medialogic to NoMachine.
+
+nxservice-3.0.0-4
+
+- Added '-[no]keyhook' parameter when starting NXWin.
+
+nxservice-3.0.0-3
+
+- Changed the LICENSE file to state that the software is only made
+  available under the version 2 of the GPL.
+
+- Added file COPYING.
+
+- Improved some debug logs in Service methods.
+
+nxservice-3.0.0-2
+
+- Updated the copyright notices to the current year.
+
+- Imported changes up to nxservice-2.1.0-10.
+
+- Converted the .Xauthority path from Win32 to Posix format.
+
+- Included the netinet/in.h file in ServiceDisplay.cpp to fix a compi-
+  le problem on MacOSX platform.
+
+- The procedure to search a free display where to launch the X Server
+  is now based on the socket type.
+
+- Changed the '-nolisten' option from 'unix' to 'local', as it is cur-
+  rently used by XFree.
+
+- Fixed TR12D01578. If the service directory path is too long for the
+  AF_UNIX socket type, the nxservice launches the nxwin with the op-
+  tion '-nolisten unix', so that the connections are accepted on an
+  AF_INET socket and the unix socket file is not created.
+
+- Updated the baseline file to include nxcompsh-3.0.0-3, nxwin-3.0.0-2
+  and nxcomp-3.0.0-5.
+
+nxservice-3.0.0-1
+
+- Opened the 3.0.0 branch based on 2.1.0-5.
+
+- Updated the baseline file to include the components of branch 3.0.
+
+nxservice-2.1.0-5
+
+- The nxservice is now able to verify the status of launched services.
+  Using this system, for example, we can stop the session handshaking
+  if a critical service (like nxwin) fails to start informing the nx-
+  client about the issue.
+
+- Modified the configure scripts to check whether compiler needs the
+  option -Wno-deprecated and accept the options -Wmissing-declarations
+  and -Wnested-externs.
+
+- Added various debug messages.
+
+- Updated the baseline file to include nxcomp-2.1.0-4.
+
+nxservice-2.1.0-4
+
+- The path 'System NX Directory\usr\X11R6\lib\X11\fonts' is no longer
+  used when we look for a valid font path.
+
+- Fixed a conflicting declaration error compiling in the Mac Intel OSX
+  environment.
+
+nxservice-2.1.0-3
+
+- Now the NX client for Windows is able to build the font path option
+  adding all the subdirectories located in the 'System NX Directory\
+  X11R6\lib\X11\fonts\' folder. This implements FR09D01496.
+
+- Fixed TR09D01503. As the nxwin binary is executed with the execvp()
+  function, the options doesn't need to be enclosed between quotes.
+
+- Changed the code to avoid buffer overflows.
+
+- Fixed a problem with the 'make clean' command modifying the Make-
+  file.in file.
+
+- Updated the baseline to include nxcomp-2.1.0-3.
+
+nxservice-2.1.0-2
+
+- Fixed procedure to create device directory to check the path length.
+
+- Update baseline file to include nxcompsh-2.1.0-1, nxesd-2.1.0-1
+  nxwin-2.1.0-1, nxkill-2.1.0-1 and nxcomp-2.1.0-2.
+
+nxservice-2.1.0-1
+
+- Opened the 2.1.0 branch based on 2.0.0-26.
+
+nxservice-2.0.0-26
+
+- Added the parsing for the font server option.
+
+nxservice-2.0.0-25
+
+- Updated copyright.
+
+nxservice-2.0.0-24
+
+- Fixed parameters used for starting Apple X Server.
+
+nxservice-2.0.0-23
+
+- Implemented Apple X Server starting.
+
+nxservice-2.0.0-22
+
+- Added option --check that can be used to verify the cygwin environ-
+  ment.
+
+nxservice-2.0.0-21
+
+- Fixed problem of nxservice not being able to create device directory
+  under some circumstances.
+
+nxservice-2.0.0-20
+
+- Fixed compilation problems on Solaris.
+
+nxservice-2.0.0-19
+
+- Added overwriting NX_TEMP at the service startup to use the current
+  directory of nxservice.
+
+- Improved parameters parsing.
+
+nxservice-2.0.0-18
+
+- Fixed problem with reading id parameter.
+
+nxservice-2.0.0-17
+
+- Added automatic renaming of directories when we stop the session.
+
+- Added id parameter to specify which is the directory to be used for
+  the service.
+
+- Printing the directory used by the program started by nxservice.
+
+nxservice-2.0.0-16
+
+- Fixed problem with stopping NXWin on windows - the wrong id was
+  used for stopping - so the whole procedure was failing.
+
+nxservice-2.0.0-15
+
+- Added version parameter.
+
+- When id value following the stop parameter is empty we just quit
+  without stopping anything.
+
+nxservice-2.0.0-14
+
+- Printing ID of the deamon being started.
+
+- Added parameter id so we can select which deamon to stop if there
+  are more services of one type running.
+
+nxservice-2.0.0-13
+
+- Added '-hide' parameter when starting NXWin.
+
+nxservice-2.0.0-12
+
+- Added additional user configurable parameters for NXWin.
+
+nxservice-2.0.0-11
+
+- Fixed problem with font paths for NXWin.
+
+nxservice-2.0.0-10
+
+- Improved starting of NXWin, added font paths and authirty file.
+
+nxservice-2.0.0-9
+
+- Implemented X server socket checking on Windows platform.
+
+nxservice-2.0.0-8
+
+- Implemented starting the X server using a command (--start display).
+
+nxservice-2.0.0-7
+
+- Fixed problems on Cygwin where nxservice was not able to get the NX
+  directories paths.
+
+nxservice-2.0.0-6
+
+- Converted all non POSIX function calls to POSIX alternatives. Fixes
+  compilation problems on Solaris.
+
+nxservice-2.0.0-5
+
+- Added port file that will contain the port on which a given deamon
+  is listening.
+
+nxservice-2.0.0-4
+
+- Added command that will reflect the command line used for starting a
+  given service.
+
+- Added options file where we put all the parameters used for starting
+  a given service.
+
+nxservice-2.0.0-3
+
+- Switched to Logger class from nxcompsh for all printing and logging
+  functionalites.
+
+nxservice-2.0.0-2
+
+- Creating directories D-{hostname}-{md5}.
+
+- Made nxservice link to nxcompsh and nxcomp.
+
+- Implemented cleanup procedure to check all the D-* directories and
+  change the names of inactive directories to F-D-*.
+
+- Implemented starting of nxesd.
+
+- Implemented stopping of nxesd, after the service have been stopped
+  we change the name of the directory to T-D-*.
+
+- Added file type - that will contain the type of the service being
+  run inside the directory.
+
+- Created BASELINE that includes nxcomp-2.0.0-7, nxcompsh: 2.0.0-1,
+  nxesd: 2.0.0-1, nxwin: 2.0.0-1, nxkill: 2.0.0-2.
+
+nxservice-2.0.0-1
+
+- Initial release.

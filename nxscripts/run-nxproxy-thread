@@ -1,0 +1,140 @@
+#!/bin/sh
+
+#/**************************************************************************/
+#/*                                                                        */
+#/* Copyright (c) 2001, 2011 NoMachine, http://www.nomachine.com/.         */
+#/*                                                                        */
+#/* NXSCRIPTS, NX protocol compression and NX extensions to this software  */
+#/* are copyright of NoMachine. Redistribution and use of the present      */
+#/* software is allowed according to terms specified in the file LICENSE   */
+#/* which comes in the source distribution.                                */
+#/*                                                                        */
+#/* Check http://www.nomachine.com/licensing.html for applicability.       */
+#/*                                                                        */
+#/* NX and NoMachine are trademarks of Medialogic S.p.A.                   */
+#/*                                                                        */
+#/* All rights reserved.                                                   */
+#/*                                                                        */
+#/**************************************************************************/
+
+
+set -x
+
+killall nxproxy 1> /dev/null 2> /dev/null
+
+# Let agent really terminate if exit() is redefined.
+
+sleep 2
+
+killall nxagent 1> /dev/null 2> /dev/null
+
+sleep 2
+
+#cd ../nxagent
+#. ./update
+#cd ../nxproxy
+
+echo ""
+
+NX_PORT=8
+export NX_PORT
+
+NX_DISPLAY=:4
+export NX_DISPLAY
+
+# Color reduction for 16 bits display.
+
+# 1 bit, 8 colors.
+ NX_IMAGEMASK=128,63,240,7
+
+# 2 bits, 64 colors.
+# NX_IMAGEMASK=192,7,240,7
+
+# 3 bits, 512 colors.
+# NX_IMAGEMASK=224,5,240,3
+
+# 4 bits, 4096 colors.
+# NX_IMAGEMASK=240,240,240,2,2,2
+
+# 5 bits, 32768 colors.
+# NX_IMAGEMASK=248,248,248,1,1,1
+
+# 6 bits, 262144 colors.
+# NX_IMAGEMASK=252,252,252,0,0,0
+
+# Color reduction for 32 bits display.
+
+# 1 bit, 8 colors.
+# NX_IMAGEMASK=128,63,240,7
+
+# 2 bits, 64 colors.
+# NX_IMAGEMASK=192,7,240,7
+
+# 3 bits, 512 colors.
+# NX_IMAGEMASK=224,5,240,3
+
+# 4 bits, 4096 colors.
+# NX_IMAGEMASK=240,240,240,2,2,2
+
+# 5 bits, 32768 colors.
+# NX_IMAGEMASK=248,248,248,1,1,1
+
+# For all supported colors uncomment this
+# NX_IMAGEMASK=255,255,255,0,0,0
+
+export NX_IMAGEMASK
+
+NX_IMAGESPLIT=48,48,96,96
+export NX_IMAGESPLIT
+
+NX_IMAGEFRAME=0
+export NX_IMAGEFRAME
+
+# -imgstop int           wait for confirm from nxproxy after any PutImage bigger than int
+# -getifocus             mask GetInputFocus requests but wait for confirm from nxproxy
+# -imgframe              let NXlib to draw a tiny rectangle around images
+# -imgsplit PW,PH,BW,BH  force NXlib to split pixmaps and bitmaps to given width x height
+#                        defaul is 32,32,128,128
+#
+# Use -ac option if you have problems with access control.
+
+# Get current cookie produced by desktop manager.
+
+COOKIE=`xauth list |grep ${HOSTNAME}/unix:0 |cut -f 5 -d ' '`
+
+echo -ne "\nCookie for session is ${COOKIE}\n"
+echo -ne "If you are running your clients as another user\n"
+echo -ne "enable access to this session by running something like \n"
+echo -ne "xauth add ${HOSTNAME}/unix${NX_DISPLAY} MIT-MAGIC-COOKIE-1 ${COOKIE}\n"
+echo -ne "and be sure you provide the right display number\n"
+
+# Let agent pass the right cookie to real X server.
+
+xauth add ${HOSTNAME}/unix:${NX_PORT} MIT-MAGIC-COOKIE-1 ${COOKIE}
+xauth add ${HOSTNAME}:${NX_PORT} MIT-MAGIC-COOKIE-1 ${COOKIE}
+
+# Let clients connect to the agent.
+
+xauth add ${HOSTNAME}/unix${NX_DISPLAY} MIT-MAGIC-COOKIE-1 ${COOKIE}
+xauth add ${HOSTNAME}${NX_DISPLAY} MIT-MAGIC-COOKIE-1 ${COOKIE}
+
+LD_LIBRARY_PATH="${HOME}/NX/nxproxy:${HOME}/NX/nxagent/exports/lib"
+export LD_LIBRARY_PATH
+
+# Start the remote agent.
+
+../nxagent/programs/Xserver/nxagent -getifocus -imgstop 1024 -display nx:${NX_PORT} -class TrueColor -noreset -geometry 720x540+200+20 -auth ${HOME}/.Xauthority -name 'NX' ${NX_DISPLAY} 2>~/.nx/log/agent.log &
+
+# Start the local proxy.
+
+sleep 1
+
+./nxproxy -s -z -n 0 -N 0 -d ${NX_PORT} -D ${DISPLAY} -l server.log localhost &
+
+sleep 1
+
+#DISPLAY=${NX_DISPLAY} ; startkde
+#DISPLAY=${NX_DISPLAY} ; gnome-session
+
+echo ""
+

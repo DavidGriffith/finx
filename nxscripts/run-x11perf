@@ -1,0 +1,161 @@
+#!/bin/sh
+
+#/**************************************************************************/
+#/*                                                                        */
+#/* Copyright (c) 2001, 2011 NoMachine, http://www.nomachine.com/.         */
+#/*                                                                        */
+#/* NXSCRIPTS, NX protocol compression and NX extensions to this software  */
+#/* are copyright of NoMachine. Redistribution and use of the present      */
+#/* software is allowed according to terms specified in the file LICENSE   */
+#/* which comes in the source distribution.                                */
+#/*                                                                        */
+#/* Check http://www.nomachine.com/licensing.html for applicability.       */
+#/*                                                                        */
+#/* NX and NoMachine are trademarks of Medialogic S.p.A.                   */
+#/*                                                                        */
+#/* All rights reserved.                                                   */
+#/*                                                                        */
+#/**************************************************************************/
+
+
+set -x
+
+ulimit -c unlimited
+
+cd ${HOME}/NX
+
+NX_PORT=9
+export NX_PORT
+
+NX_SYSTEM=${HOME}/.nx
+#NX_SYSTEM=/etc/NX
+
+NX_ROOT=${HOME}/.nx
+#NX_ROOT=/var/NX
+
+# Create directory for agent log.
+
+rm -rf ${NX_ROOT}/C-${NX_PORT} || exit
+mkdir -p ${NX_ROOT}/C-${NX_PORT} || exit
+
+NX_HOST=nx/nx,cache=4096k,link=modem,limit=0,accept=localhost,connect=localhost,log=session
+export NX_HOST
+
+NX_DISPLAY=${NX_HOST}:${NX_PORT}
+export NX_DISPLAY
+
+NX_AGENT=:${NX_PORT}
+export NX_AGENT
+
+LD_LIBRARY_PATH="${HOME}/NX/nxcomp:${HOME}/NX/nxcompext:${HOME}/NX/nx-X11/exports/lib"
+export LD_LIBRARY_PATH
+
+PATH="${PATH}:${HOME}/NX/nxclient/nxclient"
+export PATH
+
+# Color reduction for 16 and 32 bits display.
+
+# 1 bit, 8 colors.
+# NX_IMAGEMASK=128,63,240,7
+
+# 2 bits, 64 colors.
+# NX_IMAGEMASK=192,7,240,7
+
+# 3 bits, 512 colors.
+# NX_IMAGEMASK=224,5,240,4
+
+# 4 bits, 4096 colors.
+# NX_IMAGEMASK=240,4,240,2
+
+# 5 bits, 32768 colors.
+# NX_IMAGEMASK=248,3,248,2
+
+# 6 bits, 262144 colors.
+# NX_IMAGEMASK=252,2,252,1
+
+# For all supported colors uncomment this.
+# NX_IMAGEMASK=255,0,255,0
+
+#export NX_IMAGEMASK
+
+#NX_IMAGESPLIT=48,48,96,96
+#NX_IMAGESPLIT=40,40,80,80
+#NX_IMAGESPLIT=80,80,80,80
+#NX_IMAGESPLIT=16384,16384,16384,16384
+
+#export NX_IMAGESPLIT
+
+#NX_IMAGEFRAME=1
+#export NX_IMAGEFRAME
+
+# -imgstop int           wait for confirm from nxproxy after any PutImage bigger than int
+# -getifocus             mask GetInputFocus requests but wait for confirm from nxproxy
+# -imgframe              let NXlib to draw a tiny rectangle around images
+# -imgsplit PW,PH,BW,BH  force NXlib to split pixmaps and bitmaps to given width x height
+#                        defaul is 32,32,128,128
+#
+# Use -ac option if you have problems with access control.
+
+# Get current cookie produced by desktop manager.
+
+COOKIE=`xauth list |grep ${HOSTNAME}/unix:0 | grep MIT | cut -f 5 -d ' '`
+
+echo -ne "\nCookie for session is ${COOKIE}\n"
+echo -ne "If you are running your clients as another user\n"
+echo -ne "enable access to this session by running something like \n"
+echo -ne "xauth add ${HOSTNAME}/unix${NX_AGENT} MIT-MAGIC-COOKIE-1 ${COOKIE}\n"
+echo -ne "and be sure you provide the right display number\n"
+
+# Let agent pass the right cookie to real X server.
+
+xauth add ${HOSTNAME}/unix:${NX_PORT} MIT-MAGIC-COOKIE-1 ${COOKIE}
+xauth add ${HOSTNAME}:${NX_PORT} MIT-MAGIC-COOKIE-1 ${COOKIE}
+
+# No problem.
+#x11perf -display ${NX_HOST}:${NX_PORT} -repeat 1 -time 1 -range dot,worect500 2>>${NX_ROOT}/C-${NX_PORT}/session &
+
+# No problem.
+#x11perf -display ${NX_HOST}:${NX_PORT} -repeat 1 -time 1 -range circle1,64poly100complex 2>>${NX_ROOT}/C-${NX_PORT}/session &
+
+# No problem.
+#x11perf -display ${NX_HOST}:${NX_PORT} -repeat 1 -time 1 -range ftext,scroll500 2>>${NX_ROOT}/C-${NX_PORT}/session &
+
+# No problem.
+#x11perf -display ${NX_HOST}:${NX_PORT} -repeat 1 -time 1 -range copywinwin10,copywinwin500 2>>${NX_ROOT}/C-${NX_PORT}/session &
+
+# There are sequences lost in this test.
+x11perf -display ${NX_HOST}:${NX_PORT} -repeat 1 -time 1 -range copypixwin10,copypixpix500 2>>${NX_ROOT}/C-${NX_PORT}/session &
+
+# No problem.
+#x11perf -display ${NX_HOST}:${NX_PORT} -repeat 1 -time 1 -range copyplane10,deepcopyplane500 2>>${NX_ROOT}/C-${NX_PORT}/session &
+
+# No problem but performaces are very low when ZLIB is enabled.
+#x11perf -display ${NX_HOST}:${NX_PORT} -repeat 1 -time 1 -range putimage10,shmputxy500 2>>${NX_ROOT}/C-${NX_PORT}/session &
+
+# No problem but Xnest fails on it.
+#x11perf -display ${NX_HOST}:${NX_PORT} -repeat 1 -time 1 -range getimage10,getimagexy500 2>>${NX_ROOT}/C-${NX_PORT}/session &
+
+# No problem.
+#x11perf -display ${NX_HOST}:${NX_PORT} -repeat 1 -time 1 -range noop,ucirculate 2>>${NX_ROOT}/C-${NX_PORT}/session &
+
+xauth add ${HOSTNAME}/unix${NX_AGENT} MIT-MAGIC-COOKIE-1 ${COOKIE}
+xauth add ${HOSTNAME}${NX_AGENT} MIT-MAGIC-COOKIE-1 ${COOKIE}
+
+echo ""
+
+rm -rf ${HOME}/.nx/S-${NX_PORT} || exit
+mkdir -p ${HOME}/.nx/S-${NX_PORT} || exit
+
+# Use Xnest to display on alternate server :4.
+
+DISPLAY=localhost:4
+export DISPLAY
+
+#cachegrind -v --dumps=100000000 \
+#cachegrind -v \
+#valgrind --leak-check=yes --leak-resolution=high --show-reachable=yes \
+#            --show-reachable=yes --suppressions=nxproxy/nxproxy.supp \
+#            --num-callers=8 --logfile-fd=2 \
+nxproxy/nxproxy -S localhost:9 2>>${HOME}/.nx/S-${NX_PORT}/session &
+
+echo ""

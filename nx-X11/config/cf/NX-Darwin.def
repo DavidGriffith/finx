@@ -1,0 +1,15 @@
+#define NXDarwinServer          NO
+#define BuildServersOnly        YES
+
+#define DefaultFontPath         /usr/NX/share/fonts/misc/,/usr/NX/share/fonts/TTF/
+#define DefaultRGBDatabase	/usr/NX/share/rgb
+
+#define XprtServer    		NO
+#define BuildXprint             NO
+#define XnestServer             NO
+#define XVirtualFramebufferServer       NO
+
+#define BuildFontServer         NO
+#define BuildFreeType         	NO
+#define BuildXTrueType          NO 
+#define FontLibSharedFreeType	NO

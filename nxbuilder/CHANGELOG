@@ -1,0 +1,849 @@
+ChangeLog:
+
+nxbuilder-3.5.0-3
+
+- Fixed TR11I02632. The NX Builder setup procedure uses the keyword "TYPE" for
+  storage engine settings. However, starting from version 5, MySQL could not
+  support anymore that keyword and require keyword "ENGINE" instead. In this case
+  NX Builder setup procedure fails to create tables into the Builder db.
+
+nxbuilder-3.5.0-2
+
+- Fixed TR09I02608. When the user chooses "available area"  in the display 
+  options list, the correspondent key, namely Resolution, is always set to
+  800x600 in the nx session file and the session cannot be started at available
+  area.
+
+- Improved print of embeddable code in configuration section
+
+nxbuilder-3.5.0-1
+
+- Opened the 3.5.0 branch based on nxbuilder-3.4.0-2.
+
+- Updated copyright to year 2011.
+
+nxbuilder-3.4.0-2
+
+- Updated license-info file.
+
+nxbuilder-3.4.0-1
+
+- Opened the 3.4.0 branch based on nxbuilder-3.3.0-2.
+
+- Updated copyright to year 2011.
+
+nxbuilder-3.3.0-2
+
+- Implemented FR09G02265. Now the NX Builder gives the possibility to
+  configure the session for activating the multi-monitor support in
+  the NX Client for Windows.
+
+nxbuilder-3.3.0-1
+
+- Opened the 3.3.0 branch based on nxbuilder-3.2.0-2
+
+nxbuilder-3.2.0-2
+
+- Fixed TR07F02083. NX Builder is able to manage correctly all settings
+  when the Administrator has enabled a connection via HTTP proxy with
+  user/password authentication method.  
+
+nxbuilder-3.2.0-1
+
+- Implemented FR03F02027. Improved the embeddable code generated
+  by NX Builder in the Configuration interface.
+
+- Fixed TR03F02022. Added control on path string for Single Application
+  for RDP session.
+
+- Opened the 3.2.0 branch based on nxbuilder-3.1.0-4.
+
+nxbuilder-3.1.0-4
+
+- Improved Input management in Modify Server procedure.
+
+- Improved function to check access permissions.
+
+- Improved function to detect if input has a valid value.
+
+- Fixed TR03F02016 and TR03F02017. Settings for VNC and RDP sessions
+  are now stored in the proper format. 
+
+nxbuilder-3.1.0-3
+
+- Changed function to check access permission.
+
+- Created function for detecting valid input value to avoid Sql 
+  injection attack.
+
+- Implemented FR02F02005. NX Builder can generate a nxsession
+  file for running a Single Application in a RDP Session. 
+
+- Fixed TR02F02003. Changed the display number format of the remote
+  VNC server like requested by NX Node.
+
+nxbuilder-3.1.0-2
+
+- Updated the NoMachine copyright notices. 
+
+- Fixed Notice and Warning messages displayed into the Web page
+  when running NX Builder. This solves #TR01F01997. 
+
+nxbuilder-3.1.0-1
+
+- Opened the 3.1.0 branch based on nxbuilder-3.0.0-24. 
+
+nxbuilder-3.0.0-24
+
+- Removed domain field control in Windows RDP settings when it is 
+  empty. This solves TR12E01961.  
+
+- Added function to manage bottom toolbar in the case no items are 
+  listed. This solves TR10E01923.
+
+- Changed setup procedure to manage default value for MySql 5.0.2. 
+  This solves TR11E01933.  
+
+- Changed setup errors management. Added new button named Detail in 
+  the administrator's interface, to display content of the log file.
+  This solves TR10E01922.
+
+- Implemented FR12E01960. Added the possibility to disable use of 
+  DirectDraw when creating session files. 
+
+nxbuilder-3.0.0-23
+
+- Implemented FR08E01828. NX Builder User and NX Builder Guest are
+  redirected to the Server List page upon login. 
+
+- Implemented FR08E01826. NX Builder Administrator can decide the
+  default link type and he can decide also if to show or not the 
+  link type menu to NX Builder User and NX Builder Guest. 
+
+- Fixed MODEM link displayed to the NX Builder Administrator. This 
+  solves TR08E01827.
+
+- Changed number of characters for NX Builder User's username. This
+  solves TR08E01825.
+
+nxbuilder-3.0.0-22
+
+- Modified Css for IE for Win. This solves TR07E01771.
+
+nxbuilder-3.0.0-21
+
+- Improved setup function in order to support PHP configuration when 
+  register_global directive is disabled.  
+
+- Defined some variables in order to avoid notice message in html tag 
+  when PHP html_errors and error_reporting directive is enabled.
+
+- Removed PHP close tag in Top.php. This solves TR07E01744.
+
+nxbuilder-3.0.0-20
+
+- Improved procedure to upgrade database. Now setup script is abled to 
+  upgrade his own database.
+  
+- Improved position preview layer in configuration section when the 
+  height exceeds the resolution of the screen. 
+    
+- Corrected wrong settings in create session file referred to unix
+  display.     
+
+nxbuilder-3.0.0-19
+
+- Removed buttons "add session", "add server" and "add user" from top
+  toolbar. Now this button has moved in bottom toolbar.
+
+- Changed toolbar and page background.
+
+- Improved javascript function to manage position of the draggables 
+  layers.
+
+- Changed screenshot in configuration template.
+
+- Improved functions to manage new settings display for windows, vnc, 
+  unix and shadow sessions. 
+
+- Introduced custom JPEG quality in window and vnc display setting. 
+
+- Changed output mode for desktops and applications sessions in 
+  server list template.
+
+nxbuilder-3.0.0-18
+
+- Implemented new management of Rdp and Jpeg compression in Unix,
+  Windows and Vnc display setting.
+
+- Modified Create Session file.
+
+- Modified error and info messages position.
+
+- Changed layout structure "Disable display of this server via Web"
+  in AddServer and ModifyServer.
+
+nxbuilder-3.0.0-17
+
+- Fixed some css rules for Safari, Konqueror, IE 5.2 for Mac, Firefox 
+  for Linux abd Mac. 
+
+- Changed several javascript functions for assign sessions in add
+  and modify user. Now these functions are cross-browser. 
+
+- Improved Ajax function to manage Administrator user sessions.
+
+- Changed some labels and messages in setup.
+
+nxbuilder-3.0.0-16
+
+- Changed NX sessions management in user list and modify user for 
+  NX Builder Administrator. 
+
+- Changed function to generate embeddable code.
+
+- Changed preview template.
+
+nxbuilder-3.0.0-15
+
+- Modified function for Guest user authentication. Now, access mode 
+  to NX Server, is stored in a browser sessions variables.
+
+- Corrected php code that produces notice messages when PHP directive 
+  "error_reporting" is setted to 'ALL'.
+  
+- Modified rules to set background image in toolbar in default css
+  file. Now the image starts from right to left.  
+
+- Added javascript function in configuration user interface. This  
+  function sets status for button that sets bold/normal label style. 
+  
+- Implemented function to manage the case when builder.cfg not found.
+
+- Added messages when servers list or sessions list are empty.  
+    
+- Implemented a function to delete old custom css.
+
+- Implemented function to detect if javascript is enabled.  
+
+- Changed default toolbar and page background image. 
+
+- Modified color picker structure.
+
+- Changed Copyright in all files.
+
+- Added function to create NX Session file in the embedded code used
+  to generate server list page for the Guest Builder User.
+
+- Implemented new administration interface to give the possibility 
+  to the administrator to customize the appearance of the Web page, 
+  deployed for the NX Guest Builder user and generated by extracting 
+  the embeddable code.This implements FR05E01684. 
+  
+- Changed and implemented new function for logging off in Toolbar.
+
+nxbuilder-3.0.0-14
+
+- Modified tab menu in add/modify session, based on css rules.
+
+- Added new fields in skinSetting table to manage tab menu colors.
+
+- Modified javascript function to manage server display settings.
+
+nxbuilder-3.0.0-13
+
+- Update lincense info.
+
+- Implemented function in the Setup procedure that allows to recover
+  images associated to servers and/or sessions in case of upgrade of 
+  NX Builder. The procedure allows to specify the source path from 
+  which the images have to be retrieved. 
+
+- Added logging function to track the Setup procedure.
+
+- Added workaround to allow to support css cache in IE.
+
+- Implemented system to manage css cache.
+
+- Changed some css rules to allow for setting custom background and 
+  colors through the administrator interface.
+
+- Implemented FR05E01684. Created function to give the possibility 
+  to select the NX Builder appearance through a new administration 
+  interface. 
+
+nxbuilder-3.0.0-12
+
+- Implemented function to manage customization of the NX Builder
+  appearance based on settings stored in the database.
+  
+- Added table to store the NX Builder appearance settings.
+
+- Modified Setup procedure to manage the table needed for storing 
+  the NX Builder appearance settings.
+  
+- Modified structure of the user list Web page to display information
+  in a clearer way. 
+
+nxbuilder-3.0.0-11
+
+- Improved Setup procedure to handle compatibility with a previous
+  version of the database and create backup of the original database.
+
+- Improved function to create database and configuration file. 
+
+- Added layer to set display resolution and link type in the session 
+  list Web page either for the administrator and the Builder User.
+
+- Modified css properties to set label in all panels.
+
+- Improved function to suspend access to the server or replacing it 
+  with an alternative text.
+  
+nxbuilder-3.0.0-10
+
+- Improved function to upload images and create new categories for 
+  sessions.
+  
+- Improved function for printing php and html code used to generate
+  server list page for the Guest Builder User.    
+
+- Modified toolbar and session list structure.
+
+nxbuilder-3.0.0-9
+
+- Implemented Ajax function to show sessions assigned to the user
+  according to the NX server selected among the list of servers that
+  are associated to that user.   
+
+- Improved errors management for sessions, servers and users. 
+
+- Implemented DB functions for managing updates to sessions, servers 
+  and users. 
+
+- Implemented administrator interface for managing updates to users,
+  sessions, and servers.
+
+- Added functions to delete sessions, servers and users.
+
+- Changed function to handle upload of image files to be associated
+  to either servers and sessions.
+
+- Added workaround to fix the Internet explorer 6 'min-width bug'. 
+
+- Implemented function and administrator interface to assign sessions 
+  on a per-server basis to the user.
+
+- Implemented javascript function to pass options between the selects 
+  used for associating sessions to the user, either in the add and 
+  modify user procedures.
+
+nxbuilder-3.0.0-8
+
+- Replaced all the images shipped by the NX Builder package with new 
+  png images.
+
+- Changed errors management system. 
+
+- Implemented function to preserve values already set in the form 
+  fields. When an error occurs, preventing data from being inserted
+  in the DB, values already set in the form fields are not lost.
+
+nxbuilder-3.0.0-7
+
+- Implemented function to display preview of the server list page 
+  in a draggable layer. 
+
+- Implemented FR05E01683. Created function to extract embeddable code 
+  that generates the server list page to be deployed on the Web for 
+  any Guest Builder User.  
+
+nxbuilder-3.0.0-6
+
+- Modified javascript file to load not common css properties for each 
+  browser.
+
+- Implemented css file to manage common style sheet properties.
+
+- Improved administrator interface to provide draggable panels for
+  enhanced session configurations.
+
+- Improved error management in login system.
+
+- Implemented function to disable/enable slide-bar.
+
+- Implemented slide-bar on Display Settings panels for unix and windows
+  session configuration.   
+
+nxbuilder-3.0.0-5
+
+- Implemented function to enable or disable administrative buttons 
+  in the NX Builder toolbar according to the profile of the logged-in 
+  user. 
+
+- Implemented new authentication system based on browser sessions.
+
+nxbuilder-3.0.0-4
+
+- Implemented javascript function to use transparent layers in order
+  to disable the toolbar, the tab-bar and the menu-lists when the 
+  panel options are opened. 
+
+- Added a workaround to fix the IE 'box-model bug'.
+
+- Added new css rules.
+
+- Implemented a javascript function to switch Display Settings panel
+  according to the selected desktop type.
+
+- Implemented workaround to support transparent layer also when the
+  browser is Internet Explorer. These transparent layers are needed
+  to disable elements in the Web page. 
+
+- Added displaySettings table to the DB to manage Display Settings 
+  configured for unix, RDP and VNC sessions. 
+
+nxbuilder-3.0.0-3
+
+- Added new toolbar and background images.
+
+- Re-implemented function to create session file according to the 
+  enhanced session configuration allowed by the new administrator
+  interface.
+
+- Changed database functions to manage the new tables. 
+
+- Added tables rdpServers, httpProxy, fontServers, customOptions, 
+  vncServers, xdmOptions to the database in order to improve the 
+  management of the sessions.
+  
+nxbuilder-3.0.0-2
+
+- Improved javascript function to manage sessions assignment on a
+  per-user basis by using Ajax function.
+
+- Implemented new interfaces for adding and listing NX Builder user.
+
+- Added workaround to allow Internet Explorer to handle properly  
+  Z-index for windowed element.  
+
+nxbuilder-3.0.0-1
+
+- Improved usability of the user interface. Thanks to the use of Ajax 
+  functions, instead of refreshing all the Web page, only sections
+  that have been modified are re-loaded.
+
+- Improved the structure of the NX Builder backend. 
+
+- Added function to disable/enable toolbar.
+
+- Added new function to retrieve server and session details. 
+
+- Improvements to the user interface templates.
+
+- Implemented FR03E01653. This extends the possibility to deploy 
+  specific applications on a per-user basis.
+
+- Implemented FR02E01641. This gives the possibility to make enhanced
+  session configuration via the NX Builder administrator's interface
+  providing the same level of configuration offered by the NX Client
+  GUI.
+  
+- Opened the 3.0.0 branch based on the 2.1.0-5 version.
+
+nxbuilder-2.1.0-5
+
+- Changed the LICENSE file to state that the software is only made
+  available under the version 2 of the GPL.
+
+- Added file COPYING.
+
+nxbuilder-2.1.0-4
+
+- Updated license-info file. 
+
+- Improved the db configuration procedure in order to update data
+  and structure of an older database. 
+
+- Added new apache directives in the conf file.
+  
+nxbuilder-2.1.0-3
+
+- Improved add and modify server procedures in order to give the
+  possibility of hiding any of the servers listed in the Web page.
+  This version solves TR08D01459.
+  
+- According to the new modifications, have been added new fields in
+  the servers table and in the Connection file.
+  
+- Modified the graphics of server list for guest and server list 
+  pages.
+
+nxbuilder-2.1.0-2
+
+- Modified some queries in order to keep the relations between ser-
+  vers, sessions and users in case that MySQL backend doesn't support 
+  innodb. This solves TR08D01458.
+
+- Added possibility of updating a command specified in the modify 
+  server page. This solves TR08D01457.
+
+- Modified the configure guest page in order to show the application
+  name instead of the command.
+  
+- Added some checks on the name of the application in javascript 
+  function.  
+
+- Updated the links to the NX Client download.
+
+nxbuilder-2.1.0-1
+
+- Opened the 2.1.0 branch based on the 2.0.0-23 version.
+
+nxbuilder-2.0.0-23
+
+- Modified the application command parsing and storing to allow the
+  options use.
+
+nxbuilder-2.0.0-22
+
+- Added new field in the sessions table in order to assign a name to
+  a command.
+  
+- According to the new modifications to database, the Connection fi-
+  le, the add server procedure and the update server procedure have
+  been changed.
+  
+- Added info button in Session List Guest page to visualize server 
+  information.
+
+- Modified the graphical appearance of some pages.
+
+- Removed some unused code.
+
+nxbuilder-2.0.0-21
+
+- Fixed a problem on Configure Guest page to store the sessions in
+  the select list each time the form is submitted.
+  
+- Updated the license-info file.
+
+- Changed some messages in Messages.php.
+
+- Added new buttons.
+
+nxbuilder-2.0.0-20
+
+- Modified the structure and the graphical interface of Configure
+  Guest page in order to show a select list of sessions for each
+  server.
+
+- Modified graphical interface of Session List Guest page.
+
+- Improved modify server procedure to avoid deleting the icon that
+  is associated to the session for the guest.
+
+- Added new application icons and new buttons.
+
+- Defined new classes in style sheets.
+
+nxbuilder-2.0.0-19
+
+- Implemented FR04D01368. Added the possibility to access the NX
+  Builder as a Guest Builder User. The administrator defines and
+  configures which sessions will be deployed for the Guest Builder
+  User.
+
+- Modified the graphical interface of ConfigureGuest, SessionList
+  Guest, AddServer and ModifyServer pages.
+
+- According to new modifications, the structure of the servers and
+  sessions tables and the insert and update server procedures have 
+  been modified.
+
+- Modified create session file procedure to specify if the connection
+  to the server will be encrypted or unencrypted.
+
+- Modified javascript function to show the image uploaded in the Se-
+  lect Icon field.
+
+- Added javascript function to disable the choosing of the resolution
+  when a custom session is launched.
+
+- Added favicon.ico showing NX logo in the address bar of browser.
+
+- Added javascript functions to enable or disable some fields in
+  add and modify server pages.
+
+- Added new toolbar images.
+
+nxbuilder-2.0.0-18
+
+- Added create and modify guest user procedures. The administrator of
+  NX Builder defines a list of sessions that a user, logged as a 
+  guest, can run.
+
+- Improved display of applications list. Now only the application is 
+  shown and not all the path. 
+  
+- Added javascript functions to handle the passage of options between
+  some selects.
+  
+- Added procedure to create session files to allow connections on
+  NX Server as a guest user.
+  
+- Added javascript function to disable username and password fields
+  when the user is logging as a guest.
+
+- Implemented ServerListGuest to show the list of sessions available
+  for a guest user.  
+  
+- Added new class in style sheets.
+
+- Improved configure guest procedure: the administrator can define
+  the login mode on the NX server for the NX Builder Guest User.
+  
+- Modified the graphical interface of ServerListGuest and Configure
+  Guest pages.
+  
+- Modified setup procedure, now the dates inserted are stored in the
+  fields also when the form is submitted.
+
+nxbuilder-2.0.0-17
+
+- Modified connect procedure. Now nxbuilder generates a dynamic page
+  passing the proper content type inside the page, without saving the
+  file in a directory of the web server. 
+
+- Changed some messages in Messages.php.
+
+nxbuilder-2.0.0-16
+
+- Modified the server list page for the administrator. Now the Add 
+  server button is shown when the server list is empty.
+
+- Modified create and modify users procedures. Added new checkbox for
+  the credentials to access NX Server. When it is unselected, NX
+  Builder will create the session file without specifying username 
+  and password. 
+
+- Modified the user list. Now an icon shows if the user uses the same
+  credentials of NX Builder to access the NX Server. 
+  
+- Modified the graphical interface for displaying messages.
+
+- Added check on add and modify server procedures, now a message is
+  shown when the administrator has not selected a desktop. 
+  
+nxbuilder-2.0.0-15
+
+- Modified the graphical interface of all procedures.
+
+- Modified create and modify server procedures. Now an error message
+  is shown if the server port is not a numeric value.
+
+nxbuilder-2.0.0-14
+
+- Modified create sessions file procedure. The custom session is
+  configured to be a 'Floating Window'.
+
+- Added javascript function to check the operating system so that the
+  end-user is redirected to the proper download page to download the 
+  NX Client package for his/her O.S.
+
+- Modified modify, create server and user procedures, now the dates
+  inserted are stored in the fields also when the form is submitted.
+
+- Moved the nxbuilder/readme-info file to nxbuilder/documents/builder
+  /readme-info.
+
+- Add the nxbuilder/documents/builder/license-info file.
+
+- Added javascript function in procedure to add and to modify users.
+  Now the server list is shown only when the user doesn't have the
+  administrator privileges.
+
+- Fixed the update procedure to save properly to the DB changes on ù
+  the server.
+
+- Added new icon for info button.
+
+- Modified the graphical interface to show the server list and the
+  information about the servers.
+    
+nxbuilder-2.0.0-13
+
+- Added a procedure to create session files to allow connections to
+  application running in a rootless X11 session.
+
+- Added check to verify if the directory, where the session files are 
+  to be stored,exists. If not, the directory is created.
+  
+- Modified modify user procedure to fit the new structure of the 
+  database.
+
+- Added info button to display the server information. The NX Builder 
+  administrator can choose if enabling or not the displaying of the
+  server information.
+  
+- Changed procedures to modify server according to the new structure
+  of the database.
+
+nxbuilder-2.0.0-12
+
+- Modified the way the VNC password is stored in the database to use
+  the same format adopted by NXClient.
+  
+- Modified procedure to create session files. Now it is possible to 
+  to specify the name of the directory where they will be saved.
+
+- Modified the database structure to allow restrictions on the user's
+  sessions.
+  
+- Modified insert and select user procedures to fit the new structure 
+  of the database.
+  
+- Modified insert and select servers procedures.
+  
+nxbuilder-2.0.0-11
+
+- Added procedure to create session files to allow connections to RDP 
+  and VNC servers. 
+
+- Modified javascript functions to add and remove commands in create
+  and modify server pages.
+  
+- Changed the name of the session files and the directory where they
+  are stored.
+
+- Removed RDP domain field from the settings for the Windows session.
+
+- Replaced 'Create User' button with 'Add User' button.
+
+nxbuilder-2.0.0-10
+
+- Modified procedures to create and modify server. Now it is possible 
+  to add and configure the following desktop types: xdm, rdp, custom 
+  and windows.   
+
+- Added javascript functions to hide or display input fields related 
+  to rdp, windows and custom deskto types.
+
+- Added new fields to the server DB table.
+
+- Updated CHANGELOG to correctly include missing references to FRs.
+
+nxbuilder-2.0.0-9
+
+- Implemented FR10C01089 to deploy X11 sessions via NX Builder, as
+  desktop Unix-KDE, Unix-GNOME and Unix-CDE.
+  
+- Improved code in order to run NX Builder on Internet Explorer for 
+  Windows. 
+
+- Added new style for supporting Internet Explorer browser.
+
+- Added function.js file. It contains javascript functions to add and 
+  delete servers and users.
+  
+- Added checks in order to ensure the access to web pages only if the
+  user is logged. 
+
+nxbuilder-2.0.0-8
+
+- Modified setup procedure. Now it is possible choosing if updating 
+  the application or creating a new database.
+
+- Modified upload procedure to check if the uploaded file is an image
+  or not.
+ 
+- Renamed files: conf.php to builder.cfg, Colour.php to Color.php, 
+  nxbuilder.conf to builder.conf to be standard compliant.
+
+nxbuilder-2.0.0-7
+
+- Added nxbuilder.conf file, it contains configuration paramaeters 
+  to run the NX Builder application.
+  
+- Modified conf.php file to allow to personalize the connection to 
+  database.
+
+nxbuilder-2.0.0-6
+  
+- Modified the connection procedure. Now it's possible to execute 
+  the session file without downloading it.
+
+- Added new style in win_mz.css and lin_mz.css files.
+
+- Personalized the "browse" button.
+
+nxbuilder-2.0.0-5
+  
+- Updated the source code to be compliant to the NX standards.
+
+nxbuilder-2.0.0-4
+
+- Changed message shown by the NX Builder application.
+
+- Modified the graphic to add or to modify the list of servers for
+  the user.
+
+nxbuilder-2.0.0-3
+
+- Updated the NoMachine copyright notices. 
+
+- Added new graphical template and new buttons.
+
+- Added setup.php and configuration.php files to create the database
+  backend for NX Builder and to generate the conf.php file containing
+  all the parameters needed for connecting to the database.
+
+- Implemented new functionS to delete and to modify either users and 
+  servers.
+
+- When the administrator creates a new server, it is possible to
+  associate an image to this server. The image can be uploaded and
+  stored on the Web server side.
+   
+- Added messages.php file that contains all the messages displayed by
+  NX Builder. 
+
+- Added userList.php file to display the list of the NX Builder users 
+  created by the administrator.
+
+- Added the readme-info file to NX builder.
+  
+- Changed names of some variables. 
+
+nxbuilder-2.0.0-2
+
+- Implemented administration interface to create basic session files 
+  to start sessions on the NX servers listed in the Web Application.
+  The interface allows the administrator to add NX servers to the web
+  application and to create new accounts for users of the NX Builder.
+
+- Implemented login to the Web Application as user: once the user
+  is logged to the Web Application, he/she will be redirected on
+  the page showing the list of the available NX servers for the user.
+  For each NX server displayed, there will be the possibility to
+  choose some basics options to configure the NX session and click
+  on the link 'Start NX session' to run the session on the NX server.
+
+- Added link Start NX session that will check if the NX client is
+  installed on the user's machine. If the NX client is not installed
+  on the user's machine, the Web Application will inform the user 
+  that he needs to: install the NX Client or to use NX Web Companion.
+
+- When the users clicks on the link to start the session, the NX
+  Builder will create the session file and return the .nxs mime type.
+
+- Modified scramblig algorithm for saving the password in the session
+  file in a scrambled format so that is possible to automate login.
+  
+nxbuilder-2.0.0-1
+
+- Opened the 2.0.0 branch based on the 1.5.0-1. 
+
+nxbuilder-1.5.0-1
+
+- Initial development of the NX Client Profile Builder Sample.
